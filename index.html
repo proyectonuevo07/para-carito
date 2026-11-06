@@ -9754,7 +9754,7 @@ const capitulos = [
 
     initReproductor();
     buildAlbum();
-    // Panel de recuerdos - permite agregar p�ginas con t�tulo, texto y foto
+    // Panel de recuerdos - permite agregar paginas con titulo, texto y foto
     const panelRecuerdos = document.createElement('div');
     panelRecuerdos.style = `
       position: fixed;
@@ -9770,15 +9770,15 @@ const capitulos = [
       cursor: pointer;
       transition: transform 0.2s;
     `;
-    panelRecuerdos.textContent = '+ Agregar página';
+    panelRecuerdos.textContent = '+ Agregar pagina';
     panelRecuerdos.style.transform = 'scale(0.95)';
     panelRecuerdos.addEventListener('mouseenter', () => panelRecuerdos.style.transform = 'scale(1.02)');
     panelRecuerdos.addEventListener('mouseleave', () => panelRecuerdos.style.transform = 'scale(0.95)');
     panelRecuerdos.addEventListener('click', () => {
-      // Panel completo: título, texto y foto
-      const titulo = prompt('Título de la página:', '');
+      // Panel completo: titulo, texto y foto
+      const titulo = prompt('Titulo de la pagina:', '');
       if (!titulo) return;
-      const texto = prompt('Descripción o texto de la foto:', '');
+      const texto = prompt('Descripcion o texto de la foto:', '');
       if (texto === null) return;
 
       let fotoUrl = '';
@@ -9802,7 +9802,7 @@ const capitulos = [
         let recuerdos = JSON.parse(localStorage.getItem('memoriasLibro') || '[]');
         recuerdos.push({ titulo: t, texto: tx, foto: foto, fecha: new Date().toLocaleDateString() });
         localStorage.setItem('memoriasLibro', JSON.stringify(recuerdos));
-        alert('¡Página guardada!\n\nTítulo: ' + t + '\nTexto: ' + (tx || '(vacío)') + '\nFoto: ' + (foto ? '✅ Sí' : '❌ No') + '\nTotal de páginas: ' + recuerdos.length);
+        alert('Pagina guardada!\n\nTitulo: ' + t + '\nTexto: ' + (tx || '(vacio)') + '\nFoto: ' + (foto ? 'Si' : 'No') + '\nTotal de paginas: ' + recuerdos.length);
         location.reload();
       }
     });
