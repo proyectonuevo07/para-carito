@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -9754,59 +9754,7 @@ const capitulos = [
 
     initReproductor();
     buildAlbum();
-    // Panel de recuerdos - permite agregar paginas con titulo, texto y foto
-    const panelRecuerdos = document.createElement('div');
-    panelRecuerdos.style = `
-      position: fixed;
-      left: 20px;
-      bottom: 20px;
-      z-index: 10002;
-      background: #1db954;
-      padding: 15px 25px;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      color: #07130a;
-      font-family: inherit;
-      cursor: pointer;
-      transition: transform 0.2s;
-    `;
-    panelRecuerdos.textContent = '+ Agregar pagina';
-    panelRecuerdos.style.transform = 'scale(0.95)';
-    panelRecuerdos.addEventListener('mouseenter', () => panelRecuerdos.style.transform = 'scale(1.02)');
-    panelRecuerdos.addEventListener('mouseleave', () => panelRecuerdos.style.transform = 'scale(0.95)');
-    panelRecuerdos.addEventListener('click', () => {
-      // Panel completo: titulo, texto y foto
-      const titulo = prompt('Titulo de la pagina:', '');
-      if (!titulo) return;
-      const texto = prompt('Descripcion o texto de la foto:', '');
-      if (texto === null) return;
-
-      let fotoUrl = '';
-      const inputFoto = document.createElement('input');
-      inputFoto.type = 'file';
-      inputFoto.accept = 'image/*,video/*';
-      inputFoto.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          fotoUrl = ev.target.result;
-          // Guardar en localStorage
-          guardarRecuerdo(titulo, texto, fotoUrl);
-        };
-        reader.readAsDataURL(file);
-      };
-      inputFoto.click();
-
-      function guardarRecuerdo(t, tx, foto) {
-        let recuerdos = JSON.parse(localStorage.getItem('memoriasLibro') || '[]');
-        recuerdos.push({ titulo: t, texto: tx, foto: foto, fecha: new Date().toLocaleDateString() });
-        localStorage.setItem('memoriasLibro', JSON.stringify(recuerdos));
-        alert('Pagina guardada!\n\nTitulo: ' + t + '\nTexto: ' + (tx || '(vacio)') + '\nFoto: ' + (foto ? 'Si' : 'No') + '\nTotal de paginas: ' + recuerdos.length);
-        location.reload();
-      }
-    });
-    document.body.appendChild(panelRecuerdos);
-  </script>
+    
 </body>
 </html>
+
