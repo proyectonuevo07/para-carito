@@ -1362,7 +1362,7 @@ create policy "recuerdos_eliminar" on storage.objects
         .rc-modo { display: none; }
         .dyn-reac-lista { gap: 1px; }
         .dyn-media { grid-template-columns: minmax(0, 1fr); gap: 5px; }
-        .dyn-foto-wrap, .dyn-media-1 .dyn-foto-wrap { max-width: 64%; }
+        .dyn-foto-wrap, .dyn-media-1 .dyn-foto-wrap { max-width: 76%; }
         .dyn-media-3 .dyn-foto-wrap:nth-child(3) { grid-column: auto; }
         .dyn-foto { padding: 3px 3px 6px; }
         .dyn-foto-pie { font-size: 10px; }
