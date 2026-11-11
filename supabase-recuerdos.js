@@ -450,6 +450,22 @@ create policy "recuerdos_eliminar" on storage.objects
         box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.18);
       }
       .rc-input:disabled { opacity: 0.4; }
+
+      .rc-hint {
+        color: rgba(255, 255, 255, 0.48);
+        font-size: 11.5px;
+        line-height: 1.35;
+      }
+
+      select.rc-input {
+        appearance: none;
+        background-image: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.6) 50%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.6) 50%, transparent 50%);
+        background-position: calc(100% - 19px) 50%, calc(100% - 14px) 50%;
+        background-repeat: no-repeat;
+        background-size: 5px 5px, 5px 5px;
+        padding-right: 36px;
+      }
       .rc-textarea { min-height: 86px; resize: vertical; line-height: 1.45; }
       input[type="date"].rc-input { color-scheme: dark; }
 
@@ -856,6 +872,81 @@ create policy "recuerdos_eliminar" on storage.objects
         font-size: clamp(10px, 1.4vw, 14px);
         text-decoration: underline;
         text-decoration-style: dotted;
+      }
+
+      /* ------------------- canción y cápsula del tiempo ------------------ */
+      .dyn-cancion {
+        display: inline-flex;
+        align-self: center;
+        max-width: 94%;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border: 1px solid rgba(29, 185, 84, 0.45);
+        border-radius: 999px;
+        background: rgba(29, 185, 84, 0.12);
+        color: #0e6b33;
+        cursor: pointer;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(13px, 1.7vw, 19px);
+        line-height: 1.1;
+        transition: background 0.18s ease, transform 0.18s ease;
+      }
+      .dyn-cancion:hover { background: rgba(29, 185, 84, 0.22); transform: scale(1.02); }
+      .dyn-cancion .dyn-cancion-nota { font-size: 1.15em; line-height: 1; }
+      .dyn-cancion .dyn-cancion-artista { overflow: hidden; opacity: 0.72; font-size: 0.85em; text-overflow: ellipsis; white-space: nowrap; }
+
+      .dyn-cerrada {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 8% 9%;
+        text-align: center;
+      }
+      .dyn-cerrada-icono {
+        font-size: clamp(40px, 7vw, 68px);
+        line-height: 1;
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+      }
+      .dyn-cerrada-kicker {
+        color: #b0603f;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: clamp(9px, 1.1vw, 12px);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .dyn-cerrada-titulo {
+        margin: 0;
+        color: #2f1b12;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(24px, 3.4vw, 38px);
+        line-height: 1;
+        transform: rotate(-1.2deg);
+      }
+      .dyn-cerrada-texto {
+        max-width: 90%;
+        margin: 0;
+        color: #5d4037;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(14px, 1.9vw, 20px);
+        line-height: 1.2;
+      }
+      .dyn-cerrada-fecha {
+        color: #8b4513;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: clamp(10px, 1.3vw, 13px);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .dyn-cerrada-contador {
+        color: #b23a48;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(30px, 5vw, 52px);
+        font-weight: 700;
+        line-height: 1;
       }
 
       /* ------------------------- página de fechas ------------------------ */
@@ -1529,6 +1620,116 @@ create policy "recuerdos_eliminar" on storage.objects
 
   window.pintarSpreadFechas = pintarSpreadFechas;
 
+  /* ----------------------- canción y cápsula ---------------------------- */
+
+  function esFuturo(iso) {
+    const fecha = String(iso || '').slice(0, 10);
+    return Boolean(fecha) && fecha > hoyISO();
+  }
+
+  function diasHasta(iso) {
+    const partes = String(iso || '').slice(0, 10).split('-').map(Number);
+    if (partes.length !== 3 || !partes[0]) return 0;
+    const objetivo = new Date(partes[0], partes[1] - 1, partes[2]);
+    return Math.max(0, Math.round((objetivo - hoyCero()) / 86400000));
+  }
+
+  function parsearCancion(valor) {
+    if (!valor) return null;
+    try {
+      const dato = typeof valor === 'string' ? JSON.parse(valor) : valor;
+      if (dato && typeof dato === 'object' && dato.album && Number.isInteger(Number(dato.indice))) {
+        return {
+          album: String(dato.album),
+          indice: Number(dato.indice),
+          titulo: String(dato.titulo || 'Canción'),
+          artista: String(dato.artista || '')
+        };
+      }
+    } catch {
+      // Si el valor viejo no es JSON, no pasa nada.
+    }
+    return null;
+  }
+
+  function nombreCortoArtista(artista) {
+    return String(artista || '').split(',')[0].split('&')[0].trim();
+  }
+
+  function rellenarSelectCanciones() {
+    if (!ESTADO.panel) return;
+    const select = $('[data-rc="cancion"]', ESTADO.panel);
+    if (!select) return;
+    const previo = select.value;
+    select.replaceChildren();
+    const vacio = document.createElement('option');
+    vacio.value = '';
+    vacio.textContent = 'Sin canción';
+    select.append(vacio);
+
+    const albumes = (typeof albumesMusica !== 'undefined' && Array.isArray(albumesMusica))
+      ? albumesMusica
+      : [];
+    albumes.forEach((album) => {
+      const canciones = Array.isArray(album.canciones) ? album.canciones : [];
+      if (!canciones.length) return;
+      const grupo = document.createElement('optgroup');
+      grupo.label = album.titulo || album.id;
+      canciones.forEach((cancion, indice) => {
+        const opcion = document.createElement('option');
+        opcion.value = JSON.stringify({
+          album: album.id,
+          indice,
+          titulo: cancion.titulo,
+          artista: cancion.artista || ''
+        });
+        const artista = nombreCortoArtista(cancion.artista);
+        opcion.textContent = artista ? `${cancion.titulo} — ${artista}` : cancion.titulo;
+        grupo.append(opcion);
+      });
+      select.append(grupo);
+    });
+
+    select.value = previo;
+    if (select.selectedIndex < 0) select.value = '';
+  }
+
+  function ponerCancionEnReproductor(cancion) {
+    if (typeof abrirCancion !== 'function') {
+      toast('No pude abrir el reproductor.', 'error');
+      return;
+    }
+    try {
+      abrirCancion(cancion.album, cancion.indice, { autoplay: true, mostrar: false });
+      toast(`Sonando: ${cancion.titulo}`);
+    } catch (error) {
+      console.warn('[Supabase] Canción:', error);
+      toast('No pude poner esa canción.', 'error');
+    }
+  }
+
+  function pintarCapsulaCerrada(recuerdo) {
+    const izquierda = crear('div', 'hoja izq hoja-dinamica');
+    const derecha = crear('div', 'hoja der hoja-dinamica');
+    const dias = diasHasta(recuerdo.abrir_desde);
+
+    const pagina = crear('div', 'dyn-cerrada');
+    pagina.append(crear('div', 'dyn-cerrada-kicker', 'Cápsula del tiempo'));
+    pagina.append(crear('div', 'dyn-cerrada-icono', '🔒'));
+    pagina.append(crear('h3', 'dyn-cerrada-titulo', recuerdo.titulo || 'Algo te espera'));
+    pagina.append(crear('p', 'dyn-cerrada-texto', 'Todavía no. Esta página se abre solita el día que toca.'));
+    izquierda.append(pagina);
+
+    const paginaDos = crear('div', 'dyn-cerrada');
+    paginaDos.append(crear('div', 'dyn-cerrada-icono', '💌'));
+    paginaDos.append(crear('div', 'dyn-cerrada-fecha', formatearFecha(recuerdo.abrir_desde)));
+    paginaDos.append(crear('div', 'dyn-cerrada-contador', dias === 1 ? 'falta 1 día' : `faltan ${dias} días`));
+    paginaDos.append(crear('p', 'dyn-cerrada-texto', 'Cuando se abra vas a poder ver las fotos, el texto y reaccionar.'));
+    derecha.append(paginaDos);
+
+    return [izquierda, derecha];
+  }
+
   /* --------------------- audio (notas de voz) --------------------------- */
 
   let audioActual = null;
@@ -1747,6 +1948,7 @@ create policy "recuerdos_eliminar" on storage.objects
 
   function pintarSpreadDinamico(spread) {
     const recuerdo = spread.recuerdo || {};
+    if (esFuturo(recuerdo.abrir_desde)) return pintarCapsulaCerrada(recuerdo);
     const izquierda = crear('div', 'hoja izq hoja-dinamica');
     const derecha = crear('div', 'hoja der hoja-dinamica');
 
@@ -1760,6 +1962,22 @@ create policy "recuerdos_eliminar" on storage.objects
       if (largo > 700) texto.style.fontSize = 'clamp(11px, 1.35vw, 15px)';
       else if (largo > 340) texto.style.fontSize = 'clamp(13px, 1.65vw, 18px)';
       pagina.append(texto);
+    }
+
+    const cancion = parsearCancion(recuerdo.cancion);
+    if (cancion) {
+      const chip = crear('button', 'dyn-cancion');
+      chip.type = 'button';
+      chip.title = `Poner "${cancion.titulo}" en el reproductor`;
+      chip.append(crear('span', 'dyn-cancion-nota', '♫'));
+      chip.append(crear('span', '', cancion.titulo));
+      const artista = nombreCortoArtista(cancion.artista);
+      if (artista) chip.append(crear('span', 'dyn-cancion-artista', ' · ' + artista));
+      chip.addEventListener('click', (evento) => {
+        evento.stopPropagation();
+        ponerCancionEnReproductor(cancion);
+      });
+      pagina.append(chip);
     }
 
     if (recuerdo.audio && recuerdo.audio.url) {
@@ -2272,6 +2490,15 @@ create policy "recuerdos_eliminar" on storage.objects
             </label>
           </div>
           <label class="rc-field">
+            <span class="rc-label">Canción de esta página (opcional)</span>
+            <select class="rc-input" data-rc="cancion"></select>
+          </label>
+          <label class="rc-field">
+            <span class="rc-label">Cápsula del tiempo (opcional)</span>
+            <input class="rc-input" type="date" data-rc="abrir">
+            <span class="rc-hint">Si eliges una fecha futura, la página se ve cerrada hasta ese día. Si lo dejas vacío, se ve de una vez.</span>
+          </label>
+          <label class="rc-field">
             <span class="rc-label">Texto de la página</span>
             <textarea class="rc-input rc-textarea" data-rc="texto" rows="3" maxlength="1500" placeholder="Escribe lo que quieras recordar..."></textarea>
           </label>
@@ -2503,10 +2730,16 @@ create policy "recuerdos_eliminar" on storage.objects
       info.append(crear('div', 'rc-list-titulo', fila.titulo || 'Sin título'));
       const fotos = Array.isArray(fila.media) ? fila.media.length : 0;
       const cuantas = ESTADO.reacciones.filter((r) => r.recuerdo_id === fila.id).length;
+      const capsula = fila.abrir_desde && esFuturo(fila.abrir_desde)
+        ? `🔒 ${formatearFechaCorta(fila.abrir_desde)}`
+        : '';
+      const cancion = parsearCancion(fila.cancion);
       const meta = [
         formatearFecha(fila.fecha),
         fotos ? `${fotos} archivo${fotos === 1 ? '' : 's'}` : 'solo texto',
-        cuantas ? `❤ ${cuantas}` : ''
+        cancion ? '♫ ' + cancion.titulo : '',
+        cuantas ? `❤ ${cuantas}` : '',
+        capsula
       ].filter(Boolean).join(' · ');
       info.append(crear('div', 'rc-list-meta', meta));
 
@@ -2588,6 +2821,7 @@ create policy "recuerdos_eliminar" on storage.objects
       ESTADO.editando = null;
       limpiarFormulario();
     }
+    rellenarSelectCanciones();
     abrirOverlay(ESTADO.panel);
     const fecha = $('[data-rc="fecha"]', ESTADO.panel);
     if (fecha && !fecha.value) fecha.value = hoyISO();
@@ -2698,7 +2932,9 @@ create policy "recuerdos_eliminar" on storage.objects
         texto,
         media,
         stickers: ESTADO.stickers.slice(0, 4),
-        fecha: fecha || null
+        fecha: fecha || null,
+        cancion: $('[data-rc="cancion"]', ESTADO.panel).value || null,
+        abrir_desde: $('[data-rc="abrir"]', ESTADO.panel).value || null
       };
 
       ponerEstado('Guardando la página...');
@@ -2765,6 +3001,20 @@ create policy "recuerdos_eliminar" on storage.objects
     $('[data-rc="titulo"]', ESTADO.panel).value = fila.titulo || '';
     $('[data-rc="texto"]', ESTADO.panel).value = fila.texto || '';
     $('[data-rc="fecha"]', ESTADO.panel).value = fila.fecha ? String(fila.fecha).slice(0, 10) : hoyISO();
+    const selectCancion = $('[data-rc="cancion"]', ESTADO.panel);
+    if (selectCancion) {
+      const guardada = parsearCancion(fila.cancion);
+      let encontrada = '';
+      if (guardada) {
+        const opcion = [...selectCancion.options].find((o) => {
+          const dato = parsearCancion(o.value);
+          return dato && dato.album === guardada.album && dato.indice === guardada.indice;
+        });
+        encontrada = opcion ? opcion.value : '';
+      }
+      selectCancion.value = encontrada;
+    }
+    $('[data-rc="abrir"]', ESTADO.panel).value = fila.abrir_desde ? String(fila.abrir_desde).slice(0, 10) : '';
     ESTADO.stickers = Array.isArray(fila.stickers) ? fila.stickers.filter(Boolean).slice(0, 4) : [];
     ESTADO.medios = (Array.isArray(fila.media) ? fila.media : [])
       .filter((m) => m && m.url)
@@ -2827,6 +3077,8 @@ create policy "recuerdos_eliminar" on storage.objects
     $('[data-rc="titulo"]', ESTADO.panel).value = '';
     $('[data-rc="texto"]', ESTADO.panel).value = '';
     $('[data-rc="fecha"]', ESTADO.panel).value = hoyISO();
+    $('[data-rc="cancion"]', ESTADO.panel).value = '';
+    $('[data-rc="abrir"]', ESTADO.panel).value = '';
     ESTADO.stickers = [];
     ESTADO.medios.forEach((medio) => {
       if (medio && medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
