@@ -8204,6 +8204,8 @@ const capitulos = [
           makeActividadesSpread(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else if (spread.type === 'dinamico' && typeof pintarSpreadDinamico === 'function') {
           pintarSpreadDinamico(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
+        } else if (spread.type === 'fechas' && typeof pintarSpreadFechas === 'function') {
+          pintarSpreadFechas(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else {
           const capitulo = spread.chapter || { num: 1, title: '' };
           const kicker = `Capítulo ${String(capitulo.num).padStart(2, '0')} · ${capitulo.title}`;

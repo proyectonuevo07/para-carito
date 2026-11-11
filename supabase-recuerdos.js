@@ -160,6 +160,19 @@ create policy "recuerdos_eliminar" on storage.objects
     'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
   ];
 
+  // Fechas que no quiero olvidar. Para agregar una: copia una línea y cámbiala.
+  const FECHAS = {
+    inicio: '2022-11-20',
+    inicioTexto: '20 de noviembre de 2022',
+    eventos: [
+      { mes: 12, dia: 9, icono: '🎂', titulo: 'Cumpleaños de Carito', nota: 'El día en que llegaste al mundo', desde: 2010, cumple: true },
+      { mes: 2, dia: 21, icono: '🎈', titulo: 'Mi cumpleaños', nota: 'Y yo llegué para conocerte', desde: 2010, cumple: true },
+      { mes: 2, dia: 14, icono: '💌', titulo: 'San Valentín', nota: 'El día de los enamorados' },
+      { mes: 9, dia: 21, icono: '🌻', titulo: 'Flores amarillas', nota: 'Porque me acuerdo de ti' },
+      { mes: 11, dia: 20, icono: '📸', titulo: 'Nuestra primera foto', nota: 'Donde empezó todo', desde: 2022 }
+    ]
+  };
+
   const ESTADO = {
     sb: null,
     filas: [],
@@ -717,10 +730,14 @@ create policy "recuerdos_eliminar" on storage.objects
       }
       .dyn-foto-wrap {
         position: relative;
+        display: flex;
         width: 100%;
         min-height: 0;
         flex: 1;
+        flex-direction: column;
+        gap: 3px;
       }
+      .dyn-foto-wrap .dyn-foto { flex: 1; min-height: 0; }
       .dyn-foto {
         display: flex;
         width: 100%;
@@ -792,6 +809,211 @@ create policy "recuerdos_eliminar" on storage.objects
         user-select: none;
       }
 
+      /* ------------------ reacciones visibles en el libro ----------------- */
+      .dyn-reac-lista {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 1px 3px 0;
+        overflow: hidden;
+      }
+      .dyn-reac-lista.en-pagina { max-width: 92%; margin: 0 auto; }
+      .dyn-reac-item {
+        display: flex;
+        max-width: 100%;
+        min-height: 0;
+        align-items: center;
+        gap: 5px;
+        overflow: hidden;
+      }
+      .dyn-reac-autor {
+        flex: none;
+        color: #a03e2c;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(10px, 1.35vw, 14px);
+        font-weight: 700;
+        line-height: 1;
+      }
+      .dyn-reac-txt {
+        overflow: hidden;
+        color: #4a3728;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(11px, 1.6vw, 17px);
+        line-height: 1.05;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .dyn-reac-mas {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #a03e2c;
+        cursor: pointer;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(10px, 1.4vw, 14px);
+        text-decoration: underline;
+        text-decoration-style: dotted;
+      }
+
+      /* ------------------------- página de fechas ------------------------ */
+      .hoja-fechas { overflow: visible; }
+      .fechas-page {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 6% 7% 26px;
+        text-align: center;
+      }
+      .fechas-kicker {
+        color: #b0603f;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: clamp(9px, 1.1vw, 12px);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .fechas-titulo {
+        margin: 0;
+        color: #2f1b12;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(24px, 3.6vw, 40px);
+        line-height: 1;
+        transform: rotate(-1.2deg);
+      }
+      .fechas-contador {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin: 4px 0 0;
+      }
+      .fechas-numero {
+        color: #b23a48;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(52px, 11vw, 92px);
+        font-weight: 700;
+        line-height: 0.9;
+        text-shadow: 2px 3px 0 rgba(178, 58, 72, 0.14);
+      }
+      .fechas-numero-label {
+        color: #6d4c41;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: clamp(10px, 1.3vw, 13px);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .fechas-desglose {
+        margin: 2px auto 0;
+        color: #8b4513;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(16px, 2.2vw, 24px);
+      }
+      .fechas-nota {
+        max-width: 88%;
+        margin: 2px auto 0;
+        color: #5d4037;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(14px, 1.9vw, 20px);
+        line-height: 1.15;
+      }
+      .fechas-firma {
+        margin-top: auto;
+        padding-top: 6px;
+        color: #a03e2c;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(16px, 2.2vw, 26px);
+        transform: rotate(-2deg);
+      }
+      .fechas-lista {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 7px;
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .fechas-item {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border: 1px dashed rgba(139, 69, 19, 0.24);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.55);
+        text-align: left;
+      }
+      .fechas-item.proximo {
+        border-style: solid;
+        border-color: rgba(178, 58, 72, 0.45);
+        background: rgba(255, 238, 230, 0.9);
+        box-shadow: 0 4px 10px rgba(178, 58, 72, 0.12);
+      }
+      .fechas-item-icono { font-size: clamp(15px, 2vw, 21px); line-height: 1; }
+      .fechas-item-titulo {
+        color: #3e2723;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(14px, 1.9vw, 20px);
+        line-height: 1.05;
+      }
+      .fechas-item-fecha {
+        color: #8d6e63;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: clamp(8px, 1vw, 10px);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .fechas-item-cuando {
+        color: #b23a48;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(13px, 1.7vw, 18px);
+        line-height: 1;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .fechas-item-cuando.hoy { font-weight: 700; }
+      .fechas-celebrar {
+        align-self: center;
+        margin-top: 6px;
+        padding: 7px 18px;
+        border: 1px solid rgba(178, 58, 72, 0.4);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #b23a48;
+        cursor: pointer;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(15px, 2vw, 20px);
+        transition: background 0.18s ease, transform 0.18s ease;
+      }
+      .fechas-celebrar:hover { background: #fff; transform: scale(1.03); }
+
+      /* ------------------------------ confeti ---------------------------- */
+      .rc-confeti {
+        position: fixed;
+        z-index: 10070;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .rc-confeti i {
+        position: absolute;
+        top: -18px;
+        display: block;
+        width: 8px;
+        height: 13px;
+        border-radius: 2px;
+        animation: rc-caer linear forwards;
+      }
+      @keyframes rc-caer {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(105vh) rotate(620deg); opacity: 0.9; }
+      }
+
       /* ------------------- audio estilo WhatsApp ------------------- */
       .rc-audio {
         display: inline-flex;
@@ -811,6 +1033,15 @@ create policy "recuerdos_eliminar" on storage.objects
       }
       .rc-audio:hover { filter: brightness(1.06); }
       .rc-audio:active { transform: scale(0.98); }
+      .rc-audio.mini {
+        gap: 5px;
+        padding: 3px 9px 3px 3px;
+        font-size: 10px;
+        box-shadow: 0 2px 6px rgba(18, 162, 75, 0.2);
+      }
+      .rc-audio.mini .rc-audio-icono { width: 18px; height: 18px; font-size: 8px; }
+      .rc-audio.mini .rc-audio-barras { height: 12px; gap: 1px; }
+      .rc-audio.mini .rc-audio-barras i { width: 1.5px; }
       .rc-audio-icono {
         display: grid;
         width: 26px;
@@ -1032,6 +1263,23 @@ create policy "recuerdos_eliminar" on storage.objects
         .dyn-reac { min-width: 26px; padding: 4px 7px; font-size: 10px; }
         .rc-reac-item { padding: 9px 10px; }
         .rc-modo { display: none; }
+        .dyn-reac-lista { gap: 1px; }
+        .fechas-page { gap: 7px; padding: 4% 5% 22px; }
+        .fechas-numero { font-size: clamp(44px, 16vw, 68px); }
+        .fechas-item {
+          grid-template-columns: auto minmax(0, 1fr);
+          gap: 2px 5px;
+          padding: 4px 6px;
+        }
+        .fechas-item-icono { grid-row: 1 / span 2; align-self: center; font-size: 12px; }
+        .fechas-item-titulo { font-size: 12px; }
+        .fechas-item-fecha { font-size: 7.5px; }
+        .fechas-item-cuando {
+          grid-column: 2;
+          font-size: 11px;
+          text-align: left;
+        }
+        .fechas-lista { gap: 4px; }
       }
     `;
     document.head.append(estilo);
@@ -1111,16 +1359,17 @@ create policy "recuerdos_eliminar" on storage.objects
   function aplicarAlLibro() {
     try {
       if (typeof albumSpreads === 'undefined' || !Array.isArray(albumSpreads)) return;
-      const base = albumSpreads.filter((spread) => spread.type !== 'dinamico');
+      const base = albumSpreads.filter((spread) => spread.type !== 'dinamico' && spread.type !== 'fechas');
+      const conFechas = [{ type: 'fechas' }, ...base];
       const dinamicos = ESTADO.filas.map((fila) => ({ type: 'dinamico', recuerdo: fila }));
       if (!dinamicos.length) {
-        albumSpreads = base;
+        albumSpreads = conFechas;
       } else {
-        const posicionFinal = base.findIndex((spread) => spread.isFinal);
+        const posicionFinal = conFechas.findIndex((spread) => spread.isFinal);
         if (posicionFinal >= 0) {
-          albumSpreads = [...base.slice(0, posicionFinal), ...dinamicos, ...base.slice(posicionFinal)];
+          albumSpreads = [...conFechas.slice(0, posicionFinal), ...dinamicos, ...conFechas.slice(posicionFinal)];
         } else {
-          albumSpreads = [...base, ...dinamicos];
+          albumSpreads = [...conFechas, ...dinamicos];
         }
       }
 
@@ -1136,6 +1385,149 @@ create policy "recuerdos_eliminar" on storage.objects
       console.warn('[Supabase] No se pudieron insertar las páginas:', error);
     }
   }
+
+  /* --------------------------- nuestras fechas -------------------------- */
+
+  function hoyCero() {
+    const ahora = new Date();
+    return new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+  }
+
+  function diasDesde(iso) {
+    const partes = String(iso || '').slice(0, 10).split('-').map(Number);
+    if (partes.length !== 3 || !partes[0]) return 0;
+    const inicio = new Date(partes[0], partes[1] - 1, partes[2]);
+    return Math.max(0, Math.round((hoyCero() - inicio) / 86400000));
+  }
+
+  function desgloseDesde(iso) {
+    const partes = String(iso || '').slice(0, 10).split('-').map(Number);
+    if (partes.length !== 3 || !partes[0]) return { anios: 0, meses: 0, dias: 0 };
+    const hoy = hoyCero();
+    let anios = hoy.getFullYear() - partes[0];
+    let meses = hoy.getMonth() - (partes[1] - 1);
+    let dias = hoy.getDate() - partes[2];
+    if (dias < 0) {
+      meses -= 1;
+      dias += new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+    }
+    if (meses < 0) {
+      anios -= 1;
+      meses += 12;
+    }
+    return { anios: Math.max(0, anios), meses: Math.max(0, meses), dias: Math.max(0, dias) };
+  }
+
+  function proximoEvento(evento) {
+    const hoy = hoyCero();
+    let anio = hoy.getFullYear();
+    let fecha = new Date(anio, evento.mes - 1, evento.dia);
+    if (fecha < hoy) {
+      anio += 1;
+      fecha = new Date(anio, evento.mes - 1, evento.dia);
+    }
+    return Object.assign({}, evento, {
+      anio,
+      fecha,
+      dias: Math.round((fecha - hoy) / 86400000),
+      edad: evento.desde ? anio - evento.desde : null
+    });
+  }
+
+  function eventosOrdenados() {
+    return FECHAS.eventos
+      .map(proximoEvento)
+      .sort((a, b) => (a.dias - b.dias) || (a.mes - b.mes) || (a.dia - b.dia));
+  }
+
+  function esDiaEspecial() {
+    return eventosOrdenados().some((evento) => evento.dias === 0);
+  }
+
+  function lanzarConfeti(cantidad) {
+    const colores = ['#b23a48', '#ffd166', '#6ff2a2', '#1db954', '#ff9aa2', '#8ecae6', '#ffffff'];
+    const capa = crear('div', 'rc-confeti');
+    const total = Math.max(20, Math.min(200, Number(cantidad) || 90));
+    for (let i = 0; i < total; i += 1) {
+      const papel = document.createElement('i');
+      papel.style.left = `${Math.random() * 100}vw`;
+      papel.style.background = colores[Math.floor(Math.random() * colores.length)];
+      papel.style.animationDelay = `${Math.random() * 0.7}s`;
+      papel.style.animationDuration = `${2.4 + Math.random() * 1.8}s`;
+      papel.style.width = `${5 + Math.random() * 5}px`;
+      papel.style.height = `${9 + Math.random() * 8}px`;
+      capa.append(papel);
+    }
+    document.body.append(capa);
+    window.setTimeout(() => capa.remove(), 5600);
+  }
+
+  function pintarSpreadFechas() {
+    const izquierda = crear('div', 'hoja izq hoja-fechas');
+    const derecha = crear('div', 'hoja der hoja-fechas');
+
+    const total = diasDesde(FECHAS.inicio);
+    const { anios, meses, dias } = desgloseDesde(FECHAS.inicio);
+    const eventos = eventosOrdenados();
+    const proximo = eventos[0];
+
+    const paginaIzq = crear('div', 'fechas-page');
+    paginaIzq.append(crear('div', 'fechas-kicker', 'Nuestros días'));
+    paginaIzq.append(crear('h3', 'fechas-titulo', `Desde el ${FECHAS.inicioTexto}`));
+    const contador = crear('div', 'fechas-contador');
+    contador.append(crear('div', 'fechas-numero', total.toLocaleString('es-CO')));
+    contador.append(crear('div', 'fechas-numero-label', 'días desde nuestra primera foto'));
+    paginaIzq.append(contador);
+    paginaIzq.append(crear('div', 'fechas-desglose', `${anios} años, ${meses} meses y ${dias} días`));
+    paginaIzq.append(crear('div', 'fechas-nota', 'Y todavía me faltan muchísimos días más a tu lado.'));
+    paginaIzq.append(crear('div', 'fechas-firma', `Con todo mi amor, ${CONFIG.firma}`));
+    izquierda.append(paginaIzq);
+
+    const paginaDer = crear('div', 'fechas-page');
+    paginaDer.append(crear('div', 'fechas-kicker', 'Fechas que no quiero olvidar'));
+    paginaDer.append(crear('h3', 'fechas-titulo', 'Nuestro calendario'));
+
+    const lista = crear('ul', 'fechas-lista');
+    eventos.forEach((evento, posicion) => {
+      const item = crear('li', 'fechas-item' + (posicion === 0 ? ' proximo' : ''));
+      item.append(crear('span', 'fechas-item-icono', evento.icono || '💛'));
+      const centro = crear('div', 'fechas-item-centro');
+      centro.append(crear('div', 'fechas-item-titulo', evento.titulo));
+      const fechaTexto = `${evento.dia} de ${MESES[evento.mes - 1]}${evento.edad ? (evento.cumple ? ` · cumple ${evento.edad}` : ` · ${evento.edad} años`) : ''}`;
+      centro.append(crear('div', 'fechas-item-fecha', fechaTexto));
+      item.append(centro);
+      const cuando = evento.dias === 0
+        ? '¡es hoy!'
+        : evento.dias === 1 ? 'mañana' : `faltan ${evento.dias} días`;
+      item.append(crear('span', 'fechas-item-cuando' + (evento.dias === 0 ? ' hoy' : ''), cuando));
+      lista.append(item);
+    });
+    paginaDer.append(lista);
+
+    const celebrar = crear('button', 'fechas-celebrar', 'Celebrar 🎉');
+    celebrar.type = 'button';
+    celebrar.title = 'Un poquito de confeti';
+    celebrar.addEventListener('click', () => lanzarConfeti(110));
+    paginaDer.append(celebrar);
+
+    const proximoTexto = proximo.dias === 0
+      ? `Hoy es ${proximo.titulo}.`
+      : `Lo próximo: ${proximo.titulo}, en ${proximo.dias} día${proximo.dias === 1 ? '' : 's'}.`;
+    paginaDer.append(crear('div', 'fechas-nota', proximoTexto));
+
+    derecha.append(paginaDer);
+
+    pegarStickersDinamicos(izquierda, ['snoopy-corazon.png'], [3]);
+
+    if (esDiaEspecial() && !sessionStorage.getItem('rc-confeti')) {
+      sessionStorage.setItem('rc-confeti', '1');
+      window.setTimeout(() => lanzarConfeti(100), 900);
+    }
+
+    return [izquierda, derecha];
+  }
+
+  window.pintarSpreadFechas = pintarSpreadFechas;
 
   /* --------------------- audio (notas de voz) --------------------------- */
 
@@ -1164,8 +1556,8 @@ create policy "recuerdos_eliminar" on storage.objects
     botonAudioActual = null;
   }
 
-  function crearBurbujaAudio(url, duracion, etiqueta) {
-    const boton = crear('button', 'rc-audio');
+  function crearBurbujaAudio(url, duracion, etiqueta, compacto) {
+    const boton = crear('button', 'rc-audio' + (compacto ? ' mini' : ''));
     boton.type = 'button';
     boton.setAttribute('aria-label', 'Reproducir nota de voz');
     const inicial = duracion ? formatearSegundos(duracion) : '0:00';
@@ -1229,7 +1621,7 @@ create policy "recuerdos_eliminar" on storage.objects
   /* ------------------------- páginas del libro -------------------------- */
 
   const POSICIONES_STICKER = [
-    { left: '1%', top: '1%', giro: -11 },
+    { left: '2%', top: '6%', giro: -11 },
     { right: '1%', top: '1%', giro: 10 },
     { left: '1%', bottom: '1%', giro: 7 },
     { right: '1%', bottom: '1%', giro: -8 }
@@ -1250,6 +1642,38 @@ create policy "recuerdos_eliminar" on storage.objects
       imagen.addEventListener('error', () => imagen.remove(), { once: true });
       hoja.append(imagen);
     });
+  }
+
+  function crearListaReacciones(recuerdo, indice, mediaUrl, maximo, enPagina) {
+    if (!recuerdo || !recuerdo.id) return null;
+    const reacciones = reaccionesDe(recuerdo.id, indice, mediaUrl);
+    if (!reacciones.length) return null;
+    const limite = maximo || 2;
+    const lista = crear('div', 'dyn-reac-lista' + (enPagina ? ' en-pagina' : ''));
+    reacciones.slice(0, limite).forEach((reaccion) => {
+      const item = crear('div', 'dyn-reac-item');
+      item.append(crear('span', 'dyn-reac-autor', primeraPalabra(reaccion.nombre || CONFIG.firma)));
+      if (reaccion.texto) {
+        item.append(crear('span', 'dyn-reac-txt', reaccion.texto));
+      } else if (reaccion.audio_url) {
+        item.append(crearBurbujaAudio(reaccion.audio_url, reaccion.audio_dur, '', true));
+      }
+      lista.append(item);
+    });
+    if (reacciones.length > limite) {
+      const mas = crear('button', 'dyn-reac-mas', `y ${reacciones.length - limite} más…`);
+      mas.type = 'button';
+      mas.addEventListener('click', (evento) => {
+        evento.stopPropagation();
+        abrirReacciones(recuerdo, indice, '', mediaUrl || '');
+      });
+      lista.append(mas);
+    }
+    return lista;
+  }
+
+  function primeraPalabra(nombre) {
+    return String(nombre || CONFIG.firma).trim().split(/\s+/)[0].slice(0, 14);
   }
 
   function crearFotoDinamica(media, indice, recuerdo) {
@@ -1315,6 +1739,9 @@ create policy "recuerdos_eliminar" on storage.objects
       contenedor.append(reac);
     }
 
+    const lista = crearListaReacciones(recuerdo, indice, media.url, 2, false);
+    if (lista) contenedor.append(lista);
+
     return contenedor;
   }
 
@@ -1342,6 +1769,8 @@ create policy "recuerdos_eliminar" on storage.objects
     }
 
     if (recuerdo.id) {
+      const listaPagina = crearListaReacciones(recuerdo, -1, '', 3, true);
+      if (listaPagina) pagina.append(listaPagina);
       const cuantas = contarReacciones(recuerdo.id, -1);
       const linea = crear('button', 'dyn-reac-linea', cuantas
         ? `❤ ${cuantas} · añadir la mía`
