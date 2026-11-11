@@ -1417,7 +1417,13 @@ create policy "recuerdos_eliminar" on storage.objects
             return posicion >= 0 ? decodeURIComponent(url.slice(posicion + marca.length)) : '';
           })
           .filter(Boolean);
-        if (rutas.length) await ESTADO.sb.storage.from(CONFIG.bucket).remove(rutas);
+        if (rutas.length) {
+          try {
+            await ESTADO.sb.storage.from(CONFIG.bucket).remove(rutas);
+          } catch (errorArchivos) {
+            console.warn('[Supabase] No se pudieron borrar los archivos:', errorArchivos);
+          }
+        }
       }
       await cargar();
       toast('Página borrada.');
