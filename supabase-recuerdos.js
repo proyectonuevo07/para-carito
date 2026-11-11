@@ -15,10 +15,14 @@
     url: 'https://wrceuwtubsiawltruznq.supabase.co',
     key: 'sb_publishable_UH2UL7j8TklK5WSkgrxmbA_VVp23Q7w',
     tabla: 'recuerdos',
+    tablaReacciones: 'reacciones',
+    tablaAjustes: 'ajustes',
     bucket: 'recuerdos',
     // SHA-256 de la contraseña. Contraseña actual: carito2026
     claveHash: '5171260abd965c8837b2d6fb79c092a4d055aa612e74014ae878cd7855fd61a7',
-    maxArchivoMB: 40
+    maxArchivoMB: 40,
+    firma: 'Carito',
+    maxAudioSeg: 30
   };
 
   const SQL = `-- 1) Tabla de recuerdos
@@ -31,6 +35,12 @@ create table if not exists public.recuerdos (
   fecha date default current_date,
   creado_en timestamptz not null default now()
 );
+
+-- Columnas nuevas (no rompe nada si ya existían)
+alter table public.recuerdos add column if not exists orden numeric default 0;
+alter table public.recuerdos add column if not exists audio jsonb;
+alter table public.recuerdos add column if not exists cancion text;
+alter table public.recuerdos add column if not exists abrir_desde date;
 
 alter table public.recuerdos enable row level security;
 
@@ -46,7 +56,69 @@ drop policy if exists "recuerdos_borrar" on public.recuerdos;
 create policy "recuerdos_borrar" on public.recuerdos
   for delete using (true);
 
--- 2) Bucket público para las fotos y videos
+drop policy if exists "recuerdos_editar" on public.recuerdos;
+create policy "recuerdos_editar" on public.recuerdos
+  for update using (true) with check (true);
+
+-- 2) Reacciones: texto o audio, por foto o por página
+create table if not exists public.reacciones (
+  id uuid primary key default gen_random_uuid(),
+  recuerdo_id uuid not null references public.recuerdos(id) on delete cascade,
+  indice int not null default -1,
+  media_url text,
+  nombre text default 'Carito',
+  texto text default '',
+  audio_url text,
+  audio_dur int,
+  creado_en timestamptz not null default now()
+);
+
+alter table public.reacciones add column if not exists media_url text;
+alter table public.reacciones add column if not exists audio_dur int;
+
+alter table public.reacciones enable row level security;
+
+drop policy if exists "reacciones_lectura" on public.reacciones;
+create policy "reacciones_lectura" on public.reacciones
+  for select using (true);
+
+drop policy if exists "reacciones_insertar" on public.reacciones;
+create policy "reacciones_insertar" on public.reacciones
+  for insert with check (true);
+
+drop policy if exists "reacciones_borrar" on public.reacciones;
+create policy "reacciones_borrar" on public.reacciones
+  for delete using (true);
+
+drop policy if exists "reacciones_editar" on public.reacciones;
+create policy "reacciones_editar" on public.reacciones
+  for update using (true) with check (true);
+
+-- 3) Ajustes: fechas especiales, contador, etc.
+create table if not exists public.ajustes (
+  clave text primary key,
+  valor jsonb
+);
+
+alter table public.ajustes enable row level security;
+
+drop policy if exists "ajustes_lectura" on public.ajustes;
+create policy "ajustes_lectura" on public.ajustes
+  for select using (true);
+
+drop policy if exists "ajustes_insertar" on public.ajustes;
+create policy "ajustes_insertar" on public.ajustes
+  for insert with check (true);
+
+drop policy if exists "ajustes_editar" on public.ajustes;
+create policy "ajustes_editar" on public.ajustes
+  for update using (true) with check (true);
+
+drop policy if exists "ajustes_borrar" on public.ajustes;
+create policy "ajustes_borrar" on public.ajustes
+  for delete using (true);
+
+-- 4) Bucket público para las fotos y videos
 insert into storage.buckets (id, name, public)
 values ('recuerdos', 'recuerdos', true)
 on conflict (id) do update set public = true;
@@ -91,18 +163,25 @@ create policy "recuerdos_eliminar" on storage.objects
   const ESTADO = {
     sb: null,
     filas: [],
+    reacciones: [],
+    ajustes: {},
     medios: [],
     stickers: [],
+    editando: null,
     guardando: false,
     cargando: false,
     errorCarga: null,
+    faltaReacciones: false,
+    mensajeReacciones: '',
     overlay: null,
     passOverlay: null,
     panel: null,
     lista: null,
     status: null,
     setup: null,
-    btn: null
+    btn: null,
+    hojaReacciones: null,
+    grabadora: null
   };
 
   const $ = (sel, raiz) => (raiz || document).querySelector(sel);
@@ -130,6 +209,60 @@ create policy "recuerdos_eliminar" on storage.objects
     const dia = Number(partes[2]);
     if (!anio || !mes || !dia) return '';
     return `${dia} de ${MESES[mes - 1]} de ${anio}`;
+  }
+
+  function formatearFechaCorta(iso) {
+    if (!iso) return '';
+    const partes = String(iso).slice(0, 10).split('-');
+    if (partes.length !== 3) return '';
+    const mes = Number(partes[1]);
+    if (!mes) return '';
+    return `${Number(partes[2])} ${MESES[mes - 1].slice(0, 3)} ${partes[0]}`;
+  }
+
+  // Las páginas con "orden" van primero, en ese orden; las antiguas siguen por fecha.
+  function ordenarFilas(filas) {
+    return [...filas].sort((a, b) => {
+      const oa = Number(a.orden);
+      const ob = Number(b.orden);
+      const tieneA = Number.isFinite(oa) && oa > 0;
+      const tieneB = Number.isFinite(ob) && ob > 0;
+      if (tieneA && tieneB) return oa - ob;
+      if (tieneA !== tieneB) return tieneA ? -1 : 1;
+      const fa = String(a.fecha || '') + String(a.creado_en || '');
+      const fb = String(b.fecha || '') + String(b.creado_en || '');
+      return fa.localeCompare(fb);
+    });
+  }
+
+  function reaccionesDe(recuerdoId, indice, mediaUrl) {
+    return ESTADO.reacciones.filter((r) => {
+      if (r.recuerdo_id !== recuerdoId) return false;
+      if (mediaUrl) return r.media_url ? r.media_url === mediaUrl : Number(r.indice) === Number(indice);
+      return Number(r.indice) === Number(indice) && !r.media_url;
+    });
+  }
+
+  function contarReacciones(recuerdoId, indice, mediaUrl) {
+    return reaccionesDe(recuerdoId, indice, mediaUrl).length;
+  }
+
+  function nombreVisitante() {
+    try {
+      return localStorage.getItem('rc-nombre') || CONFIG.firma;
+    } catch {
+      return CONFIG.firma;
+    }
+  }
+
+  function recordarNombre(nombre) {
+    const limpio = String(nombre || '').trim().slice(0, 40);
+    if (!limpio) return;
+    try {
+      localStorage.setItem('rc-nombre', limpio);
+    } catch {
+      // Si el navegador bloquea localStorage, no pasa nada.
+    }
   }
 
   async function sha256(texto) {
@@ -659,6 +792,231 @@ create policy "recuerdos_eliminar" on storage.objects
         user-select: none;
       }
 
+      /* ------------------- audio estilo WhatsApp ------------------- */
+      .rc-audio {
+        display: inline-flex;
+        max-width: 100%;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 13px 7px 8px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(160deg, #3ce27f, #12a24b);
+        box-shadow: 0 6px 16px rgba(18, 162, 75, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+        color: #04150a;
+        cursor: pointer;
+        font: inherit;
+        font-size: 12px;
+        transition: filter 0.18s ease, transform 0.18s ease;
+      }
+      .rc-audio:hover { filter: brightness(1.06); }
+      .rc-audio:active { transform: scale(0.98); }
+      .rc-audio-icono {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        flex: none;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.55);
+        font-size: 10px;
+      }
+      .rc-audio-barras {
+        display: flex;
+        height: 17px;
+        align-items: center;
+        gap: 2px;
+      }
+      .rc-audio-barras i {
+        display: block;
+        width: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        opacity: 0.5;
+      }
+      .rc-audio.on .rc-audio-barras i { animation: rc-pulso 0.9s ease-in-out infinite alternate; }
+      @keyframes rc-pulso {
+        from { transform: scaleY(0.4); }
+        to { transform: scaleY(1); }
+      }
+      .rc-audio-dur {
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+      .rc-audio-voz { font-size: 10px; opacity: 0.7; }
+
+      /* --------------------- reacciones en el libro --------------------- */
+      .dyn-reac {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        z-index: 9;
+        display: inline-flex;
+        min-width: 24px;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 3px 6px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.22);
+        color: #c2185b;
+        cursor: pointer;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 800;
+        line-height: 1;
+        opacity: 0.9;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+      .dyn-reac:hover { opacity: 1; transform: scale(1.12); }
+      .dyn-reac.nueva { animation: rc-latido 1.8s ease-in-out infinite; }
+      @keyframes rc-latido {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.14); }
+      }
+
+      .dyn-reac-linea {
+        display: inline-flex;
+        align-self: center;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+        padding: 5px 13px;
+        border: 1px dashed rgba(139, 69, 19, 0.32);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.55);
+        color: #a03e2c;
+        cursor: pointer;
+        font: inherit;
+        font-family: 'Caveat', cursive;
+        font-size: clamp(13px, 1.6vw, 17px);
+        transition: background 0.18s ease;
+      }
+      .dyn-reac-linea:hover { background: #fff; }
+
+      .dyn-audio { display: flex; justify-content: center; margin: 2px 0 0; }
+
+      /* --------------------- panel de reacciones --------------------- */
+      .rc-reac-lista { display: flex; flex-direction: column; gap: 10px; }
+      .rc-reac-item {
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .rc-reac-cabeza {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 5px;
+      }
+      .rc-reac-nombre { font-size: 13px; font-weight: 800; }
+      .rc-reac-fecha { margin-left: auto; color: rgba(255, 255, 255, 0.45); font-size: 10px; }
+      .rc-reac-texto { margin: 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+      .rc-reac-vacio { color: rgba(255, 255, 255, 0.5); font-size: 13px; }
+
+      .rc-grabar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border: 1px solid rgba(255, 120, 120, 0.42);
+        border-radius: 999px;
+        background: rgba(255, 70, 70, 0.14);
+        color: #ffd1d1;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+      }
+      .rc-grabar:hover { background: rgba(255, 70, 70, 0.26); }
+      .rc-grabar[hidden] { display: none; }
+      .rc-punto {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #ff4b4b;
+        animation: rc-late 1s steps(2) infinite;
+      }
+      @keyframes rc-late { 50% { opacity: 0.15; } }
+      .rc-timer { font-variant-numeric: tabular-nums; font-weight: 800; }
+      .rc-audio-preview { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+
+      .rc-mini {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.07);
+        color: #eafff1;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+        transition: background 0.15s ease;
+      }
+      .rc-mini:hover { background: rgba(255, 255, 255, 0.17); }
+      .rc-mini:disabled { opacity: 0.22; cursor: default; }
+
+      .rc-modo {
+        padding: 5px 11px;
+        border: 1px solid rgba(255, 209, 102, 0.4);
+        border-radius: 999px;
+        background: rgba(255, 209, 102, 0.16);
+        color: #ffe3a1;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .rc-modo[hidden] { display: none; }
+
+      .rc-btn-sec {
+        flex: none;
+        padding: 11px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+      }
+      .rc-btn-sec:hover { background: rgba(255, 255, 255, 0.16); }
+      .rc-btn-sec[hidden] { display: none; }
+
+      .rc-field-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+      .rc-slot-ord { display: flex; justify-content: center; gap: 4px; }
+      .rc-slot-ord button {
+        display: grid;
+        width: 27px;
+        height: 24px;
+        place-items: center;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #eafff1;
+        cursor: pointer;
+        font: inherit;
+        font-size: 11px;
+        line-height: 1;
+      }
+      .rc-slot-ord button:hover { background: rgba(29, 185, 84, 0.28); }
+      .rc-slot-ord button:disabled { opacity: 0.2; cursor: default; }
+      .rc-slot-principal { color: #ffd166 !important; border-color: rgba(255, 209, 102, 0.45) !important; }
+
+      .rc-list-acciones { display: flex; flex: none; align-items: center; gap: 5px; }
+      .rc-list-item.edicion {
+        border-color: rgba(111, 242, 162, 0.55);
+        background: rgba(29, 185, 84, 0.13);
+      }
+
       @media (max-width: 560px) {
         .rc-admin-btn { right: 12px; bottom: 96px; }
         .rc-overlay { padding: 8px; }
@@ -671,6 +1029,9 @@ create policy "recuerdos_eliminar" on storage.objects
         .rc-status { flex-basis: 100%; }
         .rc-media-grid { gap: 7px; }
         .rc-slot-texto { font-size: 11px; }
+        .dyn-reac { min-width: 26px; padding: 4px 7px; font-size: 10px; }
+        .rc-reac-item { padding: 9px 10px; }
+        .rc-modo { display: none; }
       }
     `;
     document.head.append(estilo);
@@ -717,18 +1078,25 @@ create policy "recuerdos_eliminar" on storage.objects
     ESTADO.errorCarga = null;
     pintarLista();
     try {
-      const respuesta = await ESTADO.sb
-        .from(CONFIG.tabla)
-        .select('*')
-        .order('fecha', { ascending: true })
-        .order('creado_en', { ascending: true });
+      const [respuesta, respuestaReacciones] = await Promise.all([
+        ESTADO.sb.from(CONFIG.tabla).select('*'),
+        ESTADO.sb.from(CONFIG.tablaReacciones).select('*')
+      ]);
       if (respuesta.error) throw respuesta.error;
-      ESTADO.filas = Array.isArray(respuesta.data) ? respuesta.data : [];
+      ESTADO.filas = ordenarFilas(Array.isArray(respuesta.data) ? respuesta.data : []);
+      ESTADO.faltaReacciones = Boolean(respuestaReacciones.error);
+      ESTADO.mensajeReacciones = respuestaReacciones.error && respuestaReacciones.error.message
+        ? respuestaReacciones.error.message
+        : '';
+      ESTADO.reacciones = respuestaReacciones.error || !Array.isArray(respuestaReacciones.data)
+        ? []
+        : respuestaReacciones.data;
       aplicarAlLibro();
       if (ESTADO.panel && ESTADO.panel.classList.contains('open')) {
-        ponerEstado(ESTADO.filas.length
-          ? `${ESTADO.filas.length} recuerdo${ESTADO.filas.length === 1 ? '' : 's'} publicado${ESTADO.filas.length === 1 ? '' : 's'}.`
-          : '', 'ok');
+        const total = ESTADO.reacciones.length;
+        const partes = [`${ESTADO.filas.length} recuerdo${ESTADO.filas.length === 1 ? '' : 's'} publicado${ESTADO.filas.length === 1 ? '' : 's'}`];
+        if (total) partes.push(`${total} reacción${total === 1 ? '' : 'es'}`);
+        ponerEstado(partes.join(' · ') + '.', 'ok');
       }
     } catch (error) {
       ESTADO.errorCarga = error && error.message ? error.message : 'No se pudieron cargar los recuerdos.';
@@ -769,6 +1137,95 @@ create policy "recuerdos_eliminar" on storage.objects
     }
   }
 
+  /* --------------------- audio (notas de voz) --------------------------- */
+
+  let audioActual = null;
+  let botonAudioActual = null;
+
+  function formatearSegundos(seg) {
+    const total = Math.max(0, Math.round(Number(seg) || 0));
+    return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
+  }
+
+  function pararAudioActual() {
+    if (audioActual) {
+      try { audioActual.pause(); } catch { /* ya estaba parado */ }
+      audioActual = null;
+    }
+    if (botonAudioActual) {
+      botonAudioActual.classList.remove('on');
+      const icono = $('.rc-audio-icono', botonAudioActual);
+      if (icono) icono.textContent = '▶';
+      const tiempo = $('.rc-audio-dur', botonAudioActual);
+      if (tiempo && botonAudioActual.dataset.duracion) {
+        tiempo.textContent = botonAudioActual.dataset.duracion;
+      }
+    }
+    botonAudioActual = null;
+  }
+
+  function crearBurbujaAudio(url, duracion, etiqueta) {
+    const boton = crear('button', 'rc-audio');
+    boton.type = 'button';
+    boton.setAttribute('aria-label', 'Reproducir nota de voz');
+    const inicial = duracion ? formatearSegundos(duracion) : '0:00';
+    boton.dataset.duracion = inicial;
+
+    const icono = crear('span', 'rc-audio-icono', '▶');
+    const barras = crear('span', 'rc-audio-barras');
+    let semilla = 7;
+    for (let i = 0; i < String(url).length; i += 1) {
+      semilla = (semilla * 31 + String(url).charCodeAt(i)) % 9973;
+    }
+    for (let i = 0; i < 10; i += 1) {
+      const barra = document.createElement('i');
+      barra.style.height = `${5 + ((semilla >> (i % 8)) % 13)}px`;
+      barras.append(barra);
+    }
+    const tiempo = crear('span', 'rc-audio-dur', inicial);
+    boton.append(icono, barras, tiempo);
+    if (etiqueta) boton.append(crear('span', 'rc-audio-voz', etiqueta));
+
+    boton.addEventListener('click', (evento) => {
+      evento.stopPropagation();
+      evento.preventDefault();
+      if (botonAudioActual === boton) {
+        pararAudioActual();
+        return;
+      }
+      pararAudioActual();
+      if (typeof pausarMusicaParaVideo === 'function') pausarMusicaParaVideo();
+      const audio = new Audio(url);
+      audioActual = audio;
+      botonAudioActual = boton;
+      boton.classList.add('on');
+      icono.textContent = '❚❚';
+
+      audio.addEventListener('loadedmetadata', () => {
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          const texto = formatearSegundos(audio.duration);
+          boton.dataset.duracion = texto;
+          tiempo.textContent = texto;
+        }
+      });
+      audio.addEventListener('timeupdate', () => {
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          tiempo.textContent = formatearSegundos(audio.duration - audio.currentTime);
+        }
+      });
+      audio.addEventListener('ended', () => {
+        pararAudioActual();
+        if (typeof reanudarMusicaTrasVideo === 'function') reanudarMusicaTrasVideo();
+      });
+      audio.play().catch(() => {
+        pararAudioActual();
+        toast('No se pudo reproducir el audio.', 'error');
+      });
+    });
+
+    return boton;
+  }
+
   /* ------------------------- páginas del libro -------------------------- */
 
   const POSICIONES_STICKER = [
@@ -795,7 +1252,7 @@ create policy "recuerdos_eliminar" on storage.objects
     });
   }
 
-  function crearFotoDinamica(media, indice) {
+  function crearFotoDinamica(media, indice, recuerdo) {
     const contenedor = crear('div', 'dyn-foto-wrap');
     const boton = crear('button', 'dyn-foto');
     boton.type = 'button';
@@ -842,6 +1299,22 @@ create policy "recuerdos_eliminar" on storage.objects
     abrir.addEventListener('click', (evento) => evento.stopPropagation());
 
     contenedor.append(boton, abrir);
+
+    if (recuerdo && recuerdo.id) {
+      const cuantas = contarReacciones(recuerdo.id, indice, media.url);
+      const reac = crear('button', 'dyn-reac' + (cuantas ? '' : ' nueva'), cuantas ? `❤ ${cuantas}` : '♡');
+      reac.type = 'button';
+      reac.title = cuantas
+        ? 'Ver las reacciones de esta foto'
+        : 'Reaccionar a esta foto (texto o audio)';
+      reac.setAttribute('aria-label', reac.title);
+      reac.addEventListener('click', (evento) => {
+        evento.stopPropagation();
+        abrirReacciones(recuerdo, indice, media.texto || '', media.url);
+      });
+      contenedor.append(reac);
+    }
+
     return contenedor;
   }
 
@@ -862,6 +1335,22 @@ create policy "recuerdos_eliminar" on storage.objects
       pagina.append(texto);
     }
 
+    if (recuerdo.audio && recuerdo.audio.url) {
+      const lineaAudio = crear('div', 'dyn-audio');
+      lineaAudio.append(crearBurbujaAudio(recuerdo.audio.url, recuerdo.audio.duracion, 'nota de voz'));
+      pagina.append(lineaAudio);
+    }
+
+    if (recuerdo.id) {
+      const cuantas = contarReacciones(recuerdo.id, -1);
+      const linea = crear('button', 'dyn-reac-linea', cuantas
+        ? `❤ ${cuantas} · añadir la mía`
+        : '＋ reaccionar a esta página');
+      linea.type = 'button';
+      linea.addEventListener('click', () => abrirReacciones(recuerdo, -1, ''));
+      pagina.append(linea);
+    }
+
     const fecha = formatearFecha(recuerdo.fecha);
     if (fecha) pagina.append(crear('div', 'dyn-fecha', fecha));
     izquierda.append(pagina);
@@ -869,7 +1358,7 @@ create policy "recuerdos_eliminar" on storage.objects
     const media = Array.isArray(recuerdo.media) ? recuerdo.media.filter((m) => m && m.url).slice(0, 3) : [];
     if (media.length) {
       const contenedor = crear('div', 'dyn-media dyn-media-' + media.length);
-      media.forEach((elemento, indice) => contenedor.append(crearFotoDinamica(elemento, indice)));
+      media.forEach((elemento, indice) => contenedor.append(crearFotoDinamica(elemento, indice, recuerdo)));
       derecha.append(contenedor);
     } else {
       derecha.append(crear('div', 'dyn-vacio', 'Esta página es solo texto 💌'));
@@ -886,6 +1375,332 @@ create policy "recuerdos_eliminar" on storage.objects
 
   window.pintarSpreadDinamico = pintarSpreadDinamico;
   window.recargarRecuerdosSupabase = cargar;
+
+  /* ---------------------------- reacciones ------------------------------ */
+
+  function crearHojaReacciones() {
+    const overlay = crear('div', 'rc-overlay rc-reacciones');
+    overlay.innerHTML = `
+      <div class="rc-panel rc-panel-sm" role="dialog" aria-modal="true" aria-labelledby="rc-reac-title">
+        <div class="rc-head">
+          <div>
+            <span class="rc-eyebrow">Reacciones</span>
+            <h2 class="rc-title" id="rc-reac-title" data-rc="reac-titulo">Esta página</h2>
+          </div>
+          <button type="button" class="rc-close" data-rc="reac-cerrar" aria-label="Cerrar">✕</button>
+        </div>
+        <div class="rc-body">
+          <div class="rc-reac-lista" data-rc="reac-lista"></div>
+          <label class="rc-field">
+            <span class="rc-label">Tu nombre</span>
+            <input class="rc-input" data-rc="reac-nombre" maxlength="40" placeholder="¿Quién eres?">
+          </label>
+          <label class="rc-field">
+            <span class="rc-label">Mensaje (opcional)</span>
+            <textarea class="rc-input rc-textarea" data-rc="reac-texto" rows="2" maxlength="220" placeholder="Escribe algo corto..."></textarea>
+          </label>
+          <div class="rc-field">
+            <span class="rc-label">O graba tu voz (máx. ${CONFIG.maxAudioSeg} s)</span>
+            <div class="rc-audio-preview" data-rc="reac-audio"></div>
+          </div>
+        </div>
+        <div class="rc-foot">
+          <span class="rc-status" data-rc="reac-status"></span>
+          <button type="button" class="rc-save" data-rc="reac-enviar">Enviar</button>
+        </div>
+      </div>
+    `;
+    document.body.append(overlay);
+    ESTADO.hojaReacciones = overlay;
+
+    $('[data-rc="reac-cerrar"]', overlay).addEventListener('click', () => {
+      detenerGrabacion(true);
+      cerrarOverlay(overlay);
+    });
+    overlay.addEventListener('click', (evento) => {
+      if (evento.target === overlay) {
+        detenerGrabacion(true);
+        cerrarOverlay(overlay);
+      }
+    });
+    $('[data-rc="reac-enviar"]', overlay).addEventListener('click', enviarReaccion);
+  }
+
+  function abrirReacciones(recuerdo, indice, textoFoto, mediaUrl) {
+    if (!conectar()) {
+      toast('Sin conexión con Supabase.', 'error');
+      return;
+    }
+    if (!ESTADO.hojaReacciones) crearHojaReacciones();
+    const overlay = ESTADO.hojaReacciones;
+    ESTADO.reacContexto = { recuerdo, indice, textoFoto, mediaUrl: mediaUrl || '' };
+    detenerGrabacion(true);
+    const nombre = $('[data-rc="reac-nombre"]', overlay);
+    if (nombre) nombre.value = nombreVisitante();
+    $('[data-rc="reac-texto"]', overlay).value = '';
+    $('[data-rc="reac-status"]', overlay).textContent = '';
+    $('[data-rc="reac-status"]', overlay).className = 'rc-status';
+    pintarHojaReacciones();
+    pintarGrabadora();
+    abrirOverlay(overlay);
+    window.setTimeout(() => {
+      const campo = $('[data-rc="reac-texto"]', overlay);
+      if (campo) campo.focus();
+    }, 220);
+  }
+
+  function pintarHojaReacciones() {
+    const overlay = ESTADO.hojaReacciones;
+    const contexto = ESTADO.reacContexto;
+    if (!overlay || !contexto) return;
+    const { recuerdo, indice, textoFoto, mediaUrl } = contexto;
+
+    const titulo = $('[data-rc="reac-titulo"]', overlay);
+    if (titulo) {
+      titulo.textContent = indice >= 0
+        ? (textoFoto ? textoFoto.slice(0, 48) : 'Una foto de esta página')
+        : 'Esta página';
+    }
+
+    const lista = $('[data-rc="reac-lista"]', overlay);
+    lista.replaceChildren();
+    const reacciones = reaccionesDe(recuerdo.id, indice, mediaUrl);
+    if (!reacciones.length) {
+      lista.append(crear('div', 'rc-reac-vacio', indice >= 0
+        ? 'Todavía nadie ha reaccionado a esta foto.'
+        : 'Todavía nadie ha reaccionado a esta página.'));
+      return;
+    }
+
+    const esAdmin = sessionStorage.getItem('rc-admin') === '1';
+    reacciones.forEach((reaccion) => {
+      const item = crear('div', 'rc-reac-item');
+      const cabeza = crear('div', 'rc-reac-cabeza');
+      cabeza.append(crear('span', 'rc-reac-nombre', reaccion.nombre || CONFIG.firma));
+      cabeza.append(crear('span', 'rc-reac-fecha', formatearFechaCorta(reaccion.creado_en ? String(reaccion.creado_en).slice(0, 10) : '')));
+      if (esAdmin) {
+        const borrar = crear('button', 'rc-mini', '🗑');
+        borrar.type = 'button';
+        borrar.title = 'Borrar esta reacción';
+        borrar.style.width = '24px';
+        borrar.style.height = '24px';
+        borrar.style.fontSize = '11px';
+        borrar.addEventListener('click', () => borrarReaccion(reaccion));
+        cabeza.append(borrar);
+      }
+      item.append(cabeza);
+      if (reaccion.texto) item.append(crear('p', 'rc-reac-texto', reaccion.texto));
+      if (reaccion.audio_url) {
+        const audio = crearBurbujaAudio(reaccion.audio_url, reaccion.audio_dur, 'nota de voz');
+        item.append(audio);
+      }
+      lista.append(item);
+    });
+  }
+
+  /* --------------------------- grabar audio ----------------------------- */
+
+  function pintarGrabadora() {
+    const overlay = ESTADO.hojaReacciones;
+    if (!overlay) return;
+    const contenedor = $('[data-rc="reac-audio"]', overlay);
+    contenedor.replaceChildren();
+
+    if (ESTADO.grabadora && ESTADO.grabadora.grabando) {
+      const boton = crear('button', 'rc-grabar rc-grabando');
+      boton.type = 'button';
+      boton.append(crear('span', 'rc-punto'));
+      const texto = crear('span', '', 'Grabando… ');
+      const timer = crear('span', 'rc-timer', '0:00');
+      boton.append(texto, timer);
+      boton.title = 'Toca para terminar';
+      boton.addEventListener('click', () => detenerGrabacion());
+      contenedor.append(boton);
+      ESTADO.grabadora.timerTexto = timer;
+      return;
+    }
+
+    if (ESTADO.grabadora && ESTADO.grabadora.blob) {
+      const audio = crearBurbujaAudio(ESTADO.grabadora.url, ESTADO.grabadora.duracion, 'tu nota de voz');
+      const borrar = crear('button', 'rc-mini', '✕');
+      borrar.type = 'button';
+      borrar.title = 'Borrar y grabar otra';
+      borrar.addEventListener('click', () => {
+        detenerGrabacion(true);
+        pintarGrabadora();
+      });
+      contenedor.append(audio, borrar);
+      return;
+    }
+
+    const boton = crear('button', 'rc-grabar');
+    boton.type = 'button';
+    boton.append(crear('span', '', '🎤'), crear('span', '', 'Grabar audio'));
+    boton.addEventListener('click', iniciarGrabacion);
+    contenedor.append(boton);
+  }
+
+  async function iniciarGrabacion() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+      toast('Este navegador no permite grabar audio. Puedes enviar solo texto.', 'error');
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const tipos = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+      const tipo = tipos.find((t) => {
+        try { return MediaRecorder.isTypeSupported(t); } catch { return false; }
+      }) || '';
+      const grabadora = tipo ? new MediaRecorder(stream, { mimeType: tipo }) : new MediaRecorder(stream);
+      const trozos = [];
+      const estado = {
+        grabando: true,
+        recorder: grabadora,
+        stream,
+        trozos,
+        inicio: Date.now(),
+        duracion: 0,
+        url: null,
+        blob: null,
+        timerTexto: null,
+        intervalo: null,
+        timeout: null
+      };
+      ESTADO.grabadora = estado;
+
+      grabadora.addEventListener('dataavailable', (evento) => {
+        if (evento.data && evento.data.size) trozos.push(evento.data);
+      });
+      grabadora.addEventListener('stop', () => {
+        stream.getTracks().forEach((pista) => pista.stop());
+        if (!trozos.length) {
+          ESTADO.grabadora = null;
+          pintarGrabadora();
+          return;
+        }
+        const blob = new Blob(trozos, { type: grabadora.mimeType || 'audio/webm' });
+        estado.blob = blob;
+        estado.url = URL.createObjectURL(blob);
+        estado.duracion = Math.max(1, Math.round((Date.now() - estado.inicio) / 1000));
+        estado.grabando = false;
+        pintarGrabadora();
+      });
+
+      grabadora.start();
+      pintarGrabadora();
+      estado.intervalo = window.setInterval(() => {
+        const seg = Math.min(CONFIG.maxAudioSeg, Math.floor((Date.now() - estado.inicio) / 1000));
+        if (estado.timerTexto) estado.timerTexto.textContent = formatearSegundos(seg);
+      }, 250);
+      estado.timeout = window.setTimeout(() => detenerGrabacion(), CONFIG.maxAudioSeg * 1000);
+    } catch (error) {
+      console.warn('[Supabase] Micrófono:', error);
+      toast('No se pudo usar el micrófono. Revisa el permiso del navegador.', 'error');
+    }
+  }
+
+  function detenerGrabacion(descartar) {
+    const estado = ESTADO.grabadora;
+    if (!estado) return;
+    if (estado.intervalo) window.clearInterval(estado.intervalo);
+    if (estado.timeout) window.clearTimeout(estado.timeout);
+    if (estado.recorder && estado.recorder.state !== 'inactive') {
+      try { estado.recorder.stop(); } catch { /* ya se detuvo */ }
+    }
+    if (estado.stream) estado.stream.getTracks().forEach((pista) => pista.stop());
+    if (descartar) {
+      if (estado.url) URL.revokeObjectURL(estado.url);
+      ESTADO.grabadora = null;
+      pintarGrabadora();
+    }
+  }
+
+  async function enviarReaccion() {
+    const overlay = ESTADO.hojaReacciones;
+    const contexto = ESTADO.reacContexto;
+    if (!overlay || !contexto) return;
+    const { recuerdo, indice, mediaUrl } = contexto;
+    const nombre = ($('[data-rc="reac-nombre"]', overlay).value || '').trim() || CONFIG.firma;
+    const texto = ($('[data-rc="reac-texto"]', overlay).value || '').trim();
+    const grabadora = ESTADO.grabadora;
+    const estado = $('[data-rc="reac-status"]', overlay);
+    const boton = $('[data-rc="reac-enviar"]', overlay);
+
+    if (!texto && !(grabadora && grabadora.blob)) {
+      toast('Escribe algo o graba un audio.', 'error');
+      return;
+    }
+
+    boton.disabled = true;
+    estado.className = 'rc-status';
+    estado.textContent = 'Enviando...';
+    try {
+      let audioUrl = null;
+      let audioDur = null;
+      if (grabadora && grabadora.blob) {
+        const tipo = grabadora.blob.type || 'audio/webm';
+        const ext = /mp4|m4a|aac/.test(tipo) ? 'm4a' : /ogg/.test(tipo) ? 'ogg' : 'webm';
+        const archivo = new File([grabadora.blob], `voz-${Date.now()}.${ext}`, { type: tipo });
+        audioUrl = await subirArchivo(archivo);
+        audioDur = grabadora.duracion;
+      }
+
+      const respuesta = await ESTADO.sb.from(CONFIG.tablaReacciones).insert({
+        recuerdo_id: recuerdo.id,
+        indice,
+        media_url: mediaUrl || null,
+        nombre,
+        texto,
+        audio_url: audioUrl,
+        audio_dur: audioDur
+      }).select().single();
+      if (respuesta.error) throw respuesta.error;
+
+      recordarNombre(nombre);
+      if (respuesta.data) ESTADO.reacciones.push(respuesta.data);
+      detenerGrabacion(true);
+      $('[data-rc="reac-texto"]', overlay).value = '';
+      pintarHojaReacciones();
+      pintarGrabadora();
+      estado.className = 'rc-status ok';
+      estado.textContent = '¡Enviado!';
+      toast('Reacción guardada 💌');
+      aplicarAlLibro();
+    } catch (error) {
+      estado.className = 'rc-status error';
+      estado.textContent = (error && error.message ? error.message : String(error)) +
+        (/bucket/i.test(String(error && error.message)) ? ' → Falta el bucket "recuerdos".' : '');
+      toast('No se pudo enviar la reacción.', 'error');
+    } finally {
+      boton.disabled = false;
+    }
+  }
+
+  async function borrarReaccion(reaccion) {
+    if (!window.confirm('¿Borrar esta reacción?')) return;
+    try {
+      const respuesta = await ESTADO.sb.from(CONFIG.tablaReacciones).delete().eq('id', reaccion.id);
+      if (respuesta.error) throw respuesta.error;
+      ESTADO.reacciones = ESTADO.reacciones.filter((r) => r.id !== reaccion.id);
+      if (reaccion.audio_url) {
+        const ruta = rutaDeUrl(reaccion.audio_url);
+        if (ruta) {
+          try { await ESTADO.sb.storage.from(CONFIG.bucket).remove([ruta]); } catch { /* da igual */ }
+        }
+      }
+      pintarHojaReacciones();
+      aplicarAlLibro();
+      toast('Reacción borrada.');
+    } catch (error) {
+      toast('No se pudo borrar: ' + (error && error.message ? error.message : error), 'error');
+    }
+  }
+
+  function rutaDeUrl(url) {
+    const marca = `/object/public/${CONFIG.bucket}/`;
+    const posicion = String(url || '').indexOf(marca);
+    return posicion >= 0 ? decodeURIComponent(String(url).slice(posicion + marca.length)) : '';
+  }
 
   /* --------------------------- panel de admin --------------------------- */
 
@@ -1011,10 +1826,12 @@ create policy "recuerdos_eliminar" on storage.objects
             <span class="rc-eyebrow">Supabase · recuerdos</span>
             <h2 class="rc-title" id="rc-title">Agregar recuerdo</h2>
           </div>
+          <span class="rc-modo" data-rc="modo" hidden>Editando</span>
           <button type="button" class="rc-close" data-rc="cerrar" aria-label="Cerrar">✕</button>
         </div>
         <div class="rc-body">
           <div class="rc-setup" data-rc="setup" hidden></div>
+          <div class="rc-setup" data-rc="aviso" hidden></div>
           <label class="rc-field">
             <span class="rc-label">Título de la página</span>
             <input class="rc-input" data-rc="titulo" maxlength="90" placeholder="Ej. Nuestro primer viaje">
@@ -1039,12 +1856,16 @@ create policy "recuerdos_eliminar" on storage.objects
             <div class="rc-sticker-grid" data-rc="stickers"></div>
           </div>
           <div class="rc-field">
-            <span class="rc-label">Recuerdos publicados</span>
+            <div class="rc-field-top">
+              <span class="rc-label">Recuerdos publicados</span>
+              <button type="button" class="rc-btn-sec" data-rc="respaldo" style="padding:6px 12px;font-size:11px">Descargar respaldo</button>
+            </div>
             <div class="rc-list" data-rc="lista"></div>
           </div>
         </div>
         <div class="rc-foot">
           <span class="rc-status" data-rc="status"></span>
+          <button type="button" class="rc-btn-sec" data-rc="cancelar" hidden>Cancelar</button>
           <button type="button" class="rc-save" data-rc="guardar">Publicar recuerdo</button>
         </div>
       </div>
@@ -1061,84 +1882,129 @@ create policy "recuerdos_eliminar" on storage.objects
       if (evento.target === overlay) cerrarOverlay(overlay);
     });
     $('[data-rc="guardar"]', overlay).addEventListener('click', guardar);
+    $('[data-rc="cancelar"]', overlay).addEventListener('click', salirEdicion);
+    $('[data-rc="respaldo"]', overlay).addEventListener('click', descargarRespaldo);
 
-    construirSlots(overlay);
+    pintarSlots();
     construirStickers(overlay);
     pintarChips();
     if (ESTADO.filas.length) pintarLista();
   }
 
-  function construirSlots(overlay) {
-    const contenedor = $('[data-rc="media"]', overlay);
-    ESTADO.medios = [];
-    for (let i = 0; i < 3; i += 1) {
-      const slot = crear('div', 'rc-slot');
-      slot.innerHTML = `
-        <button type="button" class="rc-slot-pick"><span class="rc-slot-plus">＋</span><span class="rc-slot-txt">Foto o video</span></button>
-        <input type="file" accept="image/*,video/*" hidden>
-        <div class="rc-slot-preview" hidden></div>
-        <input type="text" class="rc-input rc-slot-texto" placeholder="Texto de esta foto (opcional)" maxlength="220" disabled>
-        <button type="button" class="rc-slot-quitar" hidden aria-label="Quitar archivo">✕</button>
-      `;
-      const entrada = $('input[type="file"]', slot);
-      const elegir = $('.rc-slot-pick', slot);
-      const preview = $('.rc-slot-preview', slot);
-      const texto = $('.rc-slot-texto', slot);
-      const quitar = $('.rc-slot-quitar', slot);
-      const medio = { file: null, texto: '', previewUrl: null, slot };
+  function crearMedioVacio() {
+    return { file: null, url: '', tipo: '', texto: '', previewUrl: '' };
+  }
 
-      elegir.addEventListener('click', () => entrada.click());
-      entrada.addEventListener('change', () => {
-        const archivo = entrada.files && entrada.files[0];
-        if (!archivo) return;
-        if (archivo.size > CONFIG.maxArchivoMB * 1024 * 1024) {
-          toast(`El archivo pesa más de ${CONFIG.maxArchivoMB} MB. Elige uno más pequeño.`, 'error');
-          entrada.value = '';
-          return;
-        }
-        if (medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
-        medio.file = archivo;
-        medio.previewUrl = URL.createObjectURL(archivo);
-        texto.disabled = false;
-
-        preview.replaceChildren();
-        if (archivo.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.src = medio.previewUrl;
-          video.muted = true;
-          video.playsInline = true;
-          video.preload = 'metadata';
-          preview.append(video);
-        } else {
-          const imagen = document.createElement('img');
-          imagen.src = medio.previewUrl;
-          imagen.alt = 'Vista previa';
-          preview.append(imagen);
-        }
-        preview.hidden = false;
-        elegir.hidden = true;
-        quitar.hidden = false;
-      });
-
-      texto.addEventListener('input', () => { medio.texto = texto.value; });
-
-      quitar.addEventListener('click', () => {
-        if (medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
-        medio.file = null;
-        medio.texto = '';
-        medio.previewUrl = null;
-        entrada.value = '';
-        texto.value = '';
-        texto.disabled = true;
-        preview.replaceChildren();
-        preview.hidden = true;
-        elegir.hidden = false;
-        quitar.hidden = true;
-      });
-
-      ESTADO.medios.push(medio);
-      contenedor.append(slot);
+  function pintarSlots() {
+    if (!ESTADO.panel) return;
+    const contenedor = $('[data-rc="media"]', ESTADO.panel);
+    contenedor.replaceChildren();
+    ESTADO.medios.forEach((medio, indice) => {
+      contenedor.append(slotLleno(medio, indice));
+    });
+    for (let i = ESTADO.medios.length; i < 3; i += 1) {
+      contenedor.append(slotVacio(i));
     }
+  }
+
+  function slotVacio(posicion) {
+    const slot = crear('div', 'rc-slot');
+    slot.innerHTML = `
+      <button type="button" class="rc-slot-pick"><span class="rc-slot-plus">＋</span><span class="rc-slot-txt">Foto o video</span></button>
+      <input type="file" accept="image/*,video/*" hidden>
+    `;
+    const entrada = $('input[type="file"]', slot);
+    const elegir = $('.rc-slot-pick', slot);
+    elegir.addEventListener('click', () => entrada.click());
+    entrada.addEventListener('change', () => {
+      const archivo = entrada.files && entrada.files[0];
+      if (!archivo) return;
+      if (archivo.size > CONFIG.maxArchivoMB * 1024 * 1024) {
+        toast(`El archivo pesa más de ${CONFIG.maxArchivoMB} MB. Elige uno más pequeño.`, 'error');
+        entrada.value = '';
+        return;
+      }
+      ESTADO.medios[posicion] = {
+        file: archivo,
+        url: '',
+        tipo: archivo.type.startsWith('video/') ? 'video' : 'image',
+        texto: '',
+        previewUrl: URL.createObjectURL(archivo)
+      };
+      pintarSlots();
+    });
+    return slot;
+  }
+
+  function slotLleno(medio, indice) {
+    const slot = crear('div', 'rc-slot');
+    const preview = crear('div', 'rc-slot-preview');
+    const fuente = medio.previewUrl || medio.url;
+    if ((medio.tipo || '') === 'video') {
+      const video = document.createElement('video');
+      video.src = fuente;
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      preview.append(video);
+    } else {
+      const imagen = document.createElement('img');
+      imagen.src = fuente;
+      imagen.alt = 'Vista previa';
+      preview.append(imagen);
+    }
+
+    const quitar = crear('button', 'rc-slot-quitar', '✕');
+    quitar.type = 'button';
+    quitar.setAttribute('aria-label', 'Quitar archivo');
+    quitar.addEventListener('click', () => {
+      if (medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
+      ESTADO.medios.splice(indice, 1);
+      pintarSlots();
+    });
+    preview.append(quitar);
+
+    const orden = crear('div', 'rc-slot-ord');
+    const izquierda = crear('button', '', '←');
+    izquierda.type = 'button';
+    izquierda.title = 'Mover antes';
+    izquierda.disabled = indice === 0;
+    izquierda.addEventListener('click', () => moverMedio(indice, -1));
+    const principal = crear('button', indice === 0 ? 'rc-slot-principal' : '', '★');
+    principal.type = 'button';
+    principal.title = 'Poner como principal';
+    principal.disabled = indice === 0;
+    principal.addEventListener('click', () => moverMedio(indice, 0));
+    const derecha = crear('button', '', '→');
+    derecha.type = 'button';
+    derecha.title = 'Mover después';
+    derecha.disabled = indice === ESTADO.medios.length - 1;
+    derecha.addEventListener('click', () => moverMedio(indice, 1));
+    orden.append(izquierda, principal, derecha);
+
+    const texto = crear('input', 'rc-input rc-slot-texto');
+    texto.type = 'text';
+    texto.placeholder = 'Texto de esta foto (opcional)';
+    texto.maxLength = 220;
+    texto.value = medio.texto || '';
+    texto.addEventListener('input', () => { medio.texto = texto.value; });
+
+    slot.append(preview, orden, texto);
+    return slot;
+  }
+
+  function moverMedio(desde, direccion) {
+    if (!ESTADO.medios[desde]) return;
+    if (direccion === 0) {
+      const [medio] = ESTADO.medios.splice(desde, 1);
+      ESTADO.medios.unshift(medio);
+    } else {
+      const destino = desde + direccion;
+      if (destino < 0 || destino >= ESTADO.medios.length) return;
+      const [medio] = ESTADO.medios.splice(desde, 1);
+      ESTADO.medios.splice(destino, 0, medio);
+    }
+    pintarSlots();
   }
 
   function construirStickers(overlay) {
@@ -1202,56 +2068,103 @@ create policy "recuerdos_eliminar" on storage.objects
       ESTADO.lista.append(crear('div', 'rc-list-vacio', 'Todavía no hay páginas nuevas.'));
       return;
     }
-    ESTADO.filas.forEach((fila) => {
-      const item = crear('div', 'rc-list-item');
+    ESTADO.filas.forEach((fila, posicion) => {
+      const item = crear('div', 'rc-list-item' + (ESTADO.editando && ESTADO.editando.id === fila.id ? ' edicion' : ''));
       const info = crear('div', 'rc-list-info');
       info.append(crear('div', 'rc-list-titulo', fila.titulo || 'Sin título'));
       const fotos = Array.isArray(fila.media) ? fila.media.length : 0;
-      const meta = [formatearFecha(fila.fecha), fotos ? `${fotos} archivo${fotos === 1 ? '' : 's'}` : 'solo texto']
-        .filter(Boolean)
-        .join(' · ');
+      const cuantas = ESTADO.reacciones.filter((r) => r.recuerdo_id === fila.id).length;
+      const meta = [
+        formatearFecha(fila.fecha),
+        fotos ? `${fotos} archivo${fotos === 1 ? '' : 's'}` : 'solo texto',
+        cuantas ? `❤ ${cuantas}` : ''
+      ].filter(Boolean).join(' · ');
       info.append(crear('div', 'rc-list-meta', meta));
+
+      const acciones = crear('div', 'rc-list-acciones');
+
+      const subir = crear('button', 'rc-mini', '↑');
+      subir.type = 'button';
+      subir.title = 'Mover antes en el libro';
+      subir.disabled = posicion === 0;
+      subir.addEventListener('click', () => moverPagina(posicion, -1));
+
+      const bajar = crear('button', 'rc-mini', '↓');
+      bajar.type = 'button';
+      bajar.title = 'Mover después en el libro';
+      bajar.disabled = posicion === ESTADO.filas.length - 1;
+      bajar.addEventListener('click', () => moverPagina(posicion, 1));
+
+      const editar = crear('button', 'rc-mini', '✎');
+      editar.type = 'button';
+      editar.title = 'Editar esta página';
+      editar.addEventListener('click', () => cargarEnFormulario(fila));
+
       const borrar = crear('button', 'rc-list-borrar', 'Borrar');
       borrar.type = 'button';
       borrar.addEventListener('click', () => borrarRecuerdo(fila));
-      item.append(info, borrar);
+
+      acciones.append(subir, bajar, editar, borrar);
+      item.append(info, acciones);
       ESTADO.lista.append(item);
     });
+  }
+
+  function rellenarSql(contenedor, mensaje, conSql) {
+    contenedor.replaceChildren();
+    contenedor.append(crear('p', '', mensaje));
+    if (!conSql) return;
+    const bloque = crear('pre', '', SQL);
+    const copiar = crear('button', '', 'Copiar SQL');
+    copiar.type = 'button';
+    copiar.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(SQL);
+        toast('SQL copiado. Pégalo en Supabase → SQL Editor.');
+      } catch {
+        toast('No se pudo copiar. Selecciona el texto manualmente.', 'error');
+      }
+    });
+    contenedor.append(bloque, copiar);
   }
 
   function mostrarErrorCarga() {
     if (!ESTADO.setup) return;
     ESTADO.setup.hidden = false;
-    ESTADO.setup.replaceChildren();
     const mensaje = ESTADO.errorCarga || '';
     const faltaTabla = /schema cache|does not exist|Could not find the table|relation/i.test(mensaje);
-    const parrafo = crear('p', '', faltaTabla
+    rellenarSql(ESTADO.setup, faltaTabla
       ? 'Falta crear la tabla y el bucket en Supabase. Abre tu proyecto → SQL Editor → pega esto → Run. Después recarga la página.'
-      : `No se pudieron cargar los recuerdos: ${mensaje}`);
-    ESTADO.setup.append(parrafo);
-    if (faltaTabla) {
-      const bloque = crear('pre', '', SQL);
-      const copiar = crear('button', '', 'Copiar SQL');
-      copiar.type = 'button';
-      copiar.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(SQL);
-          toast('SQL copiado. Pégalo en Supabase → SQL Editor.');
-        } catch {
-          toast('No se pudo copiar. Selecciona el texto manualmente.', 'error');
-        }
-      });
-      ESTADO.setup.append(bloque, copiar);
+      : `No se pudieron cargar los recuerdos: ${mensaje}`, faltaTabla);
+  }
+
+  function mostrarAvisoSql() {
+    if (!ESTADO.panel) return;
+    const aviso = $('[data-rc="aviso"]', ESTADO.panel);
+    if (!aviso) return;
+    if (!ESTADO.faltaReacciones) {
+      aviso.hidden = true;
+      aviso.replaceChildren();
+      return;
     }
+    aviso.hidden = false;
+    rellenarSql(aviso,
+      'Falta activar las reacciones y el orden de las páginas. Abre Supabase → SQL Editor, pega el SQL nuevo y dale Run. Después recarga la página.',
+      true);
   }
 
   function abrirPanel() {
     if (!ESTADO.panel) return;
+    if (!ESTADO.panel.classList.contains('open')) {
+      ESTADO.editando = null;
+      limpiarFormulario();
+    }
     abrirOverlay(ESTADO.panel);
     const fecha = $('[data-rc="fecha"]', ESTADO.panel);
     if (fecha && !fecha.value) fecha.value = hoyISO();
     if (ESTADO.errorCarga) mostrarErrorCarga();
     else if (ESTADO.setup) ESTADO.setup.hidden = true;
+    mostrarAvisoSql();
     pintarLista();
     if (!ESTADO.cargando) cargar();
     window.setTimeout(() => {
@@ -1327,7 +2240,8 @@ create policy "recuerdos_eliminar" on storage.objects
       return;
     }
 
-    const conArchivo = ESTADO.medios.filter((medio) => medio.file);
+    const usables = ESTADO.medios.filter((medio) => medio && (medio.file || medio.url));
+    const editando = ESTADO.editando;
     ESTADO.guardando = true;
     const boton = $('[data-rc="guardar"]', ESTADO.panel);
     boton.disabled = true;
@@ -1335,32 +2249,56 @@ create policy "recuerdos_eliminar" on storage.objects
 
     try {
       const media = [];
-      for (let i = 0; i < conArchivo.length; i += 1) {
-        const medio = conArchivo[i];
-        ponerEstado(`Subiendo archivo ${i + 1} de ${conArchivo.length}...`);
-        const preparado = await comprimirImagen(medio.file);
-        const url = await subirArchivo(preparado);
-        media.push({
-          url,
-          tipo: (medio.file.type || '').startsWith('video/') ? 'video' : 'image',
-          texto: (medio.texto || '').trim()
-        });
+      let subidos = 0;
+      for (let i = 0; i < usables.length; i += 1) {
+        const medio = usables[i];
+        let url = medio.url || '';
+        let tipo = medio.tipo || 'image';
+        if (medio.file) {
+          subidos += 1;
+          ponerEstado(`Subiendo archivo ${subidos}...`);
+          const preparado = await comprimirImagen(medio.file);
+          url = await subirArchivo(preparado);
+          tipo = (medio.file.type || '').startsWith('video/') ? 'video' : 'image';
+        }
+        if (url) media.push({ url, tipo, texto: (medio.texto || '').trim() });
       }
 
-      ponerEstado('Guardando la página...');
-      const insercion = await ESTADO.sb.from(CONFIG.tabla).insert({
+      const datos = {
         titulo,
         texto,
         media,
         stickers: ESTADO.stickers.slice(0, 4),
         fecha: fecha || null
-      });
-      if (insercion.error) throw insercion.error;
+      };
+
+      ponerEstado('Guardando la página...');
+      if (editando) {
+        const cambio = await ESTADO.sb.from(CONFIG.tabla).update(datos).eq('id', editando.id);
+        if (cambio.error) throw cambio.error;
+        const antes = (Array.isArray(editando.media) ? editando.media : [])
+          .map((m) => rutaDeUrl(m && m.url))
+          .filter(Boolean);
+        const despues = media.map((m) => rutaDeUrl(m.url)).filter(Boolean);
+        const sobrantes = antes.filter((ruta) => !despues.includes(ruta));
+        if (sobrantes.length) {
+          try { await ESTADO.sb.storage.from(CONFIG.bucket).remove(sobrantes); } catch { /* da igual */ }
+        }
+      } else {
+        const maximo = ESTADO.filas.reduce((max, fila) => Math.max(max, Number(fila.orden) || 0), 0);
+        const ordenNuevo = maximo > 0 ? maximo + 10 : 0;
+        let insercion = await ESTADO.sb.from(CONFIG.tabla).insert({ ...datos, orden: ordenNuevo });
+        if (insercion.error && /orden/i.test(insercion.error.message || '')) {
+          // Si todavía no existe la columna de orden, guardamos igual.
+          insercion = await ESTADO.sb.from(CONFIG.tabla).insert(datos);
+        }
+        if (insercion.error) throw insercion.error;
+      }
 
       limpiarFormulario();
       await cargar();
-      ponerEstado('¡Página publicada! Ya aparece en el libro.', 'ok');
-      toast('Recuerdo publicado 💌');
+      ponerEstado(editando ? '¡Página actualizada!' : '¡Página publicada! Ya aparece en el libro.', 'ok');
+      toast(editando ? 'Cambios guardados 💌' : 'Recuerdo publicado 💌');
     } catch (error) {
       const mensaje = error && error.message ? error.message : String(error);
       let ayuda = mensaje;
@@ -1368,12 +2306,90 @@ create policy "recuerdos_eliminar" on storage.objects
         ayuda += ' → Falta crear el bucket "recuerdos" (ejecuta el SQL).';
       } else if (/row-level security|policy/i.test(mensaje)) {
         ayuda += ' → Faltan los permisos (políticas RLS) en Supabase.';
+      } else if (/column .* does not exist|schema cache/i.test(mensaje)) {
+        ayuda += ' → Ejecuta el SQL nuevo del panel en Supabase.';
       }
       ponerEstado(ayuda, 'error');
-      toast('No se pudo publicar. Revisa el mensaje abajo.', 'error');
+      toast('No se pudo guardar. Revisa el mensaje abajo.', 'error');
     } finally {
       ESTADO.guardando = false;
       boton.disabled = false;
+    }
+  }
+
+  function actualizarModoPanel() {
+    if (!ESTADO.panel) return;
+    const editando = Boolean(ESTADO.editando);
+    const modo = $('[data-rc="modo"]', ESTADO.panel);
+    const titulo = document.getElementById('rc-title');
+    const guardarBtn = $('[data-rc="guardar"]', ESTADO.panel);
+    const cancelar = $('[data-rc="cancelar"]', ESTADO.panel);
+    if (modo) modo.hidden = !editando;
+    if (titulo) titulo.textContent = editando ? 'Editar recuerdo' : 'Agregar recuerdo';
+    if (guardarBtn) guardarBtn.textContent = editando ? 'Guardar cambios' : 'Publicar recuerdo';
+    if (cancelar) cancelar.hidden = !editando;
+  }
+
+  function cargarEnFormulario(fila) {
+    if (!ESTADO.panel) return;
+    ESTADO.editando = fila;
+    $('[data-rc="titulo"]', ESTADO.panel).value = fila.titulo || '';
+    $('[data-rc="texto"]', ESTADO.panel).value = fila.texto || '';
+    $('[data-rc="fecha"]', ESTADO.panel).value = fila.fecha ? String(fila.fecha).slice(0, 10) : hoyISO();
+    ESTADO.stickers = Array.isArray(fila.stickers) ? fila.stickers.filter(Boolean).slice(0, 4) : [];
+    ESTADO.medios = (Array.isArray(fila.media) ? fila.media : [])
+      .filter((m) => m && m.url)
+      .slice(0, 3)
+      .map((m) => ({
+        file: null,
+        url: m.url,
+        tipo: m.tipo || 'image',
+        texto: m.texto || '',
+        previewUrl: ''
+      }));
+    pintarChips();
+    pintarSlots();
+    actualizarModoPanel();
+    pintarLista();
+    ponerEstado(`Editando "${fila.titulo || 'sin título'}".`, 'ok');
+    const cuerpo = $('.rc-body', ESTADO.panel);
+    if (cuerpo) cuerpo.scrollTop = 0;
+    const titulo = $('[data-rc="titulo"]', ESTADO.panel);
+    if (titulo) {
+      titulo.focus();
+      titulo.select();
+    }
+  }
+
+  function salirEdicion() {
+    ESTADO.editando = null;
+    limpiarFormulario();
+    pintarLista();
+    toast('Edición cancelada.');
+  }
+
+  async function moverPagina(posicion, direccion) {
+    const destino = posicion + direccion;
+    if (!conectar() || destino < 0 || destino >= ESTADO.filas.length) return;
+    const filas = [...ESTADO.filas];
+    const [fila] = filas.splice(posicion, 1);
+    filas.splice(destino, 0, fila);
+    const cambios = filas.map((f, i) => ({ id: f.id, orden: (i + 1) * 10 }));
+    ESTADO.filas = filas.map((f, i) => ({ ...f, orden: (i + 1) * 10 }));
+    pintarLista();
+    aplicarAlLibro();
+    try {
+      const resultados = await Promise.all(cambios.map((cambio) =>
+        ESTADO.sb.from(CONFIG.tabla).update({ orden: cambio.orden }).eq('id', cambio.id)));
+      const fallo = resultados.find((r) => r.error);
+      if (fallo) throw fallo.error;
+      toast('Orden guardado.');
+    } catch (error) {
+      const mensaje = error && error.message ? error.message : String(error);
+      toast(/column|schema cache/i.test(mensaje)
+        ? 'Falta la columna de orden: ejecuta el SQL nuevo del panel.'
+        : 'No se pudo guardar el nuevo orden.', 'error');
+      await cargar();
     }
   }
 
@@ -1383,23 +2399,34 @@ create policy "recuerdos_eliminar" on storage.objects
     $('[data-rc="texto"]', ESTADO.panel).value = '';
     $('[data-rc="fecha"]', ESTADO.panel).value = hoyISO();
     ESTADO.stickers = [];
-    pintarChips();
     ESTADO.medios.forEach((medio) => {
-      if (medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
-      medio.file = null;
-      medio.texto = '';
-      medio.previewUrl = null;
-      const entrada = $('input[type="file"]', medio.slot);
-      const elegir = $('.rc-slot-pick', medio.slot);
-      const preview = $('.rc-slot-preview', medio.slot);
-      const texto = $('.rc-slot-texto', medio.slot);
-      const quitar = $('.rc-slot-quitar', medio.slot);
-      if (entrada) entrada.value = '';
-      if (texto) { texto.value = ''; texto.disabled = true; }
-      if (preview) { preview.replaceChildren(); preview.hidden = true; }
-      if (elegir) elegir.hidden = false;
-      if (quitar) quitar.hidden = true;
+      if (medio && medio.previewUrl) URL.revokeObjectURL(medio.previewUrl);
     });
+    ESTADO.medios = [];
+    ESTADO.editando = null;
+    pintarChips();
+    pintarSlots();
+    actualizarModoPanel();
+    ponerEstado('', '');
+  }
+
+  function descargarRespaldo() {
+    const datos = {
+      exportado: new Date().toISOString(),
+      recuerdos: ESTADO.filas,
+      reacciones: ESTADO.reacciones,
+      ajustes: ESTADO.ajustes
+    };
+    const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const enlace = document.createElement('a');
+    enlace.href = url;
+    enlace.download = `respaldo-libro-${hoyISO()}.json`;
+    document.body.append(enlace);
+    enlace.click();
+    enlace.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 2000);
+    toast('Respaldo descargado.');
   }
 
   async function borrarRecuerdo(fila) {
@@ -1408,22 +2435,29 @@ create policy "recuerdos_eliminar" on storage.objects
     try {
       const respuesta = await ESTADO.sb.from(CONFIG.tabla).delete().eq('id', fila.id);
       if (respuesta.error) throw respuesta.error;
-      if (Array.isArray(fila.media)) {
-        const rutas = fila.media
-          .map((elemento) => {
-            const url = elemento && elemento.url ? String(elemento.url) : '';
-            const marca = `/object/public/${CONFIG.bucket}/`;
-            const posicion = url.indexOf(marca);
-            return posicion >= 0 ? decodeURIComponent(url.slice(posicion + marca.length)) : '';
-          })
-          .filter(Boolean);
-        if (rutas.length) {
-          try {
-            await ESTADO.sb.storage.from(CONFIG.bucket).remove(rutas);
-          } catch (errorArchivos) {
-            console.warn('[Supabase] No se pudieron borrar los archivos:', errorArchivos);
-          }
+
+      const rutas = [];
+      (Array.isArray(fila.media) ? fila.media : []).forEach((elemento) => {
+        const ruta = rutaDeUrl(elemento && elemento.url);
+        if (ruta) rutas.push(ruta);
+      });
+      ESTADO.reacciones
+        .filter((reaccion) => reaccion.recuerdo_id === fila.id)
+        .forEach((reaccion) => {
+          const ruta = rutaDeUrl(reaccion.audio_url);
+          if (ruta) rutas.push(ruta);
+        });
+      if (rutas.length) {
+        try {
+          await ESTADO.sb.storage.from(CONFIG.bucket).remove(rutas);
+        } catch (errorArchivos) {
+          console.warn('[Supabase] No se pudieron borrar los archivos:', errorArchivos);
         }
+      }
+
+      if (ESTADO.editando && ESTADO.editando.id === fila.id) {
+        ESTADO.editando = null;
+        limpiarFormulario();
       }
       await cargar();
       toast('Página borrada.');
