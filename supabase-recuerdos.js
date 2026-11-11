@@ -738,28 +738,31 @@ create policy "recuerdos_eliminar" on storage.objects
         text-transform: uppercase;
       }
       .dyn-media {
-        display: flex;
+        display: grid;
         width: 100%;
         height: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: center;
+        justify-items: center;
+        gap: 8px 10px;
+        padding: 2px 4px;
       }
+      .dyn-media-1 { grid-template-columns: minmax(0, 1fr); }
+      .dyn-media-1 .dyn-foto-wrap { max-width: min(68%, 40vh); }
+      .dyn-media-3 .dyn-foto-wrap:nth-child(3) { grid-column: 1 / -1; }
       .dyn-foto-wrap {
         position: relative;
         display: flex;
         width: 100%;
-        min-height: 0;
-        flex: 1;
+        max-width: min(250px, 30vh);
+        min-width: 0;
         flex-direction: column;
         gap: 3px;
       }
-      .dyn-foto-wrap .dyn-foto { flex: 1; min-height: 0; }
       .dyn-foto {
         display: flex;
         width: 100%;
-        height: 100%;
+        height: auto;
         flex-direction: column;
         align-items: center;
         gap: 3px;
@@ -777,8 +780,9 @@ create policy "recuerdos_eliminar" on storage.objects
       .dyn-foto img,
       .dyn-foto video {
         width: 100%;
-        min-height: 0;
-        flex: 1;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        flex: none;
         border: 1px solid #f0e6d8;
         object-fit: cover;
       }
@@ -1357,6 +1361,11 @@ create policy "recuerdos_eliminar" on storage.objects
         .rc-reac-item { padding: 9px 10px; }
         .rc-modo { display: none; }
         .dyn-reac-lista { gap: 1px; }
+        .dyn-media { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+        .dyn-foto-wrap, .dyn-media-1 .dyn-foto-wrap { max-width: 64%; }
+        .dyn-media-3 .dyn-foto-wrap:nth-child(3) { grid-column: auto; }
+        .dyn-foto { padding: 3px 3px 6px; }
+        .dyn-foto-pie { font-size: 10px; }
         .fechas-page { gap: 7px; padding: 4% 5% 22px; }
         .fechas-numero { font-size: clamp(44px, 16vw, 68px); }
         .fechas-item {
