@@ -772,10 +772,10 @@ create policy "recuerdos_eliminar" on storage.objects
   /* ------------------------- páginas del libro -------------------------- */
 
   const POSICIONES_STICKER = [
-    { left: '-1%', top: '-1%', giro: -11 },
-    { right: '-1%', top: '-1%', giro: 10 },
-    { left: '-1%', bottom: '-1%', giro: 7 },
-    { right: '-1%', bottom: '-1%', giro: -8 }
+    { left: '1%', top: '1%', giro: -11 },
+    { right: '1%', top: '1%', giro: 10 },
+    { left: '1%', bottom: '1%', giro: 7 },
+    { right: '1%', bottom: '1%', giro: -8 }
   ];
 
   function pegarStickersDinamicos(hoja, nombres, posiciones) {
