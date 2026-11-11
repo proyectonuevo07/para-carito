@@ -551,10 +551,14 @@ create policy "recuerdos_eliminar" on storage.objects
       .dyn-titulo { transform: rotate(-1.4deg); }
       .dyn-texto {
         max-width: 96%;
+        max-height: 60%;
         margin: 4px auto;
+        overflow-y: auto;
         font-size: clamp(15px, 2vw, 21px);
         line-height: 1.32;
+        overscroll-behavior: contain;
         white-space: pre-wrap;
+        -webkit-overflow-scrolling: touch;
       }
       .dyn-fecha {
         position: absolute;
@@ -656,6 +660,7 @@ create policy "recuerdos_eliminar" on storage.objects
       }
 
       @media (max-width: 560px) {
+        .rc-admin-btn { right: 12px; bottom: 96px; }
         .rc-overlay { padding: 8px; }
         .rc-panel { max-height: 94vh; border-radius: 20px; }
         .rc-body { padding: 14px 16px; }
@@ -850,7 +855,11 @@ create policy "recuerdos_eliminar" on storage.objects
     pagina.append(crear('div', 'page-title dyn-titulo', recuerdo.titulo || 'Nuestro recuerdo'));
 
     if (recuerdo.texto) {
-      pagina.append(crear('div', 'scrap-text dyn-texto', recuerdo.texto));
+      const texto = crear('div', 'scrap-text dyn-texto', String(recuerdo.texto));
+      const largo = String(recuerdo.texto).length;
+      if (largo > 700) texto.style.fontSize = 'clamp(11px, 1.35vw, 15px)';
+      else if (largo > 340) texto.style.fontSize = 'clamp(13px, 1.65vw, 18px)';
+      pagina.append(texto);
     }
 
     const fecha = formatearFecha(recuerdo.fecha);
@@ -1263,7 +1272,7 @@ create policy "recuerdos_eliminar" on storage.objects
   }
 
   async function comprimirImagen(archivo) {
-    if (!archivo.type.startsWith('image/') || /gif|svg|heic|heif/i.test(archivo.type)) return archivo;
+    if (!archivo.type.startsWith('image/') || /gif|svg/i.test(archivo.type)) return archivo;
     let url = '';
     try {
       url = URL.createObjectURL(archivo);
