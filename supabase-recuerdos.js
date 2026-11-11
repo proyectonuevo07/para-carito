@@ -20,6 +20,8 @@
     bucket: 'recuerdos',
     // SHA-256 de la contraseña. Contraseña actual: carito2026
     claveHash: '5171260abd965c8837b2d6fb79c092a4d055aa612e74014ae878cd7855fd61a7',
+    // Respaldo por si el navegador no tiene crypto.subtle (por ejemplo al abrir el archivo sin https).
+    claveSimple: 'simple:1731126610',
     maxArchivoMB: 40,
     firma: 'Carito',
     maxAudioSeg: 30
@@ -2391,7 +2393,7 @@ create policy "recuerdos_eliminar" on storage.objects
         </div>
         <div class="rc-body">
           <p class="rc-hint">Escribe la contraseña para agregar fotos y páginas nuevas al libro.</p>
-          <input class="rc-input" type="password" data-rc="pass-input" autocomplete="current-password" placeholder="Contraseña">
+          <input class="rc-input" type="password" data-rc="pass-input" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Contraseña">
           <p class="rc-error" data-rc="pass-error" hidden>Contraseña incorrecta. Inténtalo otra vez.</p>
         </div>
         <div class="rc-foot">
@@ -2412,9 +2414,13 @@ create policy "recuerdos_eliminar" on storage.objects
       const valor = input.value.trim();
       if (!valor) { input.focus(); return; }
       entrar.disabled = true;
+      // Aceptamos mayúsculas/minúsculas: en el celular el teclado suele poner la primera en mayúscula.
       const hash = await sha256(valor);
+      const hashMin = hash === CONFIG.claveHash ? hash : await sha256(valor.toLowerCase());
       entrar.disabled = false;
-      if (hash === CONFIG.claveHash) {
+      const bien = hash === CONFIG.claveHash || hashMin === CONFIG.claveHash ||
+        hash === CONFIG.claveSimple || hashMin === CONFIG.claveSimple;
+      if (bien) {
         sessionStorage.setItem('rc-admin', '1');
         error.hidden = true;
         input.value = '';
