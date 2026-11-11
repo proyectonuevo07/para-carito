@@ -383,35 +383,51 @@
     .prop-pearl.p3 { left: 31%; bottom: 5.4%; }
     .prop-pearl.p4 { left: 18%; bottom: 2.2%; }
 
-    /* --- El libro --- */
-    .portada-box {
+    /* --- El libro (carátula con imagen) --- */
+    .portada-conjunto {
       position: relative;
       z-index: 1;
-      width: min(500px, 86vw, 64dvh);
-      aspect-ratio: 3 / 4;
-      border-radius: 5px 8px 8px 5px;
-      transform: rotate(-1.2deg);
-      container-type: inline-size;
-      background:
-        radial-gradient(120% 80% at 18% 8%, rgba(255, 226, 210, 0.1), transparent 55%),
-        radial-gradient(140% 100% at 85% 92%, rgba(0, 0, 0, 0.42), transparent 62%),
-        url('https://www.transparenttextures.com/patterns/black-felt.png'),
-        linear-gradient(148deg, #6d2732 0%, #5a212b 42%, #451a22 100%);
-      background-color: #57202a;
-      box-shadow:
-        0 34px 55px rgba(70, 35, 10, 0.5),
-        -8px 14px 28px rgba(70, 35, 10, 0.35),
-        inset 0 0 0 1px rgba(255, 214, 190, 0.12),
-        inset 0 0 60px rgba(0, 0, 0, 0.45);
+      display: flex;
+      max-height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 2.6vh, 26px);
     }
 
-    .portada-box::before {
-      content: '';
-      position: absolute;
-      inset: 3.4% 3.4% 3.4% 16.5%;
-      border: 1px solid rgba(255, 222, 205, 0.1);
-      border-radius: 3px;
-      pointer-events: none;
+    .portada-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: none;
+      box-shadow: none;
+    }
+
+    .portada-cover {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: min(84vw, 430px);
+      max-height: min(68dvh, 640px);
+      transform: rotate(-1.2deg);
+      filter:
+        drop-shadow(0 24px 32px rgba(60, 31, 9, 0.55))
+        drop-shadow(0 6px 10px rgba(60, 31, 9, 0.35));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .portada-dedicatoria {
+      margin: 0;
+      color: #fdf3e2;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(18px, 4.8vw, 25px);
+      font-weight: 700;
+      letter-spacing: 0.015em;
+      text-align: center;
+      text-shadow: 0 2px 7px rgba(72, 36, 10, 0.6), 0 1px 0 rgba(255, 240, 220, 0.18);
     }
 
     .book-spine {
@@ -597,30 +613,31 @@
     #open-book-btn {
       position: relative;
       z-index: 3;
-      left: -8.6%;
-      margin-top: clamp(15px, 4vw, 30px);
-      padding: clamp(10px, 2.2vw, 13px) clamp(34px, 10vw, 52px);
-      border: 1.5px solid rgba(250, 240, 226, 0.8);
+      margin-top: 0;
+      padding: clamp(11px, 2.4vw, 14px) clamp(30px, 8vw, 46px);
+      border: 1.5px solid rgba(122, 34, 49, 0.32);
       border-radius: 999px;
-      background: rgba(250, 240, 226, 0.1);
-      color: #f6eee3;
+      background: #fdf5e6;
+      color: #7a2231;
       white-space: nowrap;
       font-family: 'Cinzel', Georgia, serif;
       font-size: clamp(12px, 2.5vw, 15px);
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 3px 8px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        0 10px 20px rgba(78, 42, 12, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
       transition: background-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
 
     #open-book-btn:hover,
     #open-book-btn:focus-visible {
-      border-color: #f6ecdd;
-      background: #f6ecdd;
-      color: #571f29;
+      border-color: #7a2231;
+      background: #fffdf7;
+      color: #5d1622;
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 22px rgba(78, 42, 12, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.9);
     }
 
     @media (max-width: 640px) {
@@ -6229,36 +6246,17 @@ guías
       <span class="prop prop-pearl p4"></span>
     </div>
 
-    <div class="portada-box">
-      <span class="book-spine" aria-hidden="true"></span>
-      <span class="book-ribbon" aria-hidden="true"></span>
-      <span class="book-seam" aria-hidden="true"></span>
-      <span class="book-oval" aria-hidden="true"></span>
+    <div class="portada-conjunto">
+      <div class="portada-box">
+        <picture>
+          <source srcset="portada-libro.webp?v=1" type="image/webp">
+          <img class="portada-cover" src="portada-libro.png?v=1" alt="Nuestro libro de aventuras, con un corazón de papel" draggable="false">
+        </picture>
+      </div>
 
-      <div class="book-inner">
-      <h1 class="book-title" aria-label="Nuestro libro de aventuras">
-        <span class="linea" aria-hidden="true">
-          <span class="f1 k1">N</span><span class="f2 k2">U</span><span class="f1 k3">E</span><span class="f3 k4">S</span><span class="f4 k3">T</span><span class="f5 k5">R</span><span class="f2 k1">O</span>
-        </span>
-        <span class="linea" aria-hidden="true">
-          <span class="f1 k5">L</span><span class="f4 k2">I</span><span class="f3 k4">B</span><span class="f1 k3">R</span><span class="f2 k5">O</span><span class="hueco" style="transform:none"></span><span class="f3 k3">D</span><span class="f1 k5">E</span>
-        </span>
-        <span class="linea" aria-hidden="true">
-          <span class="f3 k5">A</span><span class="f4 k4">V</span><span class="f1 k3">E</span><span class="f2 k2">N</span><span class="f3 k5">T</span><span class="f1 k4">U</span><span class="f2 k3">R</span><span class="f4 k2">A</span><span class="f1 k5">S</span>
-        </span>
-      </h1>
+      <p class="portada-dedicatoria">Para Carito, de José Ángel</p>
 
       <button class="portada-btn" id="open-book-btn" type="button">Abrir libro ♥</button>
-
-      <div class="book-dedicatoria" aria-label="Para Carito, de José Ángel">
-        <span class="linea" aria-hidden="true">
-          <span class="f3 k5">P</span><span class="f1 k1">A</span><span class="f4 k4">R</span><span class="f2 k3">A</span><span class="f5 k5">:</span><span class="hueco" style="transform:none"></span><span class="f1 k1">C</span><span class="f2 k2">A</span><span class="f3 k4">R</span><span class="f4 k5">I</span><span class="f1 k3">T</span><span class="f2 k1">O</span>
-        </span>
-        <span class="linea" aria-hidden="true">
-          <span class="f3 k5">D</span><span class="f1 k1">E</span><span class="f5 k5">:</span><span class="hueco" style="transform:none"></span><span class="f2 k3">J</span><span class="f1 k1">O</span><span class="f3 k2">S</span><span class="f4 k4">É</span><span class="hueco" style="transform:none"></span><span class="f1 k5">Á</span><span class="f2 k1">N</span><span class="f3 k3">G</span><span class="f4 k2">E</span><span class="f1 k4">L</span>
-        </span>
-      </div>
-      </div>
     </div>
   </main>
 
