@@ -8202,6 +8202,8 @@ const capitulos = [
           makeRazonesSpread(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else if (spread.type === 'actividades') {
           makeActividadesSpread(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
+        } else if (spread.type === 'dinamico' && typeof pintarSpreadDinamico === 'function') {
+          pintarSpreadDinamico(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else {
           const capitulo = spread.chapter || { num: 1, title: '' };
           const kicker = `Capítulo ${String(capitulo.num).padStart(2, '0')} · ${capitulo.title}`;
@@ -9632,7 +9634,9 @@ const capitulos = [
 
     initReproductor();
     buildAlbum();
-
+    
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-recuerdos.js"></script>
 </body>
 </html>
