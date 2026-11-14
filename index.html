@@ -5725,6 +5725,97 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ===== Juego de años: la foto va en la hoja izquierda y las respuestas en la derecha ===== */
+    .hoja-actividad-respuestas {
+      background:
+        radial-gradient(95% 75% at 84% 4%, rgba(255, 255, 255, 0.9), transparent 58%),
+        radial-gradient(90% 90% at 12% 100%, rgba(161, 199, 190, 0.16), transparent 62%),
+        repeating-linear-gradient(0deg, rgba(123, 146, 168, 0.035) 0 1px, transparent 1px 30px),
+        url('https://www.transparenttextures.com/patterns/paper-fibers.png'),
+        linear-gradient(155deg, #fdf8ef 0%, #f4f1e7 56%, #e8f0eb 100%);
+      background-color: #f4f1e7;
+    }
+
+    .respuestas-contenido {
+      gap: clamp(6px, 1.5vh, 14px);
+      padding: 0 6px;
+    }
+
+    .respuestas-titulo {
+      margin-bottom: 2px;
+    }
+
+    .respuestas-estado {
+      min-height: 1.3em;
+      margin: 0;
+      color: #8b5b3b;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(17px, 2.1vw, 24px);
+      line-height: 1.1;
+    }
+
+    .quiz-opciones-grandes {
+      max-width: min(80%, 260px);
+      gap: clamp(7px, 1.5vh, 13px);
+    }
+
+    .quiz-opciones-grandes .quiz-opcion {
+      padding: clamp(8px, 1.8vh, 14px) 8px;
+      border-radius: 6px;
+      font-size: clamp(14px, 1.9vw, 20px);
+    }
+
+    .quiz-pista {
+      color: rgba(139, 91, 59, 0.72);
+      font-size: clamp(13px, 1.5vw, 16px);
+    }
+
+    .hoja.muestra .quiz-foto-wrap .polaroid-item {
+      width: min(78%, 250px);
+    }
+
+    .hoja.muestra .quiz-foto-wrap .polaroid-item img {
+      height: clamp(150px, 34vh, 250px);
+    }
+
+    @media (max-width: 768px) {
+      .hoja.muestra .quiz-foto-wrap .polaroid-item {
+        width: min(74%, 200px);
+      }
+
+      .hoja.muestra .quiz-foto-wrap .polaroid-item img {
+        height: clamp(112px, 25vh, 175px);
+      }
+
+      .quiz-opciones-grandes { max-width: min(88%, 220px); gap: 6px; }
+
+      .quiz-opciones-grandes .quiz-opcion {
+        padding: 7px 6px;
+        font-size: 14px;
+      }
+
+      .respuestas-estado { font-size: 18px; }
+    }
+
+    @media (max-height: 500px) {
+      .hoja.muestra .quiz-foto-wrap .polaroid-item {
+        width: min(64%, 150px);
+      }
+
+      .hoja.muestra .quiz-foto-wrap .polaroid-item img {
+        height: clamp(78px, 18vh, 110px);
+      }
+
+      .quiz-opciones-grandes { gap: 4px; }
+
+      .quiz-opciones-grandes .quiz-opcion {
+        padding: 4px 5px;
+        font-size: 11px;
+      }
+
+      .respuestas-estado { font-size: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -7565,18 +7656,35 @@ const capitulos = [
       fotoQuiz.className = 'quiz-foto-wrap';
       fotoQuiz.id = 'quiz-foto';
 
-      const opcionesQuiz = document.createElement('div');
-      opcionesQuiz.className = 'quiz-opciones';
-      opcionesQuiz.id = 'quiz-opciones';
+      contenidoQuiz.append(fotoQuiz);
+      contenidoQuiz.append(crearTextoActividad('actividad-sub quiz-pista', 'Elige el año en la página de al lado →', 'p'));
 
-      const pieQuiz = document.createElement('div');
-      pieQuiz.className = 'quiz-pie';
-      const marcador = crearTextoActividad('', 'Pregunta 1 de 5');
+      left.append(contenidoQuiz);
+      left.append(makeWashi('washi-actividad-izq'));
+      left.append(makeDoodle('heart', 'doodle-actividad-izq'));
+      left.append(makePageCurl());
+      left.append(makePageNumber(pageLeft));
+      left.append(makeChapterTab(cap));
+
+      const right = document.createElement('div');
+      right.className = 'hoja der muestra hoja-actividad hoja-actividad-respuestas';
+      right.dataset.cap = String(cap);
+
+      const contenidoRespuestas = document.createElement('div');
+      contenidoRespuestas.className = 'actividad-contenido respuestas-contenido';
+
+      const marcador = crearTextoActividad('actividad-kicker', 'Pregunta 1 de 5');
       marcador.id = 'quiz-marcador';
-      const estado = crearTextoActividad('', 'Elige un año.');
+
+      const tituloRespuestas = crearTextoActividad('actividad-titulo respuestas-titulo', '¿En qué año fue?', 'h3');
+
+      const estado = crearTextoActividad('respuestas-estado', 'Elige un año.', 'p');
       estado.id = 'quiz-estado';
       estado.setAttribute('aria-live', 'polite');
-      pieQuiz.append(marcador, estado);
+
+      const opcionesQuiz = document.createElement('div');
+      opcionesQuiz.className = 'quiz-opciones quiz-opciones-grandes';
+      opcionesQuiz.id = 'quiz-opciones';
 
       const reiniciar = document.createElement('button');
       reiniciar.className = 'actividad-btn';
@@ -7586,60 +7694,8 @@ const capitulos = [
       reiniciar.hidden = true;
       reiniciar.addEventListener('click', iniciarQuiz);
 
-      contenidoQuiz.append(fotoQuiz, opcionesQuiz, pieQuiz, reiniciar);
-      left.append(contenidoQuiz);
-      left.append(makeWashi('washi-actividad-izq'));
-      left.append(makeDoodle('heart', 'doodle-actividad-izq'));
-      left.append(makePageCurl());
-      left.append(makePageNumber(pageLeft));
-      left.append(makeChapterTab(cap));
-
-      const right = document.createElement('div');
-      right.className = 'hoja der muestra hoja-actividad hoja-actividad-frasco';
-      right.dataset.cap = String(cap);
-
-      const contenidoFrasco = document.createElement('div');
-      contenidoFrasco.className = 'actividad-contenido frasco-contenido';
-      contenidoFrasco.append(
-        crearTextoActividad('actividad-kicker', 'Un recuerdo al azar'),
-        crearTextoActividad('actividad-titulo', 'Frasco de recuerdos', 'h3'),
-        crearTextoActividad('actividad-sub', 'Toca el frasco y saca un momento.', 'p')
-      );
-
-      const frascoBoton = document.createElement('button');
-      frascoBoton.className = 'frasco-boton';
-      frascoBoton.type = 'button';
-      frascoBoton.id = 'frasco-sacar';
-      frascoBoton.setAttribute('aria-label', 'Sacar un recuerdo al azar del frasco');
-
-      const frasco = document.createElement('span');
-      frasco.className = 'frasco';
-      frasco.setAttribute('aria-hidden', 'true');
-      frasco.innerHTML = `
-        <span class="frasco-tapa"></span>
-        <span class="frasco-cuerpo">
-          <span class="frasco-brillo"></span>
-          <span class="frasco-papel p1"></span>
-          <span class="frasco-papel p2"></span>
-          <span class="frasco-papel p3"></span>
-          <span class="frasco-papel p4"></span>
-          <span class="frasco-etiqueta">Recuerdos</span>
-        </span>
-        <span class="frasco-sombra"></span>
-      `;
-      const frascoCta = crearTextoActividad('frasco-cta', 'Sacar un recuerdo');
-      frascoBoton.append(frasco, frascoCta);
-      frascoBoton.addEventListener('click', sacarRecuerdoFrasco);
-
-      const frascoRecuerdo = document.createElement('div');
-      frascoRecuerdo.className = 'frasco-recuerdo';
-      frascoRecuerdo.id = 'frasco-recuerdo';
-      frascoRecuerdo.setAttribute('aria-live', 'polite');
-      const vacio = crearTextoActividad('frasco-vacio', 'Toca el frasco para empezar.', 'p');
-      frascoRecuerdo.append(vacio);
-
-      contenidoFrasco.append(frascoBoton, frascoRecuerdo);
-      right.append(contenidoFrasco);
+      contenidoRespuestas.append(marcador, tituloRespuestas, estado, opcionesQuiz, reiniciar);
+      right.append(contenidoRespuestas);
       right.append(makeWashi('washi-actividad-der'));
       right.append(makeDoodle('star', 'doodle-actividad-der'));
       right.append(makePageCurl());
@@ -8251,6 +8307,15 @@ const capitulos = [
       if (stage.children[1]) loadSpreadImages(stage.children[1]);
       precargarAdelante();
       updateNav();
+      iniciarQuizSiHaceFalta();
+    }
+
+    // Si el álbum se vuelve a pintar (por ejemplo al cargar los recuerdos de
+    // Supabase), el juego de años se queda sin foto ni opciones. Lo reiniciamos.
+    function iniciarQuizSiHaceFalta() {
+      const foto = document.getElementById('quiz-foto');
+      if (!foto || foto.children.length) return;
+      if (typeof iniciarQuiz === 'function') iniciarQuiz();
     }
 
     function precargarAdelante() {
@@ -9410,6 +9475,7 @@ const capitulos = [
       loadSpreadImages(stage.querySelector('.spread.on'));
       if (stage.children[idx + 1]) loadSpreadImages(stage.children[idx + 1]);
       updateNav();
+      iniciarQuizSiHaceFalta();
 
       const activo = stage.querySelector('.spread.on');
       if (activo) {
