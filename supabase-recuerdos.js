@@ -1460,6 +1460,7 @@ create policy "recuerdos_eliminar" on storage.objects
 
   function aplicarAlLibro() {
     try {
+      prepararFotosJuego();
       if (typeof albumSpreads === 'undefined' || !Array.isArray(albumSpreads)) return;
       const base = albumSpreads.filter((spread) => spread.type !== 'dinamico' && spread.type !== 'fechas');
       const conFechas = [{ type: 'fechas' }, ...base];
@@ -2033,6 +2034,56 @@ create policy "recuerdos_eliminar" on storage.objects
 
   window.pintarSpreadDinamico = pintarSpreadDinamico;
   window.recargarRecuerdosSupabase = cargar;
+
+  /* ------------------------ juego: fotos y progreso ---------------------- */
+
+  // Las fotos publicadas desde el panel también entran al juego.
+  function prepararFotosJuego() {
+    try {
+      window.recuerdosDinamicosJuego = ESTADO.filas.map((fila) => {
+        const media = Array.isArray(fila.media) ? fila.media.filter((m) => m && m.url) : [];
+        const foto = media.find((m) => !/\.(mp4|mov|webm|m4v|ogv)$/i.test(m.url || ''));
+        if (!foto) return null;
+        return {
+          src: foto.url,
+          archivo: foto.url,
+          fecha: fila.fecha || '',
+          type: 'image',
+          note: fila.texto || fila.titulo || '',
+          number: 0
+        };
+      }).filter(Boolean);
+    } catch (error) {
+      window.recuerdosDinamicosJuego = [];
+    }
+  }
+
+  window.juegoLeerNube = async function (clave) {
+    try {
+      if (!conectar()) return null;
+      const respuesta = await ESTADO.sb
+        .from(CONFIG.tablaAjustes)
+        .select('valor')
+        .eq('clave', clave)
+        .maybeSingle();
+      if (respuesta.error) return null;
+      return respuesta.data ? respuesta.data.valor : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  window.juegoGuardarNube = async function (clave, valor) {
+    try {
+      if (!conectar()) return false;
+      const respuesta = await ESTADO.sb
+        .from(CONFIG.tablaAjustes)
+        .upsert({ clave: clave, valor: valor }, { onConflict: 'clave' });
+      return !respuesta.error;
+    } catch (error) {
+      return false;
+    }
+  };
 
   /* ---------------------------- reacciones ------------------------------ */
 
