@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -383,7 +383,7 @@
     .prop-pearl.p3 { left: 31%; bottom: 5.4%; }
     .prop-pearl.p4 { left: 18%; bottom: 2.2%; }
 
-    /* --- El libro (carÃ¡tula con imagen) --- */
+    /* --- El libro (carátula con imagen) --- */
     .portada-conjunto {
       position: relative;
       z-index: 1;
@@ -800,7 +800,7 @@
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
     }
 
-    /* Las sombras de la hoja no se ven dentro del giro (estÃ¡n recortadas). */
+    /* Las sombras de la hoja no se ven dentro del giro (están recortadas). */
     .flip-cara > .hoja {
       box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
     }
@@ -1345,7 +1345,7 @@
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* ===== La lista que te escribÃ­ ===== */
+    /* ===== La lista que te escribí ===== */
     body.razones-abierto { overflow: hidden; }
 
     .hoja.muestra.hoja-razones {
@@ -1929,7 +1929,7 @@
       .razones-close { top: 2px; right: 6px; width: 34px; height: 34px; font-size: 28px; }
     }
 
-    /* ===== Reproductor de mÃºsica (liquid glass) ===== */
+    /* ===== Reproductor de música (liquid glass) ===== */
     #music-player,
     .mini-player,
     .music-orb {
@@ -3112,7 +3112,7 @@
       .music-orb-text, .music-orb-bars { display: none; }
       .music-orb-vinyl { width: 52px; height: 52px; }
 
-      /* Sin desenfoque en el mÃ³vil: el blur encima del libro cuesta frames. */
+      /* Sin desenfoque en el móvil: el blur encima del libro cuesta frames. */
       .music-orb {
         background: rgba(48, 16, 30, 0.88);
         -webkit-backdrop-filter: none;
@@ -3211,7 +3211,7 @@
         padding: calc(56px + env(safe-area-inset-top, 0px)) 6px max(6px, env(safe-area-inset-bottom));
       }
 
-      /* Dos pÃ¡ginas lado a lado, como el libro real, tambiÃ©n en vertical. */
+      /* Dos páginas lado a lado, como el libro real, también en vertical. */
       .libro-stage {
         height: min(650px, calc(100dvh - 110px), 172vw);
       }
@@ -3242,7 +3242,7 @@
           inset -12px 0 22px -24px rgba(70, 35, 10, 0.34);
       }
 
-      /* El giro tambiÃ©n es horizontal: la hoja pasa de derecha a izquierda. */
+      /* El giro también es horizontal: la hoja pasa de derecha a izquierda. */
       .flip-leaf.adelante,
       .flip-leaf.atras {
         width: 50%;
@@ -3359,7 +3359,7 @@
     }
 
     /* ============================================================
-       MUESTRA DE DECORACIÃ“N â€” CapÃ­tulo 1 + primer spread
+       MUESTRA DE DECORACIÓN — Capítulo 1 + primer spread
        Solo afecta a las hojas con la clase .muestra.
        No toca la portada, las fotos ni el orden.
        ============================================================ */
@@ -3611,7 +3611,7 @@
       opacity: 1;
     }
 
-    /* --- Separador del capÃ­tulo --- */
+    /* --- Separador del capítulo --- */
     .chapter-art {
       position: relative;
       z-index: 3;
@@ -3665,7 +3665,7 @@
     }
 
     .chapter-rule::after {
-      content: 'â™¥';
+      content: '♥';
       position: absolute;
       top: 50%;
       left: 50%;
@@ -4100,7 +4100,7 @@
       transform: rotate(8deg);
     }
 
-    /* --- Stickers recortados de las sÃ¡banas nuevas de Snoopy --- */
+    /* --- Stickers recortados de las sábanas nuevas de Snoopy --- */
     .snoopy-sticker-nuevo {
       position: absolute;
       z-index: 8;
@@ -4151,7 +4151,7 @@
       width: 64px;
     }
 
-    /* Stickers extra: solo en mÃ³vil, en la esquina inferior libre de cada hoja */
+    /* Stickers extra: solo en móvil, en la esquina inferior libre de cada hoja */
     .snoopy-extra-izq,
     .snoopy-extra-der {
       display: none;
@@ -4592,7 +4592,7 @@
         max-height: 58px;
       }
 
-      /* Dos Snoopys mÃ¡s por hoja, abajo y sin tapar fotos ni botones */
+      /* Dos Snoopys más por hoja, abajo y sin tapar fotos ni botones */
       .hoja-collage .snoopy-extra-izq,
       .hoja-collage .snoopy-extra-der {
         display: block;
@@ -4627,7 +4627,7 @@
       .hoja-capitulo .wax-seal::before { inset: 4px; }
     }
 
-    /* --- MÃ³vil horizontal / ventanas bajas: mantener el libro legible --- */
+    /* --- Móvil horizontal / ventanas bajas: mantener el libro legible --- */
     @media (max-height: 500px) {
       .hoja.muestra { padding: 12px 16px; }
 
@@ -4755,7 +4755,7 @@
       }
     }
 
-    /* ===== PÃ¡gina de actividades: juego de aÃ±os + frasco ===== */
+    /* ===== Página de actividades: juego de años + frasco ===== */
     .hoja-actividad {
       justify-content: stretch;
     }
@@ -5394,15 +5394,15 @@
       outline-offset: 2px;
     }
 
-    /* El sello de la esquina estorba cuando la carta estÃ¡ abierta */
+    /* El sello de la esquina estorba cuando la carta está abierta */
     .sello-final { transition: opacity 0.3s ease; }
 
     .hoja.carta-abierta .sello-final { opacity: 0; }
 
-    /* Respaldo por si :has() no aplica: ocultar el sello mientras la carta estÃ¡ abierta */
+    /* Respaldo por si :has() no aplica: ocultar el sello mientras la carta está abierta */
     .hoja:has(.sobre-final.abierta) .sello-final { opacity: 0; }
 
-    /* En mÃ³vil la carta ocupa casi toda la hoja: el botÃ³n va a su esquina. */
+    /* En móvil la carta ocupa casi toda la hoja: el botón va a su esquina. */
     @media (max-width: 768px) {
       .carta-cerrar {
         top: 1.1%;
@@ -5453,7 +5453,7 @@
       .sobre-hint { font-size: 7px; }
     }
 
-    /* MÃ³viles con poca altura: la actividad y el frasco necesitan respirar. */
+    /* Móviles con poca altura: la actividad y el frasco necesitan respirar. */
     @media (max-width: 768px) and (max-height: 820px) {
       .hoja-actividad { padding: 10px 12px 14px; }
 
@@ -5583,7 +5583,7 @@
       .sobre-sello { width: 34px; font-size: 7px; }
     }
 
-    /* Ajustes de retrato en telÃ©fonos: carta, sobre, quiz y frasco. */
+    /* Ajustes de retrato en teléfonos: carta, sobre, quiz y frasco. */
     @media (max-width: 768px) and (min-height: 501px) {
       .hoja-final-texto .page-container-3 { width: 100%; }
 
@@ -5642,7 +5642,7 @@
       .navbar { margin-top: auto; }
     }
 
-    /* Pantallas muy pequeÃ±as (iPhone SE y similares). */
+    /* Pantallas muy pequeñas (iPhone SE y similares). */
     @media (max-width: 360px) and (max-height: 620px) {
       #back-to-cover {
         top: 4px;
@@ -5726,7 +5726,7 @@
       }
     }
 
-    /* ===== Juego de aÃ±os: la foto va en la hoja izquierda y las respuestas en la derecha ===== */
+    /* ===== Juego de años: la foto va en la hoja izquierda y las respuestas en la derecha ===== */
     .hoja-actividad-respuestas {
       background:
         radial-gradient(95% 75% at 84% 4%, rgba(255, 255, 255, 0.9), transparent 58%),
@@ -6163,7 +6163,7 @@
 
     .tienda-vacio-emoji { font-size: clamp(20px, 3vw, 34px); opacity: 0.32; line-height: 1; }
 
-    /* El doodle del corazÃ³n se monta sobre la lista; en la tienda estorba. */
+    /* El doodle del corazón se monta sobre la lista; en la tienda estorba. */
     .hoja-tienda .doodle-actividad-izq { display: none; }
 
     .tienda-sobres { display: flex; flex-wrap: wrap; gap: 4px; min-height: 18px; }
@@ -6760,25 +6760,25 @@
   <div class="bg-floating-hearts" id="hearts-container" aria-hidden="true"></div>
 
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Recuerdo ampliado">
-    <button class="close-lightbox" id="close-lightbox" type="button" aria-label="Cerrar recuerdo">Ã—</button>
+    <button class="close-lightbox" id="close-lightbox" type="button" aria-label="Cerrar recuerdo">×</button>
     <div id="lightbox-content"></div>
   </div>
 
   <div id="razones-modal" role="dialog" aria-modal="true" aria-labelledby="razones-title" aria-hidden="true">
     <div class="razones-panel" role="document">
-      <button class="razones-close" id="cerrar-razones" type="button" aria-label="Cerrar la lista">Ã—</button>
+      <button class="razones-close" id="cerrar-razones" type="button" aria-label="Cerrar la lista">×</button>
       <header class="razones-head">
         <span class="razones-kicker" id="razones-kicker">La lista original</span>
         <h2 class="razones-title" id="razones-title">100 razones por las que te amo</h2>
-        <p class="razones-sub" id="razones-sub">La escribÃ­ cuando Ã©ramos nosotros. No le cambiÃ© las palabras.</p>
+        <p class="razones-sub" id="razones-sub">La escribí cuando éramos nosotros. No le cambié las palabras.</p>
         <div class="razones-tabs" role="tablist" aria-label="Las dos listas">
-          <button class="razones-tab is-active" id="tab-razones-mias" type="button" role="tab" aria-selected="true" aria-controls="razones-scroll" data-tab="mias">Las que te escribÃ­</button>
+          <button class="razones-tab is-active" id="tab-razones-mias" type="button" role="tab" aria-selected="true" aria-controls="razones-scroll" data-tab="mias">Las que te escribí</button>
           <button class="razones-tab" id="tab-razones-tuyas" type="button" role="tab" aria-selected="false" aria-controls="razones-scroll" data-tab="tuyas" tabindex="-1">Las que me escribiste</button>
         </div>
       </header>
       <div class="razones-scroll" id="razones-scroll" tabindex="0" role="tabpanel" aria-labelledby="tab-razones-mias">
         <ol class="razones-lista" id="razones-lista"></ol>
-        <p class="razones-te-amo" id="razones-te-amo">TE AMOO ðŸ«¶ðŸ»</p>
+        <p class="razones-te-amo" id="razones-te-amo">TE AMOO 🫶🏻</p>
       </div>
       <footer class="razones-pie">
         <p id="razones-pie-texto">No es para pedirte nada: es para que sepas que fue verdad.</p>
@@ -6786,107 +6786,107 @@
     </div>
   </div>
 
-  <script type="text/plain" id="razones-originales">1. Por esos **ojos bonitos** que me pierdo en ellos cada dÃ­a.ðŸ˜»
-2. Por tu **cabello**, que siempre huele y se ve perfecto.ðŸ¥´
-3. Por tu sonrisa, que ilumina hasta el dÃ­a mÃ¡s gris.  ðŸ˜¸
-4. Por tu estatura (1.58 cm), porque eres perfecta para abrazar.  ðŸ«‚
-5. Por cÃ³mo me haces reÃ­r sin necesidad de palabras.  ðŸ˜Š
-6. Por tu personalidad **increÃ­ble**, que atrae a todos.  ðŸ¤—
-7. Por tu manera de escucharme como nadie mÃ¡s lo hace.  ðŸ™ðŸ»
-8. Por los detalles pequeÃ±os que solo tÃº notas.  ðŸ¤“
-9. Por tu valentÃ­a, incluso en los momentos difÃ­ciles.  ðŸ«¡
-10. Porque eres mi mayor apoyo.  ðŸ‘‰ðŸ»ðŸ‘ˆðŸ»
-11. Por cÃ³mo te emocionas con las cosas simples.  âœðŸ»
-12. Por tu voz, que calma mi alma.  ðŸ—£ï¸ðŸ¤Ž
-13. Por tu honestidad, incluso cuando duele. ðŸŒŸ
-14. Porque me aceptas con mis defectos.  ðŸ™Š
-15. Por tus metas y cÃ³mo luchas por ellas.  ðŸ˜¼
-16. Por tus silencios cÃ³mplices que lo dicen todo.  ðŸ‘€
-17. Por cÃ³mo me cuidas cuando estoy enfermo.ðŸ¦ ðŸ‘¥
-18. Por tu creatividad y cÃ³mo ves el mundo.  ðŸ§ âœ¨
-19. Porque eres Ãºnica en este mundo.  ðŸŒŽðŸ˜»
-20. Por tu generosidad sin esperar nada a cambioðŸ˜Œ.
-21. Porque me haces sentir el hombre mÃ¡s afortunado.  ðŸ«¶ðŸ»
+  <script type="text/plain" id="razones-originales">1. Por esos **ojos bonitos** que me pierdo en ellos cada día.😻
+2. Por tu **cabello**, que siempre huele y se ve perfecto.🥴
+3. Por tu sonrisa, que ilumina hasta el día más gris.  😸
+4. Por tu estatura (1.58 cm), porque eres perfecta para abrazar.  🫂
+5. Por cómo me haces reír sin necesidad de palabras.  😊
+6. Por tu personalidad **increíble**, que atrae a todos.  🤗
+7. Por tu manera de escucharme como nadie más lo hace.  🙏🏻
+8. Por los detalles pequeños que solo tú notas.  🤓
+9. Por tu valentía, incluso en los momentos difíciles.  🫡
+10. Porque eres mi mayor apoyo.  👉🏻👈🏻
+11. Por cómo te emocionas con las cosas simples.  ✍🏻
+12. Por tu voz, que calma mi alma.  🗣️🤎
+13. Por tu honestidad, incluso cuando duele. 🌟
+14. Porque me aceptas con mis defectos.  🙊
+15. Por tus metas y cómo luchas por ellas.  😼
+16. Por tus silencios cómplices que lo dicen todo.  👀
+17. Por cómo me cuidas cuando estoy enfermo.🦠👥
+18. Por tu creatividad y cómo ves el mundo.  🧠✨
+19. Porque eres única en este mundo.  🌎😻
+20. Por tu generosidad sin esperar nada a cambio😌.
+21. Porque me haces sentir el hombre más afortunado.  🫶🏻
 22. Por tu amor por los animales.
-23. Por cÃ³mo te enojas, pero siempre perdonas.  ðŸ¥¹
-24. Por tu pasiÃ³n por lo que amas.  ðŸ˜®â€ðŸ’¨
-25. Porque me enseÃ±as cosas nuevas cada dÃ­a.  ðŸ˜³
-26. Por tu ternura .  ðŸ’ž
-27. Por cÃ³mo defiendes a quienes quieres.  ðŸ«µðŸ»
-28. Por tu intuiciÃ³n, que casi nunca falla.  ðŸ’…ðŸ»
+23. Por cómo te enojas, pero siempre perdonas.  🥹
+24. Por tu pasión por lo que amas.  😮‍💨
+25. Porque me enseñas cosas nuevas cada día.  😳
+26. Por tu ternura .  💞
+27. Por cómo defiendes a quienes quieres.  🫵🏻
+28. Por tu intuición, que casi nunca falla.  💅🏻
 29. Por tu elegancia natural.
-30. Porque contigo hasta lo aburrido es divertido.ðŸ‘ŒðŸ»
-31. Por tu habilidad para enamorarmeðŸ¥°
-32. Por cÃ³mo me das fuerzasðŸ«£
-33. Por tu amor por la familia ðŸ 
-34. Porque eres mi mejor aventura.â¤ï¸â€ðŸ©¹
-35. Por tu mirada llena de amor cuando me ves.  ðŸ˜»ðŸ˜»
-36. Por tu paciencia con mis locuras.  ðŸ˜ˆ
-37. Porque eres mi lugar seguro.  ðŸŒ…
-38. Por tu estilo Ãºnico al vestir.  ðŸ‘š
-39. Por cÃ³mo bailas aunque no tengas ritmo ðŸ˜ðŸ˜»
-40. Porque me haces querer ser mejor.  ðŸ™‚â€â†•ï¸
-41. Por tu forma de amar sin condiciones.  ðŸ¥¹ðŸ˜š
-42. Por tus sueÃ±os, que son tambiÃ©n los mÃ­os.  ðŸ¤©
-43. Por tu energÃ­a contagiosa.  ðŸ™ƒ
-44. Porque me eliges todos los dÃ­as.  ðŸŒ„âœ¨
-45. Por tu habilidad para resolver problemas.  ðŸŒ¥ï¸
-46. Por cÃ³mo cantas ðŸŽ¤
-47. Por tu sonrojo cuando te halago.  ðŸ˜³
-48. Porque eres mi razÃ³n para sonreÃ­r al despertar. â˜ºï¸â˜ºï¸
-49. Por tu amor por la naturaleza ðŸžï¸
-50. Porque contigo el tiempo vuela.  âŒ›
-51. Por tu determinaciÃ³n.ðŸ“
-52. Por cÃ³mo me abrazas cuando mÃ¡s lo necesito.ðŸ˜¿
-53. Por tu risa, que es mÃºsica para mis oÃ­dos.ðŸ™ˆ
-54. Porque me haces sentir amado como nadie.  ðŸŽ‰
-55. Por tu curiosidad por aprender.  â”ðŸ§
-56. Por tu lado travieso que solo yo conozco.  ðŸ˜’ðŸ˜
-57. Por tu fortaleza en momentos difÃ­ciles.  ðŸ°
-58. Porque eres mi complicidad y mi paz.  â˜®ï¸ðŸ•Šï¸
+30. Porque contigo hasta lo aburrido es divertido.👌🏻
+31. Por tu habilidad para enamorarme🥰
+32. Por cómo me das fuerzas🫣
+33. Por tu amor por la familia 🏠
+34. Porque eres mi mejor aventura.❤️‍🩹
+35. Por tu mirada llena de amor cuando me ves.  😻😻
+36. Por tu paciencia con mis locuras.  😈
+37. Porque eres mi lugar seguro.  🌅
+38. Por tu estilo único al vestir.  👚
+39. Por cómo bailas aunque no tengas ritmo 😝😻
+40. Porque me haces querer ser mejor.  🙂‍↕️
+41. Por tu forma de amar sin condiciones.  🥹😚
+42. Por tus sueños, que son también los míos.  🤩
+43. Por tu energía contagiosa.  🙃
+44. Porque me eliges todos los días.  🌄✨
+45. Por tu habilidad para resolver problemas.  🌥️
+46. Por cómo cantas 🎤
+47. Por tu sonrojo cuando te halago.  😳
+48. Porque eres mi razón para sonreír al despertar. ☺️☺️
+49. Por tu amor por la naturaleza 🏞️
+50. Porque contigo el tiempo vuela.  ⌛
+51. Por tu determinación.📍
+52. Por cómo me abrazas cuando más lo necesito.😿
+53. Por tu risa, que es música para mis oídos.🙈
+54. Porque me haces sentir amado como nadie.  🎉
+55. Por tu curiosidad por aprender.  ❔🧐
+56. Por tu lado travieso que solo yo conozco.  😒😝
+57. Por tu fortaleza en momentos difíciles.  🏰
+58. Porque eres mi complicidad y mi paz.  ☮️🕊️
 59. Por tu sentido del humor.
-60. Porque me inspiras a ser feliz.  ðŸ¤—
-61. Por tu amor por Keissy ðŸ•
-62. Por cÃ³mo me sorprendes sin motivo.  ðŸ«£
-63. Por tu lealtad inquebrantable.  ðŸ¥¹
-64. Porque me conoces mejor que nadie.  ðŸŒ
-65. Por tu habilidad para escuchar.  ðŸ¥‡
-66. Por tu sonrisa tÃ­mida cuando te avergÃ¼enzas.ðŸ‘‰ðŸ»ðŸ‘ˆðŸ»
-67. Porque eres mi mejor decisiÃ³n.  ðŸ¤
-68. Por tu amor por el fÃºtbol
-69. Por cÃ³mo me recuerdas lo importante de la vida.  ðŸŽ¦ðŸ¤­
-70. Porque eres mi hogar.ðŸ’Œ
-71. Por tu expresividad ðŸ—£ï¸
-72. Por tu corazÃ³n gigante.â™¥ï¸
-73. Porque me haces sentir completo.  ðŸ’¯
-74. Por tu manera de ver el lado bueno de todo.  ðŸ˜‰
-75. Por tu amor por el barÃ§a â¤ï¸ðŸ’™
-76. Por cÃ³mo me entiendes sin hablar.  ðŸ™Š
-77. Por tu dedicaciÃ³n en todo lo que haces.  ðŸ«¡
-78. Porque eres mi paz en el caos.  ðŸ˜¶â€ðŸŒ«ï¸
-79. Por tu optimismo.  ðŸ˜‹
-80. Porque amo cÃ³mo me amas.  ðŸ˜ðŸ¥°
-81. Por tu amor por los detalles.  ðŸ˜
-82. Por cÃ³mo me proteges a tu manera.  ðŸ˜Œ
-83. Por tu manera de socializar ðŸ‘¥
-84. Porque eres mi confidente.  â¤ï¸â€ðŸ”¥
-85. Por tu lado curioso y juguetÃ³n.  ðŸ˜¸
-86. Por tu habilidad para calmarme.  ðŸ˜º
-87. Porque me haces sentir especial.  â­ðŸ¤Ž
-88. Por tu amor incondicional.  ðŸ«€ðŸ’‹
-89. Por tu sonrisa al vernos fijamente ðŸ«£ðŸ¥¹ðŸ¥°
-90. Porque eres mi futuro. ðŸ˜Œâ˜ºï¸
-91. Por tu sinceridad.  ðŸ¤­
-92. Por cÃ³mo me cuidas sin que lo pida.  ðŸ¥´
-93. Por que cuando nos vemos siento que nuestras almas se conocen ðŸ’—
-94. Porque eres mi motivaciÃ³n.  ðŸ’ªðŸ»
-95. Por tu manera de hacer que todo brille.  âœ¨
-96. Por tu esencia, que nadie mÃ¡s tiene.  ðŸ«¦
-97. Porque me haces creer en el amor.  ðŸ’ðŸ’˜
-98. Por tu capacidad de amar sin medida.  ðŸ«‚ðŸ«‚ðŸ™ˆ
-99. Por ser **Carito, mi mejor compaÃ±era*.  ðŸ˜»
-100. **Porque sin ti, mi vida no serÃ­a la misma**.ðŸ’¯ðŸ”¥ðŸ¤ŽðŸ¤ŽðŸ¤ŽðŸ’•ðŸ’žðŸ«‚ðŸ«‚ðŸ«‚</script>
-  <script type="text/plain" id="razones-ella-originales">100 cosas que amo demasiado de mi niÃ±o belloðŸ’—
+60. Porque me inspiras a ser feliz.  🤗
+61. Por tu amor por Keissy 🐕
+62. Por cómo me sorprendes sin motivo.  🫣
+63. Por tu lealtad inquebrantable.  🥹
+64. Porque me conoces mejor que nadie.  🌝
+65. Por tu habilidad para escuchar.  🥇
+66. Por tu sonrisa tímida cuando te avergüenzas.👉🏻👈🏻
+67. Porque eres mi mejor decisión.  🤝
+68. Por tu amor por el fútbol
+69. Por cómo me recuerdas lo importante de la vida.  🎦🤭
+70. Porque eres mi hogar.💌
+71. Por tu expresividad 🗣️
+72. Por tu corazón gigante.♥️
+73. Porque me haces sentir completo.  💯
+74. Por tu manera de ver el lado bueno de todo.  😉
+75. Por tu amor por el barça ❤️💙
+76. Por cómo me entiendes sin hablar.  🙊
+77. Por tu dedicación en todo lo que haces.  🫡
+78. Porque eres mi paz en el caos.  😶‍🌫️
+79. Por tu optimismo.  😋
+80. Porque amo cómo me amas.  😝🥰
+81. Por tu amor por los detalles.  😍
+82. Por cómo me proteges a tu manera.  😌
+83. Por tu manera de socializar 👥
+84. Porque eres mi confidente.  ❤️‍🔥
+85. Por tu lado curioso y juguetón.  😸
+86. Por tu habilidad para calmarme.  😺
+87. Porque me haces sentir especial.  ⭐🤎
+88. Por tu amor incondicional.  🫀💋
+89. Por tu sonrisa al vernos fijamente 🫣🥹🥰
+90. Porque eres mi futuro. 😌☺️
+91. Por tu sinceridad.  🤭
+92. Por cómo me cuidas sin que lo pida.  🥴
+93. Por que cuando nos vemos siento que nuestras almas se conocen 💗
+94. Porque eres mi motivación.  💪🏻
+95. Por tu manera de hacer que todo brille.  ✨
+96. Por tu esencia, que nadie más tiene.  🫦
+97. Porque me haces creer en el amor.  💝💘
+98. Por tu capacidad de amar sin medida.  🫂🫂🙈
+99. Por ser **Carito, mi mejor compañera*.  😻
+100. **Porque sin ti, mi vida no sería la misma**.💯🔥🤎🤎🤎💕💞🫂🫂🫂</script>
+  <script type="text/plain" id="razones-ella-originales">100 cosas que amo demasiado de mi niño bello💗
 
 1. Tus ojos
 
@@ -6906,7 +6906,7 @@
 
 9. Tu amabilidad
 
-10. Tus pestaÃ±as
+10. Tus pestañas
 
 11. Tus hermosos cachetitos
 
@@ -6928,7 +6928,7 @@
 
 20. Lo lindo que eres con mi familia
 
-21. Tu comprensiÃ³n
+21. Tu comprensión
 
 22. Tu humildad
 
@@ -6948,19 +6948,19 @@
 
 30. Tu sentido del humor
 
-31. Tu pasiÃ³n por hacer las cosas
+31. Tu pasión por hacer las cosas
 
 32. Tu olor
 
 33. Tu sonrisa cada que me miras
 
-34. Tu compaÃ±Ã­a por ir conmigo
+34. Tu compañía por ir conmigo
 
 35. Tu seguridad
 
-36. Tu interÃ©s
+36. Tu interés
 
-37. Tus regaÃ±os
+37. Tus regaños
 
 38. Tu forma de mimarme
 
@@ -6977,7 +6977,7 @@ que quieres
 
 44. Tu piel
 
-45. Tu alegrÃ­a
+45. Tu alegría
 
 46. Tu risa contagiosa
 
@@ -6997,7 +6997,7 @@ que quieres
 
 54. Tu cuerpo
 
-55. Tu cariÃ±o
+55. Tu cariño
 
 56. Tus chistes malos
 
@@ -7025,7 +7025,7 @@ las personas
 67. Me conoces como nadie me habia conocido
 
 68. Que actuas como mi
-segundo papÃ¡ y me cuidas
+segundo papá y me cuidas
 
 69. Tus brazos
 
@@ -7035,11 +7035,11 @@ segundo papÃ¡ y me cuidas
 
 72. Lo fuerte que eres
 
-73. Tu enorme corazÃ³n
+73. Tu enorme corazón
 
-74. Tu atenciÃ³n
+74. Tu atención
 
-75. Tu compaÃ±Ã­a
+75. Tu compañía
 
 76. Tu amor
 
@@ -7080,7 +7080,7 @@ exterior
 93. Tu manera de mejorar
 
 94. La manera en que me
-guÃ­as
+guías
 
 95. Tus cumplidos
 
@@ -7096,19 +7096,19 @@ guÃ­as
 
   <div id="welcome">
     <div class="wcard">
-      <h1>Nuestra Historia â¤ï¸</h1>
-      <p>He preparado este Ã¡lbum especial con todos nuestros recuerdos y recortes de Snoopy para ti, Carito.</p>
-      <button class="btn-continue" id="continue-btn" type="button">Abrir Ãlbum de Recuerdos</button>
+      <h1>Nuestra Historia ❤️</h1>
+      <p>He preparado este álbum especial con todos nuestros recuerdos y recortes de Snoopy para ti, Carito.</p>
+      <button class="btn-continue" id="continue-btn" type="button">Abrir Álbum de Recuerdos</button>
     </div>
   </div>
 
   <div id="music-widget">
-    <button class="music-orb" id="music-open" type="button" aria-label="Abrir reproductor de mÃºsica" aria-haspopup="dialog">
+    <button class="music-orb" id="music-open" type="button" aria-label="Abrir reproductor de música" aria-haspopup="dialog">
       <span class="music-orb-vinyl" id="music-orb-vinyl" aria-hidden="true">
         <span class="music-orb-label"></span>
       </span>
       <span class="music-orb-text">
-        <span class="music-orb-kicker">Nuestra mÃºsica</span>
+        <span class="music-orb-kicker">Nuestra música</span>
         <span class="music-orb-title" id="music-orb-title">Toca para escuchar</span>
       </span>
       <span class="music-orb-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
@@ -7116,34 +7116,34 @@ guÃ­as
   </div>
 
   <div class="mini-player" id="mini-player">
-    <button class="mini-main" id="mini-open" type="button" aria-label="Abrir la canciÃ³n que estÃ¡ sonando">
-      <span class="mini-cover cover-art" id="mini-cover"><span class="cover-glyph" aria-hidden="true">â™ª</span></span>
+    <button class="mini-main" id="mini-open" type="button" aria-label="Abrir la canción que está sonando">
+      <span class="mini-cover cover-art" id="mini-cover"><span class="cover-glyph" aria-hidden="true">♪</span></span>
       <span class="mini-text">
         <span class="mini-title-row">
           <span class="mini-badge" id="mini-badge" role="img" aria-label="Reproduciendo en Spotify" hidden>
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.78.78 0 0 1-1.07.26c-2.93-1.79-6.62-2.2-10.97-1.2a.78.78 0 1 1-.35-1.52c4.76-1.09 8.84-.62 12.13 1.39.37.22.48.7.26 1.07Zm1.23-2.74a.97.97 0 0 1-1.34.32c-3.35-2.06-8.46-2.66-12.42-1.45a.97.97 0 1 1-.56-1.86c4.52-1.37 10.15-.7 14 1.66.46.28.6.88.32 1.33Zm.1-2.85C14.6 8.42 8.36 8.2 4.57 9.35a1.17 1.17 0 1 1-.68-2.24C8.24 5.8 15.13 6.06 18.9 8.3a1.17 1.17 0 0 1-1.2 2Z"/></svg>
           </span>
-          <span class="mini-title" id="mini-title">â€”</span>
+          <span class="mini-title" id="mini-title">—</span>
         </span>
-        <span class="mini-artist" id="mini-artist">â€”</span>
+        <span class="mini-artist" id="mini-artist">—</span>
       </span>
     </button>
     <div class="mini-controls">
-      <button class="mini-btn" id="mini-prev" type="button" aria-label="CanciÃ³n anterior">
+      <button class="mini-btn" id="mini-prev" type="button" aria-label="Canción anterior">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h2v14H7zM19 5.4v13.2L9.4 12z"/></svg>
       </button>
       <button class="mini-btn mini-play" id="mini-play" type="button" aria-label="Reproducir o pausar">
         <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.1v13.8L19 12z"/></svg>
         <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
       </button>
-      <button class="mini-btn" id="mini-next" type="button" aria-label="CanciÃ³n siguiente">
+      <button class="mini-btn" id="mini-next" type="button" aria-label="Canción siguiente">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 5h2v14h-2zM5 5.4v13.2L14.6 12z"/></svg>
       </button>
     </div>
     <span class="mini-progress" aria-hidden="true"><span id="mini-progress"></span></span>
   </div>
 
-  <div id="music-player" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Reproductor de mÃºsica">
+  <div id="music-player" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Reproductor de música">
     <div class="player-backdrop" aria-hidden="true">
       <div class="bg-layer on" id="bg-layer-a"></div>
       <div class="bg-layer" id="bg-layer-b"></div>
@@ -7155,7 +7155,7 @@ guÃ­as
         </button>
         <div class="player-heading">
           <span class="player-eyebrow" id="player-eyebrow">Para Carito</span>
-          <h2 class="player-title" id="player-title">Nuestra mÃºsica</h2>
+          <h2 class="player-title" id="player-title">Nuestra música</h2>
         </div>
         <button class="player-icon-btn" id="player-close" type="button" aria-label="Cerrar reproductor">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -7163,36 +7163,36 @@ guÃ­as
       </header>
 
       <div class="player-views">
-        <section class="player-view" id="view-home" aria-label="Ãlbumes de mÃºsica">
+        <section class="player-view" id="view-home" aria-label="Álbumes de música">
           <button class="home-now" id="home-now" type="button" hidden>
-            <span class="home-now-cover cover-art" id="home-now-cover"><span class="cover-glyph" aria-hidden="true">â™ª</span></span>
+            <span class="home-now-cover cover-art" id="home-now-cover"><span class="cover-glyph" aria-hidden="true">♪</span></span>
             <span class="home-now-text">
               <span class="home-now-kicker">Sonando ahora</span>
-              <span class="home-now-title" id="home-now-title">â€”</span>
-              <span class="home-now-artist" id="home-now-artist">â€”</span>
+              <span class="home-now-title" id="home-now-title">—</span>
+              <span class="home-now-artist" id="home-now-artist">—</span>
             </span>
             <span class="music-orb-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
           </button>
           <div class="album-grid" id="album-grid"></div>
           <div class="spotify-playlist" id="spotify-playlist" hidden>
-            <p class="spotify-playlist-title">La playlist de Carito ðŸŽ§</p>
+            <p class="spotify-playlist-title">La playlist de Carito 🎧</p>
             <iframe id="spotify-playlist-frame" title="Playlist de Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
           </div>
           <button class="search-cta" id="search-cta" type="button">
-            <span class="search-cta-icon" aria-hidden="true">ðŸ”Ž</span>
+            <span class="search-cta-icon" aria-hidden="true">🔎</span>
             <span class="search-cta-text">
-              <span class="search-cta-title">Â¿Y si quieres una canciÃ³n en especÃ­fico?</span>
-              <span class="search-cta-sub">BÃºscala aquÃ­ y escÃºchala completa</span>
+              <span class="search-cta-title">¿Y si quieres una canción en específico?</span>
+              <span class="search-cta-sub">Búscala aquí y escúchala completa</span>
             </span>
           </button>
         </section>
 
         <section class="player-view" id="view-search" aria-label="Buscar canciones" hidden>
           <form class="search-bar" id="search-form">
-            <input class="search-input" id="search-input" type="search" placeholder="CanciÃ³n o artistaâ€¦" autocomplete="off" aria-label="Buscar canciÃ³n" />
+            <input class="search-input" id="search-input" type="search" placeholder="Canción o artista…" autocomplete="off" aria-label="Buscar canción" />
             <button class="search-btn" id="search-submit" type="submit">Buscar</button>
           </form>
-          <p class="search-hint" id="search-hint">Escribe el nombre de una canciÃ³n o de un artista ðŸ’•</p>
+          <p class="search-hint" id="search-hint">Escribe el nombre de una canción o de un artista 💕</p>
           <ol class="track-list search-results" id="search-results"></ol>
           <a class="spotify-search" id="search-spotify" href="#" target="_blank" rel="noopener" hidden>
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.78.78 0 0 1-1.07.26c-2.93-1.79-6.62-2.2-10.97-1.2a.78.78 0 1 1-.35-1.52c4.76-1.09 8.84-.62 12.13 1.39.37.22.48.7.26 1.07Zm1.23-2.74a.97.97 0 0 1-1.34.32c-3.35-2.06-8.46-2.66-12.42-1.45a.97.97 0 1 1-.56-1.86c4.52-1.37 10.15-.7 14 1.66.46.28.6.88.32 1.33Zm.1-2.85C14.6 8.42 8.36 8.2 4.57 9.35a1.17 1.17 0 1 1-.68-2.24C8.24 5.8 15.13 6.06 18.9 8.3a1.17 1.17 0 0 1-1.2 2Z"/></svg>
@@ -7201,41 +7201,41 @@ guÃ­as
           <p class="player-note" id="search-note" hidden></p>
         </section>
 
-        <section class="player-view" id="view-album" aria-label="Canciones del Ã¡lbum" hidden>
+        <section class="player-view" id="view-album" aria-label="Canciones del álbum" hidden>
           <div class="album-head" id="album-head"></div>
           <ol class="track-list" id="track-list"></ol>
-          <p class="music-empty" id="album-empty" hidden>AquÃ­ irÃ¡n las canciones de este Ã¡lbum ðŸ’Œ</p>
+          <p class="music-empty" id="album-empty" hidden>Aquí irán las canciones de este álbum 💌</p>
         </section>
 
-        <section class="player-view" id="view-song" aria-label="CanciÃ³n sonando" hidden>
+        <section class="player-view" id="view-song" aria-label="Canción sonando" hidden>
           <div class="now-playing" id="now-playing">
             <div class="now-cover-wrap">
-              <span class="now-cover cover-art" id="now-cover"><span class="cover-glyph" aria-hidden="true">â™ª</span></span>
+              <span class="now-cover cover-art" id="now-cover"><span class="cover-glyph" aria-hidden="true">♪</span></span>
             </div>
             <div class="now-meta">
               <p class="now-kicker" id="now-kicker">Sonando ahora</p>
-              <h3 class="now-title" id="now-title">â€”</h3>
-              <p class="now-artist" id="now-artist">â€”</p>
+              <h3 class="now-title" id="now-title">—</h3>
+              <p class="now-artist" id="now-artist">—</p>
             </div>
             <a class="spotify-btn" id="spotify-open" href="#" target="_blank" rel="noopener" hidden>
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.78.78 0 0 1-1.07.26c-2.93-1.79-6.62-2.2-10.97-1.2a.78.78 0 1 1-.35-1.52c4.76-1.09 8.84-.62 12.13 1.39.37.22.48.7.26 1.07Zm1.23-2.74a.97.97 0 0 1-1.34.32c-3.35-2.06-8.46-2.66-12.42-1.45a.97.97 0 1 1-.56-1.86c4.52-1.37 10.15-.7 14 1.66.46.28.6.88.32 1.33Zm.1-2.85C14.6 8.42 8.36 8.2 4.57 9.35a1.17 1.17 0 1 1-.68-2.24C8.24 5.8 15.13 6.06 18.9 8.3a1.17 1.17 0 0 1-1.2 2Z"/></svg>
               <span>Escuchar en Spotify</span>
             </a>
             <div class="seek" id="seek">
-              <div class="seek-track" id="seek-track" role="slider" tabindex="0" aria-label="Progreso de la canciÃ³n" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="seek-track" id="seek-track" role="slider" tabindex="0" aria-label="Progreso de la canción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <span class="seek-fill" id="seek-fill"><span class="seek-knob"></span></span>
               </div>
               <div class="seek-times"><span id="time-current">0:00</span><span id="time-total">0:00</span></div>
             </div>
             <div class="now-controls">
-              <button class="ctrl-btn" id="btn-prev" type="button" aria-label="CanciÃ³n anterior">
+              <button class="ctrl-btn" id="btn-prev" type="button" aria-label="Canción anterior">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h2v14H7zM19 5.4v13.2L9.4 12z"/></svg>
               </button>
               <button class="ctrl-btn ctrl-main" id="btn-play" type="button" aria-label="Reproducir o pausar">
                 <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.1v13.8L19 12z"/></svg>
                 <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
               </button>
-              <button class="ctrl-btn" id="btn-next" type="button" aria-label="CanciÃ³n siguiente">
+              <button class="ctrl-btn" id="btn-next" type="button" aria-label="Canción siguiente">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 5h2v14h-2zM5 5.4v13.2L14.6 12z"/></svg>
               </button>
             </div>
@@ -7249,7 +7249,7 @@ guÃ­as
 
   <main id="vista-portada">
     <div class="portada-escena" aria-hidden="true">
-      <!-- CafÃ© helado en bandeja de madera con recibos -->
+      <!-- Café helado en bandeja de madera con recibos -->
       <div class="prop prop-tray">
         <span class="prop-receipt r1"></span>
         <span class="prop-receipt r2"></span>
@@ -7262,8 +7262,8 @@ guÃ­as
 
       <!-- Cuchara de madera y ramitas de eucalipto -->
       <div class="prop prop-spoon"></div>
-      <span class="prop prop-leaf l1">ðŸŒ¿</span>
-      <span class="prop prop-leaf l2">ðŸŒ¿</span>
+      <span class="prop prop-leaf l1">🌿</span>
+      <span class="prop prop-leaf l2">🌿</span>
 
       <!-- Paleta y pincel -->
       <div class="prop prop-palette">
@@ -7289,29 +7289,29 @@ guÃ­as
       <div class="portada-box">
         <picture>
           <source srcset="portada-libro.webp?v=1" type="image/webp">
-          <img class="portada-cover" src="portada-libro.png?v=1" alt="Nuestro libro de aventuras, con un corazÃ³n de papel" draggable="false">
+          <img class="portada-cover" src="portada-libro.png?v=1" alt="Nuestro libro de aventuras, con un corazón de papel" draggable="false">
         </picture>
       </div>
 
-      <p class="portada-dedicatoria">Para Carito, de JosÃ© Ãngel</p>
+      <p class="portada-dedicatoria">Para Carito, de José Ángel</p>
 
-      <button class="portada-btn" id="open-book-btn" type="button">Abrir libro â™¥</button>
+      <button class="portada-btn" id="open-book-btn" type="button">Abrir libro ♥</button>
     </div>
   </main>
 
-  <main id="vista-libro" aria-label="Ãlbum de recuerdos">
-    <button id="back-to-cover" type="button" aria-label="Regresar a la portada">â† Regresar a la portada</button>
+  <main id="vista-libro" aria-label="Álbum de recuerdos">
+    <button id="back-to-cover" type="button" aria-label="Regresar a la portada">← Regresar a la portada</button>
     <div class="libro-stage" id="stage" aria-live="polite"></div>
-    <nav class="navbar" aria-label="NavegaciÃ³n del Ã¡lbum">
-      <button class="nbtn" id="prevBtn" type="button">â—€ Anterior</button>
+    <nav class="navbar" aria-label="Navegación del álbum">
+      <button class="nbtn" id="prevBtn" type="button">◀ Anterior</button>
       <div id="counter">
-        <label class="sr-only" for="page-jump">Ir a la pÃ¡gina</label>
-        <span aria-hidden="true">PÃ¡g.</span>
-        <input id="page-jump" type="text" inputmode="numeric" enterkeyhint="go" pattern="[0-9]*" maxlength="3" value="1" autocomplete="off" spellcheck="false" aria-label="NÃºmero de pÃ¡gina" title="Escribe el nÃºmero de pÃ¡gina y presiona Enter">
+        <label class="sr-only" for="page-jump">Ir a la página</label>
+        <span aria-hidden="true">Pág.</span>
+        <input id="page-jump" type="text" inputmode="numeric" enterkeyhint="go" pattern="[0-9]*" maxlength="3" value="1" autocomplete="off" spellcheck="false" aria-label="Número de página" title="Escribe el número de página y presiona Enter">
         <span aria-hidden="true">/</span><span id="page-total" aria-hidden="true">1</span>
       </div>
       <span id="page-status" class="sr-only" aria-live="polite"></span>
-      <button class="nbtn" id="nextBtn" type="button">Siguiente â–¶</button>
+      <button class="nbtn" id="nextBtn" type="button">Siguiente ▶</button>
     </nav>
   </main>
 
@@ -7322,68 +7322,68 @@ guÃ­as
 
     const CLAVE_LOCAL = 'caritoJuegoV1';
     const CLAVE_NUBE = 'juego-carito-v1';
-    // Si algÃºn dÃ­a quieres que el vale llegue directo a tu WhatsApp, pon aquÃ­ tu
-    // nÃºmero con lada de paÃ­s, sin signos: por ejemplo '5215512345678'.
+    // Si algún día quieres que el vale llegue directo a tu WhatsApp, pon aquí tu
+    // número con lada de país, sin signos: por ejemplo '5215512345678'.
     const WA_NUMERO = '';
 
     const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
       'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
     const RAREZAS = {
-      comun: { nombre: 'ComÃºn', corto: 'comÃºn', tier: 3 },
+      comun: { nombre: 'Común', corto: 'común', tier: 3 },
       rara: { nombre: 'Rara', corto: 'rara', tier: 5 },
-      epica: { nombre: 'Ã‰pica', corto: 'Ã©pica', tier: 8 },
+      epica: { nombre: 'Épica', corto: 'épica', tier: 8 },
       legendaria: { nombre: 'Legendaria', corto: 'legendaria', tier: 12 }
     };
 
-    // Cartas curadas: solo las fotos con mÃ¡s gracia del libro.
+    // Cartas curadas: solo las fotos con más gracia del libro.
     const CARTAS = [
-      { id: 'c01', archivo: '1792425494791.jpg', fecha: '2025-03-03', nombre: 'Primer Plano', tipo: 'Traviesa', rareza: 'comun', risa: 82, siesta: 31, frase: 'Se acercÃ³ tanto que casi entra a la pantalla.' },
-      { id: 'c02', archivo: '1792425494740.jpg', fecha: '2025-03-22', nombre: 'Flores Amarillas', tipo: 'RomÃ¡ntica', rareza: 'comun', risa: 74, siesta: 15, frase: 'Me las dio con una notita. Casi lloro.' },
-      { id: 'c03', archivo: 'IMG20240611124839.jpg', fecha: '2024-06-11', nombre: 'SeÃ±orita Seriedad', tipo: 'DramÃ¡tica', rareza: 'comun', risa: 61, siesta: 40, frase: 'MentÃ³n arriba, como si no hubiera maÃ±ana.' },
-      { id: 'c04', archivo: 'IMG-20250109-WA0008.jpg', fecha: '2025-01-09', nombre: 'Cerdita Elegante', tipo: 'Traviesa', rareza: 'comun', risa: 91, siesta: 22, frase: 'El filtro mÃ¡s bonito que existe.' },
-      { id: 'c05', archivo: 'IMG-20250527-WA0020.jpg', fecha: '2025-05-27', nombre: 'Gravedad Cero', tipo: 'Dormilona', rareza: 'comun', risa: 77, siesta: 88, frase: 'DescubriÃ³ cÃ³mo tomarse foto acostada.' },
-      { id: 'c06', archivo: 'IMG-20250530-WA0004.jpg', fecha: '2025-05-30', nombre: 'No Me Tomes Fotos', tipo: 'DramÃ¡tica', rareza: 'comun', risa: 83, siesta: 47, frase: 'Cara tapada, pero igual se le nota la risa.' },
+      { id: 'c01', archivo: '1792425494791.jpg', fecha: '2025-03-03', nombre: 'Primer Plano', tipo: 'Traviesa', rareza: 'comun', risa: 82, siesta: 31, frase: 'Se acercó tanto que casi entra a la pantalla.' },
+      { id: 'c02', archivo: '1792425494740.jpg', fecha: '2025-03-22', nombre: 'Flores Amarillas', tipo: 'Romántica', rareza: 'comun', risa: 74, siesta: 15, frase: 'Me las dio con una notita. Casi lloro.' },
+      { id: 'c03', archivo: 'IMG20240611124839.jpg', fecha: '2024-06-11', nombre: 'Señorita Seriedad', tipo: 'Dramática', rareza: 'comun', risa: 61, siesta: 40, frase: 'Mentón arriba, como si no hubiera mañana.' },
+      { id: 'c04', archivo: 'IMG-20250109-WA0008.jpg', fecha: '2025-01-09', nombre: 'Cerdita Elegante', tipo: 'Traviesa', rareza: 'comun', risa: 91, siesta: 22, frase: 'El filtro más bonito que existe.' },
+      { id: 'c05', archivo: 'IMG-20250527-WA0020.jpg', fecha: '2025-05-27', nombre: 'Gravedad Cero', tipo: 'Dormilona', rareza: 'comun', risa: 77, siesta: 88, frase: 'Descubrió cómo tomarse foto acostada.' },
+      { id: 'c06', archivo: 'IMG-20250530-WA0004.jpg', fecha: '2025-05-30', nombre: 'No Me Tomes Fotos', tipo: 'Dramática', rareza: 'comun', risa: 83, siesta: 47, frase: 'Cara tapada, pero igual se le nota la risa.' },
       { id: 'c07', archivo: 'IMG_20250920_141329.jpg', fecha: '2025-09-20', nombre: 'La Cara del Lunes', tipo: 'Dormilona', rareza: 'comun', risa: 69, siesta: 93, frase: 'Mirando al techo, esperando el fin de semana.' },
-      { id: 'c08', archivo: 'IMG-20250604-WA0000.jpg', fecha: '2025-06-04', nombre: 'Se RindiÃ³', tipo: 'Dormilona', rareza: 'comun', risa: 72, siesta: 97, frase: 'Un brazo al cielo y a dormir.' },
-      { id: 'c09', archivo: '1792425495757.jpg', fecha: '2023-10-26', nombre: 'La del Bazar', tipo: 'Glotona', rareza: 'rara', risa: 95, siesta: 22, frase: 'Se sentÃ³ en la banqueta a terminar su antojo. Sin vergÃ¼enza.' },
+      { id: 'c08', archivo: 'IMG-20250604-WA0000.jpg', fecha: '2025-06-04', nombre: 'Se Rindió', tipo: 'Dormilona', rareza: 'comun', risa: 72, siesta: 97, frase: 'Un brazo al cielo y a dormir.' },
+      { id: 'c09', archivo: '1792425495757.jpg', fecha: '2023-10-26', nombre: 'La del Bazar', tipo: 'Glotona', rareza: 'rara', risa: 95, siesta: 22, frase: 'Se sentó en la banqueta a terminar su antojo. Sin vergüenza.' },
       { id: 'c10', archivo: 'IMG_20250325_155616_0781.jpg', fecha: '2025-03-25', nombre: 'Gatita', tipo: 'Traviesa', rareza: 'rara', risa: 88, siesta: 25, frase: 'Con su naricita de gato y todo.' },
-      { id: 'c11', archivo: 'IMG-20250109-WA0015.jpg', fecha: '2025-01-09', nombre: 'DÃºo Felino', tipo: 'Traviesa', rareza: 'rara', risa: 90, siesta: 35, frase: 'Dos gatos, un solo filtro.' },
+      { id: 'c11', archivo: 'IMG-20250109-WA0015.jpg', fecha: '2025-01-09', nombre: 'Dúo Felino', tipo: 'Traviesa', rareza: 'rara', risa: 90, siesta: 35, frase: 'Dos gatos, un solo filtro.' },
       { id: 'c12', archivo: 'IMG-20250604-WA0046.jpg', fecha: '2025-06-04', nombre: 'La Siesta Interrumpida', tipo: 'Traviesa', rareza: 'rara', risa: 84, siesta: 44, frase: 'Se hizo la dormida, pero un ojo no cerraba.' },
-      { id: 'c13', archivo: 'IMG20231026165811.jpg', fecha: '2023-10-26', nombre: 'La de la Pizza', tipo: 'Glotona', rareza: 'rara', risa: 80, siesta: 42, frase: 'La foto grupal que terminÃ³ en antojo.' },
-      { id: 'c14', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg', fecha: '2025-07-14', nombre: 'Nuestros Gatitos', tipo: 'RomÃ¡ntica', rareza: 'rara', risa: 76, siesta: 18, frase: 'Dos huellitas con nuestro pelo. Tesoro.' },
-      { id: 'c15', archivo: 'IMG_20261013_220446_218.jpg', fecha: '2026-10-13', nombre: 'Modo Foca', tipo: 'Traviesa', rareza: 'epica', risa: 100, siesta: 20, frase: 'Lengua afuera. Cero vergÃ¼enza. MÃ¡ximo amor.' },
-      { id: 'c16', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2025-10-29', nombre: 'La EspÃ­a', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 28, frase: 'AsomÃ¡ndose por la esquina de la foto.' },
-      { id: 'c17', archivo: 'IMG_20250816_130530.jpg', fecha: '2025-08-16', nombre: 'La QuinceaÃ±era', tipo: 'Fashionista', rareza: 'epica', risa: 58, siesta: 15, frase: 'Con el vestido largo y cara de princesa.' },
-      { id: 'c18', archivo: 'IMG-20250716-WA0034.jpg', fecha: '2025-07-16', nombre: 'Graduados', tipo: 'NostÃ¡lgica', rareza: 'epica', risa: 68, siesta: 8, frase: 'Los dos con la misma cara de "ya terminamos".' },
+      { id: 'c13', archivo: 'IMG20231026165811.jpg', fecha: '2023-10-26', nombre: 'La de la Pizza', tipo: 'Glotona', rareza: 'rara', risa: 80, siesta: 42, frase: 'La foto grupal que terminó en antojo.' },
+      { id: 'c14', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg', fecha: '2025-07-14', nombre: 'Nuestros Gatitos', tipo: 'Romántica', rareza: 'rara', risa: 76, siesta: 18, frase: 'Dos huellitas con nuestro pelo. Tesoro.' },
+      { id: 'c15', archivo: 'IMG_20261013_220446_218.jpg', fecha: '2026-10-13', nombre: 'Modo Foca', tipo: 'Traviesa', rareza: 'epica', risa: 100, siesta: 20, frase: 'Lengua afuera. Cero vergüenza. Máximo amor.' },
+      { id: 'c16', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2025-10-29', nombre: 'La Espía', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 28, frase: 'Asomándose por la esquina de la foto.' },
+      { id: 'c17', archivo: 'IMG_20250816_130530.jpg', fecha: '2025-08-16', nombre: 'La Quinceañera', tipo: 'Fashionista', rareza: 'epica', risa: 58, siesta: 15, frase: 'Con el vestido largo y cara de princesa.' },
+      { id: 'c18', archivo: 'IMG-20250716-WA0034.jpg', fecha: '2025-07-16', nombre: 'Graduados', tipo: 'Nostálgica', rareza: 'epica', risa: 68, siesta: 8, frase: 'Los dos con la misma cara de "ya terminamos".' },
       { id: 'c19', archivo: '1792425496237.jpg', fecha: '2023-10-26', nombre: 'La Cara Legendaria', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 10, frase: 'La leyenda dice que esta cara no se repite.' },
-      { id: 'c20', archivo: 'IMG-20250803-WA0014.jpg', fecha: '2025-08-03', nombre: 'Carito Mini', tipo: 'Fashionista', rareza: 'legendaria', risa: 77, siesta: 12, frase: 'EdiciÃ³n limitada de una Carito pequeÃ±ita.' }
+      { id: 'c20', archivo: 'IMG-20250803-WA0014.jpg', fecha: '2025-08-03', nombre: 'Carito Mini', tipo: 'Fashionista', rareza: 'legendaria', risa: 77, siesta: 12, frase: 'Edición limitada de una Carito pequeñita.' }
     ];
 
     const VALES = [
-      { id: 'abrazo', cat: 'vale', emoji: 'ðŸ¤—', nombre: 'Abrazo de 5 minutos', precio: 10, detalle: 'Sin soltar, sin prisa, sin excusas.' },
-      { id: 'helado', cat: 'vale', emoji: 'ðŸ¦', nombre: 'Un helado', precio: 25, detalle: 'Elige el sabor que quieras. Doble si te portas bien.', limite: 'mes' },
-      { id: 'postre', cat: 'vale', emoji: 'ðŸ°', nombre: 'Postre o antojo', precio: 30, detalle: 'Lo que se te antoje, a la hora que se te antoje.', limite: 'mes' },
-      { id: 'masaje', cat: 'vale', emoji: 'ðŸ’†', nombre: 'Masaje de espalda', precio: 35, detalle: 'Diez minutos sin quejarme. Prometido.' },
-      { id: 'pelicula', cat: 'vale', emoji: 'ðŸ¿', nombre: 'PelÃ­cula con palomitas', precio: 35, detalle: 'TÃº eliges la peli. Yo pongo las palomitas.', limite: 'mes' },
-      { id: 'cancion', cat: 'vale', emoji: 'ðŸŽ¤', nombre: 'CanciÃ³n dedicada', precio: 40, detalle: 'En vivo, aunque cante mal. Es la intenciÃ³n.' },
-      { id: 'desayuno', cat: 'vale', emoji: 'ðŸ¥ž', nombre: 'Desayuno en la cama', precio: 45, detalle: 'Un domingo, sin alarma, con lo que te guste.', limite: 'mes' },
-      { id: 'plan', cat: 'vale', emoji: 'ðŸ—ºï¸', nombre: 'Yo elijo el plan del dÃ­a', precio: 50, detalle: 'Un dÃ­a entero con el plan que tÃº escojas.', limite: 'mes' },
-      { id: 'cafe', cat: 'vale', emoji: 'â˜•', nombre: 'CafÃ© o tarde de compras', precio: 55, detalle: 'Salimos, caminamos y vemos quÃ© encontramos.', limite: 'mes' },
-      { id: 'salida', cat: 'vale', emoji: 'ðŸŽ¡', nombre: 'Salida sorpresa', precio: 60, detalle: 'Yo escojo el lugar. TÃº solo llevas tenis cÃ³modos.', limite: 'mes' },
-      { id: 'fotos', cat: 'vale', emoji: 'ðŸ“¸', nombre: 'Tarde de fotos juntos', precio: 65, detalle: 'TÃº eliges las poses. Yo soy el fotÃ³grafo.', limite: 'mes' },
-      { id: 'cena', cat: 'vale', emoji: 'ðŸ½ï¸', nombre: 'Cena (tÃº eliges)', precio: 70, detalle: 'El lugar lo escoges tÃº. Yo invito.', limite: 'mes' },
-      { id: 'picnic', cat: 'vale', emoji: 'ðŸ§º', nombre: 'Picnic o atardecer', precio: 75, detalle: 'Manta, algo rico y el cielo de testigo.', limite: 'mes' },
-      { id: 'cartaMano', cat: 'vale', emoji: 'âœï¸', nombre: 'Carta escrita a mano', precio: 80, detalle: 'De mi puÃ±o y letra. Sin borrar nada.', limite: 'mes' },
-      { id: 'debo', cat: 'vale', emoji: 'ðŸŽŸï¸', nombre: 'Te debo una', precio: 100, detalle: 'ComodÃ­n para lo que tÃº quieras. Sin preguntas.', limite: 'mes' },
-      { id: 'marcoHolo', cat: 'libro', emoji: 'âœ¨', nombre: 'Marcos hologrÃ¡ficos', precio: 60, detalle: 'Todas tus cartas empiezan a brillar. Para siempre.', permanente: true },
-      { id: 'stickerPack', cat: 'libro', emoji: 'ðŸ¾', nombre: 'Sticker sorpresa', precio: 20, detalle: 'Un Snoopy nuevo se pega en tu mural.' },
-      { id: 'tintaOro', cat: 'libro', emoji: 'ðŸ–‹ï¸', nombre: 'Tinta dorada', precio: 80, detalle: 'El mural se enmarca en oro. Nivel leyenda.', permanente: true },
-      { id: 'comodin', cat: 'mejora', emoji: 'ðŸƒ', nombre: 'ComodÃ­n', precio: 8, detalle: 'Quita una de las opciones equivocadas.' },
-      { id: 'pista', cat: 'mejora', emoji: 'ðŸ’¡', nombre: 'Pista', precio: 10, detalle: 'Te dice el mes y cuÃ¡ntos aÃ±os han pasado.' },
-      { id: 'escudo', cat: 'mejora', emoji: 'ðŸ›¡ï¸', nombre: 'Escudo de racha', precio: 20, detalle: 'Si fallas, tu racha no se rompe. Una vez.' },
-      { id: 'doble', cat: 'mejora', emoji: 'âœ–ï¸', nombre: 'Doble corazones', precio: 25, detalle: 'La prÃ³xima partida da el doble de corazones.' },
-      { id: 'sobreExtra', cat: 'mejora', emoji: 'ðŸŽ', nombre: 'Sobre extra', precio: 30, detalle: 'Un sobre comÃºn para abrir cuando quieras.' }
+      { id: 'abrazo', cat: 'vale', emoji: '🤗', nombre: 'Abrazo de 5 minutos', precio: 10, detalle: 'Sin soltar, sin prisa, sin excusas.' },
+      { id: 'helado', cat: 'vale', emoji: '🍦', nombre: 'Un helado', precio: 25, detalle: 'Elige el sabor que quieras. Doble si te portas bien.', limite: 'mes' },
+      { id: 'postre', cat: 'vale', emoji: '🍰', nombre: 'Postre o antojo', precio: 30, detalle: 'Lo que se te antoje, a la hora que se te antoje.', limite: 'mes' },
+      { id: 'masaje', cat: 'vale', emoji: '💆', nombre: 'Masaje de espalda', precio: 35, detalle: 'Diez minutos sin quejarme. Prometido.' },
+      { id: 'pelicula', cat: 'vale', emoji: '🍿', nombre: 'Película con palomitas', precio: 35, detalle: 'Tú eliges la peli. Yo pongo las palomitas.', limite: 'mes' },
+      { id: 'cancion', cat: 'vale', emoji: '🎤', nombre: 'Canción dedicada', precio: 40, detalle: 'En vivo, aunque cante mal. Es la intención.' },
+      { id: 'desayuno', cat: 'vale', emoji: '🥞', nombre: 'Desayuno en la cama', precio: 45, detalle: 'Un domingo, sin alarma, con lo que te guste.', limite: 'mes' },
+      { id: 'plan', cat: 'vale', emoji: '🗺️', nombre: 'Yo elijo el plan del día', precio: 50, detalle: 'Un día entero con el plan que tú escojas.', limite: 'mes' },
+      { id: 'cafe', cat: 'vale', emoji: '☕', nombre: 'Café o tarde de compras', precio: 55, detalle: 'Salimos, caminamos y vemos qué encontramos.', limite: 'mes' },
+      { id: 'salida', cat: 'vale', emoji: '🎡', nombre: 'Salida sorpresa', precio: 60, detalle: 'Yo escojo el lugar. Tú solo llevas tenis cómodos.', limite: 'mes' },
+      { id: 'fotos', cat: 'vale', emoji: '📸', nombre: 'Tarde de fotos juntos', precio: 65, detalle: 'Tú eliges las poses. Yo soy el fotógrafo.', limite: 'mes' },
+      { id: 'cena', cat: 'vale', emoji: '🍽️', nombre: 'Cena (tú eliges)', precio: 70, detalle: 'El lugar lo escoges tú. Yo invito.', limite: 'mes' },
+      { id: 'picnic', cat: 'vale', emoji: '🧺', nombre: 'Picnic o atardecer', precio: 75, detalle: 'Manta, algo rico y el cielo de testigo.', limite: 'mes' },
+      { id: 'cartaMano', cat: 'vale', emoji: '✍️', nombre: 'Carta escrita a mano', precio: 80, detalle: 'De mi puño y letra. Sin borrar nada.', limite: 'mes' },
+      { id: 'debo', cat: 'vale', emoji: '🎟️', nombre: 'Te debo una', precio: 100, detalle: 'Comodín para lo que tú quieras. Sin preguntas.', limite: 'mes' },
+      { id: 'marcoHolo', cat: 'libro', emoji: '✨', nombre: 'Marcos holográficos', precio: 60, detalle: 'Todas tus cartas empiezan a brillar. Para siempre.', permanente: true },
+      { id: 'stickerPack', cat: 'libro', emoji: '🐾', nombre: 'Sticker sorpresa', precio: 20, detalle: 'Un Snoopy nuevo se pega en tu mural.' },
+      { id: 'tintaOro', cat: 'libro', emoji: '🖋️', nombre: 'Tinta dorada', precio: 80, detalle: 'El mural se enmarca en oro. Nivel leyenda.', permanente: true },
+      { id: 'comodin', cat: 'mejora', emoji: '🃏', nombre: 'Comodín', precio: 8, detalle: 'Quita una de las opciones equivocadas.' },
+      { id: 'pista', cat: 'mejora', emoji: '💡', nombre: 'Pista', precio: 10, detalle: 'Te dice el mes y cuántos años han pasado.' },
+      { id: 'escudo', cat: 'mejora', emoji: '🛡️', nombre: 'Escudo de racha', precio: 20, detalle: 'Si fallas, tu racha no se rompe. Una vez.' },
+      { id: 'doble', cat: 'mejora', emoji: '✖️', nombre: 'Doble corazones', precio: 25, detalle: 'La próxima partida da el doble de corazones.' },
+      { id: 'sobreExtra', cat: 'mejora', emoji: '🎁', nombre: 'Sobre extra', precio: 30, detalle: 'Un sobre común para abrir cuando quieras.' }
     ];
 
     const STICKERS = ['snoopy-corazon.png', 'snoopy-helado.png', 'snoopy-gato.png', 'snoopy-fresa.png',
@@ -7457,7 +7457,7 @@ guÃ­as
       if (typeof window.juegoGuardarNube !== 'function') return;
       window.clearTimeout(tNube);
       tNube = window.setTimeout(function () {
-        try { window.juegoGuardarNube(CLAVE_NUBE, estado); } catch (error) { /* sin conexiÃ³n */ }
+        try { window.juegoGuardarNube(CLAVE_NUBE, estado); } catch (error) { /* sin conexión */ }
       }, 1600);
     }
 
@@ -7505,8 +7505,8 @@ guÃ­as
         Promise.resolve(window.juegoLeerNube(CLAVE_NUBE)).then(function (remoto) {
           if (remoto) fusionar(remoto);
           else programarNube();
-        }).catch(function () { /* sin conexiÃ³n */ });
-      } catch (error) { /* sin conexiÃ³n */ }
+        }).catch(function () { /* sin conexión */ });
+      } catch (error) { /* sin conexión */ }
     }
 
     /* --------------------------- banco de fotos --------------------------- */
@@ -7612,9 +7612,9 @@ guÃ­as
       const h = estado.historico;
       if (h >= 220) return { n: 5, nombre: 'Leyenda del libro' };
       if (h >= 120) return { n: 4, nombre: 'Historiadora de nosotros' };
-      if (h >= 60) return { n: 3, nombre: 'GuardiÃ¡n de la memoria' };
+      if (h >= 60) return { n: 3, nombre: 'Guardián de la memoria' };
       if (h >= 25) return { n: 2, nombre: 'Aprendiz de recuerdos' };
-      return { n: 1, nombre: 'ReciÃ©n llegada' };
+      return { n: 1, nombre: 'Recién llegada' };
     }
 
     function multiplicador() {
@@ -7687,11 +7687,11 @@ guÃ­as
 
       guardar();
       pintarHud();
-      if (gano) flotar('+' + gano + ' â¤ï¸');
+      if (gano) flotar('+' + gano + ' ❤️');
       if (sobre && sobre.rareza) {
-        toast('ðŸ”¥ Â¡Racha de ' + estado.racha + '! +' + sobre.bonus + ' â¤ï¸ y un sobre ' + RAREZAS[sobre.rareza].corto + '.');
+        toast('🔥 ¡Racha de ' + estado.racha + '! +' + sobre.bonus + ' ❤️ y un sobre ' + RAREZAS[sobre.rareza].corto + '.');
         if (estado._sobresRonda >= 2) {
-          toast('Ya tienes 2 sobres de esta partida. Ãbrelos al terminar.');
+          toast('Ya tienes 2 sobres de esta partida. Ábrelos al terminar.');
         }
       }
       return { gano: gano, sobre: sobre ? sobre.rareza : null, escudo: escudoSalvado };
@@ -7728,15 +7728,15 @@ guÃ­as
       if (!item) return false;
       const claveMes = item.id + ':' + mesActual();
       if (item.limite === 'mes' && estado.comprados[claveMes]) {
-        toast('Ya lo compraste este mes. Vuelve el mes que viene ðŸ’—');
+        toast('Ya lo compraste este mes. Vuelve el mes que viene 💗');
         return false;
       }
       if (item.permanente && estado.comprados[item.id]) {
-        toast('Ya es tuyo para siempre âœ¨');
+        toast('Ya es tuyo para siempre ✨');
         return false;
       }
       if (estado.corazones < item.precio) {
-        toast('Te faltan ' + (item.precio - estado.corazones) + ' corazones. Â¡Una partida mÃ¡s!');
+        toast('Te faltan ' + (item.precio - estado.corazones) + ' corazones. ¡Una partida más!');
         return false;
       }
 
@@ -7792,7 +7792,7 @@ guÃ­as
     function usarComodin() {
       if (quizYaRespondida()) return false;
       if ((Number(estado.boosts.comodin) || 0) <= 0) {
-        toast('No tienes comodines. Puedes comprar uno en la tienda ðŸƒ');
+        toast('No tienes comodines. Puedes comprar uno en la tienda 🃏');
         return false;
       }
       const correcto = anioDelQuiz();
@@ -7812,7 +7812,7 @@ guÃ­as
     function usarPista() {
       if (quizYaRespondida()) return '';
       if ((Number(estado.boosts.pista) || 0) <= 0) {
-        toast('No tienes pistas. En la tienda hay ðŸ’¡');
+        toast('No tienes pistas. En la tienda hay 💡');
         return '';
       }
       const fecha = rondaActual ? String(rondaActual.fecha) : '';
@@ -7824,7 +7824,7 @@ guÃ­as
       if (partes[1] && MESES[Number(partes[1]) - 1]) {
         texto += 'en ' + MESES[Number(partes[1]) - 1] + ', ';
       }
-      texto += hace <= 0 ? 'este mismo aÃ±o.' : 'hace ' + hace + (hace === 1 ? ' aÃ±o.' : ' aÃ±os.');
+      texto += hace <= 0 ? 'este mismo año.' : 'hace ' + hace + (hace === 1 ? ' año.' : ' años.');
       estado.boosts.pista -= 1;
       guardar();
       pintarHud();
@@ -7834,18 +7834,18 @@ guÃ­as
     function usarEscudo() {
       if (quizYaRespondida()) return false;
       if (estado.escudoActivo) {
-        toast('El escudo ya estÃ¡ activo ðŸ›¡ï¸');
+        toast('El escudo ya está activo 🛡️');
         return false;
       }
       if ((Number(estado.boosts.escudo) || 0) <= 0) {
-        toast('No tienes escudos. CÃ³mpralos en la tienda ðŸ›¡ï¸');
+        toast('No tienes escudos. Cómpralos en la tienda 🛡️');
         return false;
       }
       estado.boosts.escudo -= 1;
       estado.escudoActivo = true;
       guardar();
       pintarHud();
-      toast('ðŸ›¡ï¸ Escudo activo: si fallas, tu racha se salva.');
+      toast('🛡️ Escudo activo: si fallas, tu racha se salva.');
       return true;
     }
 
@@ -7864,8 +7864,8 @@ guÃ­as
       if (!hud || !boosts) return;
 
       hud.replaceChildren();
-      const chipCorazones = el('span', 'juego-chip', 'â¤ï¸ ' + estado.corazones);
-      const chipRacha = el('span', 'juego-chip' + (estado.racha >= 3 ? ' juego-chip-fuego' : ''), 'ðŸ”¥ ' + estado.racha);
+      const chipCorazones = el('span', 'juego-chip', '❤️ ' + estado.corazones);
+      const chipRacha = el('span', 'juego-chip' + (estado.racha >= 3 ? ' juego-chip-fuego' : ''), '🔥 ' + estado.racha);
       const nivel = nivelActual();
       const chipNivel = el('span', 'juego-chip juego-chip-nivel', nivel.nombre);
       hud.append(chipCorazones, chipRacha, chipNivel);
@@ -7874,7 +7874,7 @@ guÃ­as
 
       boosts.replaceChildren();
       const boton = function (id, etiqueta, texto, accion) {
-        const b = el('button', 'juego-boost', etiqueta + ' Â· ' + (Number(estado.boosts[id]) || 0));
+        const b = el('button', 'juego-boost', etiqueta + ' · ' + (Number(estado.boosts[id]) || 0));
         b.type = 'button';
         b.dataset.boost = id;
         b.disabled = quizYaRespondida();
@@ -7884,14 +7884,14 @@ guÃ­as
       };
 
       boosts.append(
-        boton('comodin', 'ðŸƒ ComodÃ­n', 'ComodÃ­n', usarComodin),
-        boton('pista', 'ðŸ’¡ Pista', 'Pista', function () {
+        boton('comodin', '🃏 Comodín', 'Comodín', usarComodin),
+        boton('pista', '💡 Pista', 'Pista', function () {
           const texto = usarPista();
           if (!texto) return;
           const estadoNodo = document.getElementById('quiz-estado');
-          if (estadoNodo) estadoNodo.textContent = 'ðŸ’¡ ' + texto;
+          if (estadoNodo) estadoNodo.textContent = '💡 ' + texto;
         }),
-        boton('escudo', 'ðŸ›¡ï¸ Escudo', 'Escudo', usarEscudo)
+        boton('escudo', '🛡️ Escudo', 'Escudo', usarEscudo)
       );
 
       const bComodin = boosts.querySelector('[data-boost="comodin"]');
@@ -7902,7 +7902,7 @@ guÃ­as
       if (bEscudo && (Number(estado.boosts.escudo) <= 0 || estado.escudoActivo)) bEscudo.disabled = true;
 
       const saldo = document.getElementById('tienda-saldo');
-      if (saldo) saldo.textContent = 'â¤ï¸ ' + estado.corazones;
+      if (saldo) saldo.textContent = '❤️ ' + estado.corazones;
     }
 
     function flotar(texto) {
@@ -7957,7 +7957,7 @@ guÃ­as
 
     function panelBase(ov, titulo, kicker) {
       const panel = el('div', 'jg-panel');
-      const cerrar = el('button', 'jg-cerrar', 'âœ•');
+      const cerrar = el('button', 'jg-cerrar', '✕');
       cerrar.type = 'button';
       cerrar.setAttribute('aria-label', 'Cerrar');
       cerrar.addEventListener('click', cerrarOverlay);
@@ -7970,7 +7970,7 @@ guÃ­as
 
     function estrellas(nivel) {
       const n = Math.max(0, Math.min(5, Math.floor(Number(nivel) || 0)));
-      return n ? 'â­'.repeat(n) : '';
+      return n ? '⭐'.repeat(n) : '';
     }
 
     function crearCartaNodo(carta, mio, opciones) {
@@ -8001,12 +8001,12 @@ guÃ­as
         return nodo;
       }
 
-      const frase = el('p', 'jg-carta-frase', 'â€œ' + carta.frase + 'â€');
+      const frase = el('p', 'jg-carta-frase', '“' + carta.frase + '”');
       const info = el('div', 'jg-carta-info');
       info.append(el('span', 'jg-carta-tipo', carta.tipo));
       info.append(el('span', 'jg-carta-fecha', fechaCorta(carta.fecha)));
       const pie = el('div', 'jg-carta-pie');
-      const izq = el('span', 'jg-carta-rare', rareza.nombre + ' Â· N.Âº ' + String(indice).padStart(2, '0') + '/20');
+      const izq = el('span', 'jg-carta-rare', rareza.nombre + ' · N.º ' + String(indice).padStart(2, '0') + '/20');
       const der = el('span', 'jg-carta-estrellas', estrellas(mio && mio.nivel));
       pie.append(izq, der);
 
@@ -8094,7 +8094,7 @@ guÃ­as
       const carta = resultado.carta;
       const info = RAREZAS[rareza] || RAREZAS[carta.rareza] || RAREZAS.comun;
       const ov = crearOverlay('jg-overlay-carta');
-      const panel = panelBase(ov, '', 'Â¡' + carta.nombre + ' apareciÃ³!');
+      const panel = panelBase(ov, '', '¡' + carta.nombre + ' apareció!');
       panel.classList.add('jg-panel-carta');
 
       const nodo = crearCartaNodo(carta, estado.cartas[carta.id], { grande: true, pointer: true });
@@ -8102,9 +8102,9 @@ guÃ­as
       panel.append(nodo);
 
       if (resultado.repetida) {
-        panel.append(el('p', 'jg-resultado', 'Ya la tenÃ­as, asÃ­ que se convirtiÃ³ en +2 â¤ï¸'));
+        panel.append(el('p', 'jg-resultado', 'Ya la tenías, así que se convirtió en +2 ❤️'));
       } else {
-        panel.append(el('p', 'jg-resultado', 'Â¡Carta ' + info.corto + ' nueva para tu mural!'));
+        panel.append(el('p', 'jg-resultado', '¡Carta ' + info.corto + ' nueva para tu mural!'));
       }
 
       const acciones = el('div', 'jg-acciones');
@@ -8133,7 +8133,7 @@ guÃ­as
     function mostrarResumen(puntaje, bono) {
       if (!estado.partidas) return;
       const ov = crearOverlay('jg-overlay-resumen');
-      const panel = panelBase(ov, puntaje === 5 ? 'Â¡5 de 5!' : 'Fin de la partida', 'Resumen');
+      const panel = panelBase(ov, puntaje === 5 ? '¡5 de 5!' : 'Fin de la partida', 'Resumen');
 
       const fila = el('div', 'jg-resumen-filas');
       const linea = function (etiqueta, valor) {
@@ -8141,12 +8141,12 @@ guÃ­as
         f.append(el('span', '', etiqueta), el('b', '', valor));
         return f;
       };
-      fila.append(linea('Corazones ganados', '+' + estado._ganadas + ' â¤ï¸'));
+      fila.append(linea('Corazones ganados', '+' + estado._ganadas + ' ❤️'));
       fila.append(linea('Aciertos', puntaje + ' de 5'));
-      fila.append(linea('Racha', estado.racha + ' ðŸ”¥'));
-      if (bono) fila.append(linea('Bonus partida perfecta', '+' + bono + ' â¤ï¸'));
+      fila.append(linea('Racha', estado.racha + ' 🔥'));
+      if (bono) fila.append(linea('Bonus partida perfecta', '+' + bono + ' ❤️'));
       if (estado._doble) fila.append(linea('Doble corazones', 'activo x2'));
-      if (estado._x2) fila.append(linea('Primera del dÃ­a', 'x2'));
+      if (estado._x2) fila.append(linea('Primera del día', 'x2'));
       panel.append(fila);
 
       if (estado.sobres.length) {
@@ -8156,14 +8156,14 @@ guÃ­as
           const info = RAREZAS[sobre.rareza] || RAREZAS.comun;
           const b = el('button', 'jg-sobre-mini ' + sobre.rareza);
           b.type = 'button';
-          b.append(el('span', 'jg-sobre-mini-emoji', 'ðŸŽ'));
+          b.append(el('span', 'jg-sobre-mini-emoji', '🎁'));
           b.append(el('span', '', 'Sobre ' + info.corto));
           b.addEventListener('click', function () { abrirSobre(sobre.id); });
           lista.append(b);
         });
         panel.append(lista);
       } else {
-        panel.append(el('p', 'jg-sub', 'La prÃ³xima racha de 3 te da un sobre comÃºn ðŸŽ'));
+        panel.append(el('p', 'jg-sub', 'La próxima racha de 3 te da un sobre común 🎁'));
       }
 
       const acciones = el('div', 'jg-acciones');
@@ -8190,14 +8190,14 @@ guÃ­as
 
     function sellos() {
       return [
-        { id: 'primera', emoji: 'ðŸŽ¬', nombre: 'Primera partida', ok: estado.partidas > 0 },
-        { id: 'r3', emoji: 'ðŸ”¥', nombre: 'Racha de 3', ok: estado.mejorRacha >= 3 },
-        { id: 'r5', emoji: 'ðŸ’¥', nombre: 'Racha de 5', ok: estado.mejorRacha >= 5 },
-        { id: 'r8', emoji: 'ðŸŒŸ', nombre: 'Racha de 8', ok: estado.mejorRacha >= 8 },
-        { id: 'r12', emoji: 'ðŸ‘‘', nombre: 'Racha de 12', ok: estado.mejorRacha >= 12 },
-        { id: 'perfecta', emoji: 'ðŸŽ¯', nombre: 'Partida perfecta', ok: estado.perfectas > 0 },
-        { id: 'diez', emoji: 'ðŸ“š', nombre: '10 cartas', ok: Object.keys(estado.cartas).length >= 10 },
-        { id: 'todas', emoji: 'ðŸ†', nombre: 'ColecciÃ³n completa', ok: Object.keys(estado.cartas).length >= CARTAS.length }
+        { id: 'primera', emoji: '🎬', nombre: 'Primera partida', ok: estado.partidas > 0 },
+        { id: 'r3', emoji: '🔥', nombre: 'Racha de 3', ok: estado.mejorRacha >= 3 },
+        { id: 'r5', emoji: '💥', nombre: 'Racha de 5', ok: estado.mejorRacha >= 5 },
+        { id: 'r8', emoji: '🌟', nombre: 'Racha de 8', ok: estado.mejorRacha >= 8 },
+        { id: 'r12', emoji: '👑', nombre: 'Racha de 12', ok: estado.mejorRacha >= 12 },
+        { id: 'perfecta', emoji: '🎯', nombre: 'Partida perfecta', ok: estado.perfectas > 0 },
+        { id: 'diez', emoji: '📚', nombre: '10 cartas', ok: Object.keys(estado.cartas).length >= 10 },
+        { id: 'todas', emoji: '🏆', nombre: 'Colección completa', ok: Object.keys(estado.cartas).length >= CARTAS.length }
       ];
     }
 
@@ -8209,7 +8209,7 @@ guÃ­as
         const fila = el('div', 'jg-sello-fila' + (sello.ok ? ' ok' : ''));
         fila.append(el('span', 'jg-sello-emoji', sello.emoji));
         fila.append(el('span', 'jg-sello-nombre', sello.nombre));
-        fila.append(el('span', 'jg-sello-estado', sello.ok ? 'âœ“' : 'â€”'));
+        fila.append(el('span', 'jg-sello-estado', sello.ok ? '✓' : '—'));
         lista.append(fila);
       });
       panel.append(lista);
@@ -8246,9 +8246,9 @@ guÃ­as
 
       const izq = hojaMural('izq', pageLeft, cap);
       const contenido = el('div', 'mural-contenido');
-      contenido.append(el('span', 'actividad-kicker', 'Mi colecciÃ³n'));
+      contenido.append(el('span', 'actividad-kicker', 'Mi colección'));
       contenido.append(el('h3', 'actividad-titulo', 'El mural de Carito'));
-      contenido.append(el('p', 'actividad-sub', 'Cada racha enciende una carta. Solo las mÃ¡s divertidas.'));
+      contenido.append(el('p', 'actividad-sub', 'Cada racha enciende una carta. Solo las más divertidas.'));
       const contador = el('div', 'mural-contador');
       contador.id = 'mural-contador';
       contenido.append(contador);
@@ -8262,7 +8262,7 @@ guÃ­as
       const regalo = el('div', 'mural-regalo');
       regalo.id = 'mural-regalo';
       contenido.append(regalo);
-      contenido.append(el('p', 'mural-nota', 'Racha de 3 â†’ comÃºn Â· 5 â†’ rara Â· 8 â†’ Ã©pica Â· 12 â†’ legendaria.'));
+      contenido.append(el('p', 'mural-nota', 'Racha de 3 → común · 5 → rara · 8 → épica · 12 → legendaria.'));
       const sellosBoton = el('button', 'mural-sellos-btn');
       sellosBoton.type = 'button';
       sellosBoton.id = 'mural-sellos';
@@ -8307,19 +8307,19 @@ guÃ­as
       if (sobres) {
         sobres.replaceChildren();
         if (!estado.sobres.length) {
-          sobres.append(el('p', 'mural-sin-sobres', 'TodavÃ­a no tienes sobres. Gana una racha de 3 en el juego.'));
+          sobres.append(el('p', 'mural-sin-sobres', 'Todavía no tienes sobres. Gana una racha de 3 en el juego.'));
         } else {
           sobres.append(el('p', 'mural-sobres-titulo', 'Sobres sin abrir:'));
           estado.sobres.slice(0, 3).forEach(function (sobre) {
             const info = RAREZAS[sobre.rareza] || RAREZAS.comun;
             const b = el('button', 'jg-sobre-mini ' + sobre.rareza);
             b.type = 'button';
-            b.append(el('span', 'jg-sobre-mini-emoji', 'ðŸŽ'), el('span', '', info.corto));
+            b.append(el('span', 'jg-sobre-mini-emoji', '🎁'), el('span', '', info.corto));
             b.addEventListener('click', function () { abrirSobre(sobre.id); });
             sobres.append(b);
           });
           if (estado.sobres.length > 3) {
-            sobres.append(el('span', 'mural-mas', '+' + (estado.sobres.length - 3) + ' mÃ¡s'));
+            sobres.append(el('span', 'mural-mas', '+' + (estado.sobres.length - 3) + ' más'));
           }
         }
       }
@@ -8327,7 +8327,7 @@ guÃ­as
       const sellosBoton = document.getElementById('mural-sellos');
       if (sellosBoton) {
         const hechos = sellos().filter(function (s) { return s.ok; }).length;
-        sellosBoton.textContent = 'ðŸ… Mis sellos Â· ' + hechos + '/' + sellos().length;
+        sellosBoton.textContent = '🏅 Mis sellos · ' + hechos + '/' + sellos().length;
       }
 
       const regalo = document.getElementById('mural-regalo');
@@ -8337,7 +8337,7 @@ guÃ­as
         if (!temp) return;
         const clave = temp.id + '-' + hoyISO().slice(0, 4);
         if (estado.regalos[clave]) {
-          regalo.append(el('p', 'mural-regalo-hecho', 'ðŸŽ Regalo de ' + temp.nombre + ' ya abierto'));
+          regalo.append(el('p', 'mural-regalo-hecho', '🎁 Regalo de ' + temp.nombre + ' ya abierto'));
           return;
         }
         const b = el('button', 'mural-regalo-btn', temp.emoji + ' Regalo de ' + temp.nombre);
@@ -8367,7 +8367,7 @@ guÃ­as
           celda.setAttribute('aria-label', 'Carta sin descubrir');
           celda.append(el('span', 'mural-interrogacion', '?'));
           celda.addEventListener('click', function () {
-            toast('Esa carta todavÃ­a no sale. Â¡Sigue jugando! ðŸŽ');
+            toast('Esa carta todavía no sale. ¡Sigue jugando! 🎁');
           });
         }
         grid.append(celda);
@@ -8393,9 +8393,9 @@ guÃ­as
 
     function temporada() {
       const md = hoyISO().slice(5);
-      if (md === '02-14') return { id: 'sanvalentin', nombre: 'San ValentÃ­n', emoji: 'ðŸ’˜' };
-      if (md === '09-21') return { id: 'flores', nombre: 'Flores amarillas', emoji: 'ðŸŒ»' };
-      if (md === '12-09') return { id: 'cumple', nombre: 'CumpleaÃ±os de Carito', emoji: 'ðŸŽ‚' };
+      if (md === '02-14') return { id: 'sanvalentin', nombre: 'San Valentín', emoji: '💘' };
+      if (md === '09-21') return { id: 'flores', nombre: 'Flores amarillas', emoji: '🌻' };
+      if (md === '12-09') return { id: 'cumple', nombre: 'Cumpleaños de Carito', emoji: '🎂' };
       return null;
     }
 
@@ -8407,7 +8407,7 @@ guÃ­as
       estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
       guardar();
       pintarMuralEnVivo();
-      toast('ðŸŽ Â¡' + temp.nombre + '! Te dejÃ© un sobre raro.');
+      toast('🎁 ¡' + temp.nombre + '! Te dejé un sobre raro.');
       const sobre = estado.sobres[estado.sobres.length - 1];
       mostrarSobre(sobre.rareza);
     }
@@ -8426,7 +8426,7 @@ guÃ­as
       const titulos = el('div', 'tienda-titulos');
       titulos.append(el('span', 'actividad-kicker', 'Con tus corazones'));
       titulos.append(el('h3', 'actividad-titulo', 'La tienda'));
-      const saldo = el('span', 'tienda-saldo', 'â¤ï¸ ' + estado.corazones);
+      const saldo = el('span', 'tienda-saldo', '❤️ ' + estado.corazones);
       saldo.id = 'tienda-saldo';
       cabeza.append(titulos, saldo);
       contenido.append(cabeza);
@@ -8448,7 +8448,7 @@ guÃ­as
       const lista = el('div', 'tienda-lista');
       lista.id = 'tienda-lista';
       contenido.append(lista);
-      contenido.append(el('p', 'tienda-pie', 'Precios en corazones, no en dinero real ðŸ˜Œ'));
+      contenido.append(el('p', 'tienda-pie', 'Precios en corazones, no en dinero real 😌'));
 
       izq.hoja.append(contenido);
       izq.decoraciones.forEach(function (n) { if (n) izq.hoja.append(n); });
@@ -8456,10 +8456,10 @@ guÃ­as
       const der = hojaMural('der', pageRight, cap);
       der.hoja.classList.add('hoja-tienda-der');
       const lado = el('div', 'tienda-lado');
-      lado.append(el('span', 'actividad-kicker', 'CÃ³mo se gana'));
+      lado.append(el('span', 'actividad-kicker', 'Cómo se gana'));
       const reglas = el('ul', 'tienda-reglas');
-      ['1 acierto = 1 â¤ï¸', 'Racha de 3 = +3 â¤ï¸ y un sobre', 'Racha de 5 = +5 â¤ï¸ y un sobre',
-        'Partida perfecta = +10 â¤ï¸', 'Primera partida del dÃ­a = x2', 'Carta repetida = +2 â¤ï¸'
+      ['1 acierto = 1 ❤️', 'Racha de 3 = +3 ❤️ y un sobre', 'Racha de 5 = +5 ❤️ y un sobre',
+        'Partida perfecta = +10 ❤️', 'Primera partida del día = x2', 'Carta repetida = +2 ❤️'
       ].forEach(function (t) { reglas.append(el('li', '', t)); });
       lado.append(reglas);
       lado.append(el('span', 'actividad-kicker', 'Mis vales'));
@@ -8470,8 +8470,8 @@ guÃ­as
       const sobres = el('div', 'tienda-sobres');
       sobres.id = 'tienda-sobres';
       lado.append(sobres);
-      lado.append(el('p', 'tienda-nota', 'Al canjear, se abre WhatsApp con el mensaje listo para avisarme ðŸ’Œ'));
-      const firma = el('p', 'tienda-firma', 'Los vales los cumple tu niÃ±o. Sin excusas.');
+      lado.append(el('p', 'tienda-nota', 'Al canjear, se abre WhatsApp con el mensaje listo para avisarme 💌'));
+      const firma = el('p', 'tienda-firma', 'Los vales los cumple tu niño. Sin excusas.');
       lado.append(firma);
 
       der.hoja.append(lado);
@@ -8490,7 +8490,7 @@ guÃ­as
 
     function pintarTiendaEnVivo() {
       const saldo = document.getElementById('tienda-saldo');
-      if (saldo) saldo.textContent = 'â¤ï¸ ' + estado.corazones;
+      if (saldo) saldo.textContent = '❤️ ' + estado.corazones;
 
       const tabs = document.getElementById('tienda-tabs');
       if (tabs) {
@@ -8511,7 +8511,7 @@ guÃ­as
           linea.append(el('strong', 'tienda-item-nombre', item.nombre));
           boton.append(linea);
           const pie = el('span', 'tienda-item-pie');
-          pie.append(el('span', 'tienda-item-precio', item.precio + ' â¤ï¸'));
+          pie.append(el('span', 'tienda-item-precio', item.precio + ' ❤️'));
           if (!puede) pie.append(el('span', 'tienda-item-tag', 'este mes ya'));
           else if (item.limite === 'mes') pie.append(el('span', 'tienda-item-tag', '1 / mes'));
           else if (item.cat === 'mejora' && item.id !== 'sobreExtra' && item.id !== 'doble') {
@@ -8528,15 +8528,15 @@ guÃ­as
         mis.replaceChildren();
         if (!estado.vales.length) {
           const vacio = el('div', 'tienda-vacio');
-          vacio.append(el('span', 'tienda-vacio-emoji', 'ðŸŽŸï¸'));
-          vacio.append(el('span', '', 'TodavÃ­a no tienes vales. Junta corazones y canjea el primero ðŸ’—'));
+          vacio.append(el('span', 'tienda-vacio-emoji', '🎟️'));
+          vacio.append(el('span', '', 'Todavía no tienes vales. Junta corazones y canjea el primero 💗'));
           mis.append(vacio);
         }
         estado.vales.slice().reverse().slice(0, 6).forEach(function (vale) {
           const fila = el('div', 'vale-mini' + (vale.canjeado ? ' canjeado' : ''));
           const texto = el('span', 'vale-mini-texto');
           texto.append(el('b', '', vale.emoji + ' ' + vale.nombre));
-          texto.append(el('small', '', 'Vale N.Âº ' + vale.codigo + ' Â· ' + fechaCorta(vale.comprado)));
+          texto.append(el('small', '', 'Vale N.º ' + vale.codigo + ' · ' + fechaCorta(vale.comprado)));
           fila.append(texto);
           if (vale.canjeado) {
             fila.append(el('span', 'vale-mini-sello', 'CANJEADO'));
@@ -8549,20 +8549,20 @@ guÃ­as
           mis.append(fila);
         });
         if (estado.vales.length > 6) {
-          mis.append(el('p', 'tienda-vacio', 'y ' + (estado.vales.length - 6) + ' mÃ¡s...'));
+          mis.append(el('p', 'tienda-vacio', 'y ' + (estado.vales.length - 6) + ' más...'));
         }
       }
       const tiendaSobres = document.getElementById('tienda-sobres');
       if (tiendaSobres) {
         tiendaSobres.replaceChildren();
         if (!estado.sobres.length) {
-          tiendaSobres.append(el('p', 'tienda-vacio', 'Gana una racha de 3 y te cae uno ðŸŽ'));
+          tiendaSobres.append(el('p', 'tienda-vacio', 'Gana una racha de 3 y te cae uno 🎁'));
         } else {
           estado.sobres.slice(0, 4).forEach(function (sobre) {
             const info = RAREZAS[sobre.rareza] || RAREZAS.comun;
             const b = el('button', 'jg-sobre-mini ' + sobre.rareza);
             b.type = 'button';
-            b.append(el('span', 'jg-sobre-mini-emoji', 'ðŸŽ'), el('span', '', 'Sobre ' + info.corto));
+            b.append(el('span', 'jg-sobre-mini-emoji', '🎁'), el('span', '', 'Sobre ' + info.corto));
             b.addEventListener('click', function () { abrirSobre(sobre.id); });
             tiendaSobres.append(b);
           });
@@ -8579,7 +8579,7 @@ guÃ­as
       panel.append(el('p', 'jg-detalle', item.detalle));
 
       const precio = el('div', 'jg-precio');
-      precio.append(el('span', 'jg-precio-num', item.precio + ' â¤ï¸'));
+      precio.append(el('span', 'jg-precio-num', item.precio + ' ❤️'));
       precio.append(el('span', 'jg-precio-saldo', 'Tienes ' + estado.corazones));
       panel.append(precio);
 
@@ -8587,7 +8587,7 @@ guÃ­as
       if (item.permanente) panel.append(el('p', 'jg-stock', puede ? 'Se queda para siempre' : 'Ya es tuyo'));
 
       const acciones = el('div', 'jg-acciones');
-      const comprar = el('button', 'jg-btn', !puede ? 'No disponible' : (alcanza ? 'Canjear' : 'Te faltan ' + (item.precio - estado.corazones) + ' â¤ï¸'));
+      const comprar = el('button', 'jg-btn', !puede ? 'No disponible' : (alcanza ? 'Canjear' : 'Te faltan ' + (item.precio - estado.corazones) + ' ❤️'));
       comprar.type = 'button';
       comprar.disabled = !puede || !alcanza;
       comprar.addEventListener('click', function () {
@@ -8596,7 +8596,7 @@ guÃ­as
         if (vale) mostrarVale(vale, true);
         else {
           cerrarOverlay();
-          toast('Â¡Comprado! ' + item.emoji + ' ' + item.nombre);
+          toast('¡Comprado! ' + item.emoji + ' ' + item.nombre);
           pintarHud();
           pintarMuralEnVivo();
           pintarTiendaEnVivo();
@@ -8612,15 +8612,15 @@ guÃ­as
 
     function mostrarVale(vale, recien) {
       const ov = crearOverlay('jg-overlay-vale');
-      const panel = panelBase(ov, recien ? 'Â¡Tu vale estÃ¡ listo!' : 'Tu vale', 'Vale N.Âº ' + vale.codigo);
+      const panel = panelBase(ov, recien ? '¡Tu vale está listo!' : 'Tu vale', 'Vale N.º ' + vale.codigo);
       const ticket = el('div', 'jg-ticket');
       ticket.append(el('span', 'jg-ticket-emoji', vale.emoji));
       ticket.append(el('strong', 'jg-ticket-nombre', vale.nombre));
       ticket.append(el('span', 'jg-ticket-fecha', 'Comprado el ' + fechaBonita(vale.comprado)));
-      ticket.append(el('span', 'jg-ticket-codigo', 'N.Âº ' + vale.codigo));
+      ticket.append(el('span', 'jg-ticket-codigo', 'N.º ' + vale.codigo));
       panel.append(ticket);
 
-      panel.append(el('p', 'jg-detalle', 'MuÃ©strale este vale a tu niÃ±o cuando quieras usarlo. Ã‰l lo cumple.'));
+      panel.append(el('p', 'jg-detalle', 'Muéstrale este vale a tu niño cuando quieras usarlo. Él lo cumple.'));
 
       const acciones = el('div', 'jg-acciones');
       if (!vale.canjeado) {
@@ -8632,7 +8632,7 @@ guÃ­as
         });
         acciones.append(avisar);
       } else {
-        panel.append(el('p', 'jg-resultado', 'âœ… Ya se lo avisaste. Â¡A disfrutarlo!'));
+        panel.append(el('p', 'jg-resultado', '✅ Ya se lo avisaste. ¡A disfrutarlo!'));
       }
       const cerrar = el('button', 'jg-btn jg-btn-suave', 'Cerrar');
       cerrar.type = 'button';
@@ -8646,16 +8646,16 @@ guÃ­as
       if (!vale) return;
       vale.canjeado = hoyISO();
       guardar();
-      const texto = 'Hola ðŸ’Œ CanjeÃ© mi vale Â«' + vale.nombre + ' ' + vale.emoji + 'Â» en el libro de nosotros (Vale N.Âº ' + vale.codigo + '). Cuando puedas, lo espero.';
+      const texto = 'Hola 💌 Canjeé mi vale «' + vale.nombre + ' ' + vale.emoji + '» en el libro de nosotros (Vale N.º ' + vale.codigo + '). Cuando puedas, lo espero.';
       const base = WA_NUMERO ? 'https://wa.me/' + WA_NUMERO + '?text=' : 'https://wa.me/?text=';
       try {
         window.open(base + encodeURIComponent(texto), '_blank', 'noopener');
       } catch (error) {
-        toast('No se pudo abrir WhatsApp. Escribe el vale N.Âº ' + vale.codigo + ' ðŸ’Œ');
+        toast('No se pudo abrir WhatsApp. Escribe el vale N.º ' + vale.codigo + ' 💌');
       }
       pintarTiendaEnVivo();
       pintarHud();
-      toast('ðŸ’Œ Vale N.Âº ' + vale.codigo + ' avisado por WhatsApp');
+      toast('💌 Vale N.º ' + vale.codigo + ' avisado por WhatsApp');
     }
 
     /* --------------------------------- API ---------------------------------- */
@@ -8688,7 +8688,7 @@ guÃ­as
   <script>
     /**
  * Todos tus recuerdos en ORDEN CRONOLOGICO REAL (fecha segun EXIF/nombre de archivo).
- * [archivo, 'YYYY-MM-DD', 'YYYY' o ''] â€” los sin fecha quedan al final para moverlos luego.
+ * [archivo, 'YYYY-MM-DD', 'YYYY' o ''] — los sin fecha quedan al final para moverlos luego.
  */
 const recuerdosConFecha = [["IMG_20221120_101052.jpg","2022-11-20"],["WhatsApp Image 2026-10-27 at 10.34.35 PM.jpeg","2023"],["IMG-20230529-WA0015.jpg","2023-05-29"],["IMG20231026132733.jpg","2023-10-26"],["IMG20231026140347.jpg","2023-10-26"],["IMG20231026165812.jpg","2023-10-26"],["IMG20231026173238.jpg","2023-10-26"],["IMG-20231026-WA0145.jpg","2023-10-26"],["1792425495757.jpg","2023-10-26"],["1792425496237.jpg","2023-10-26"],["1792425496109.jpg","2023-10-26"],["WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg","2024-01-16"],["IMG20240221081503.jpg","2024-02-21"],["IMG20240221083212.jpg","2024-02-21"],["1792425495524.jpg","2024-02-21"],["IMG-20240301-WA0004.jpg","2024-03-01"],["IMG20240611124839.jpg","2024-06-11"],["IMG20240611124839_01.jpg","2024-06-11"],["IMG20240611125502_01.jpg","2024-06-11"],["VID_20241205_171840_723.mp4","2024-12-05"],["IMG20241218105521.jpg","2024-12-18"],["VID20241218114211.mp4","2024-12-18"],["IMG-20250109-WA0008.jpg","2025-01-09"],["IMG-20250109-WA0012.jpg","2025-01-09"],["IMG-20250109-WA0015.jpg","2025-01-09"],["WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg","2025-01-14"],["WhatsApp Image 2026-10-27 at 10.34.35 PM (2).jpeg","2025-01-14"],["VID_20250123_184020_378.mp4","2025-01-23"],["VID_20250206_183348_348.mp4","2025-02-06"],["1792425494791.jpg","2025-03-03"],["VID-20250317-WA0001.mp4","2025-03-17"],["VID_20250321192946.mp4","2025-03-21"],["1792425494740.jpg","2025-03-22"],["IMG_20250325_155616_0781.jpg","2025-03-25"],["IMG-20250328-WA0008.jpg","2025-03-28"],["IMG_20250402_162514_0624.jpg","2025-04-02"],["IMG_20250402_180149.jpg","2025-04-02"],["VID-20250411-WA0009.mp4","2025-04-11"],["VID_20250415_162320_372.mp4","2025-04-15"],["VID-20250422-WA0005.mp4","2025-04-22"],["lv_0_20250501111707.mp4","2025-05-01"],["VN20250504_153551.mp4","2025-05-04"],["IMG20250509102100.jpg","2025-05-09"],["lv_7440698159979941173_20250510205510.mp4","2025-05-10"],["lv_7327981166873627905_20250516210126.mp4","2025-05-16"],["lv_7388084120661789959_20250516203315.mp4","2025-05-16"],["lv_7461001247701601597_20250517101110.mp4","2025-05-17"],["IMG-20250519-WA0007.jpg","2025-05-19"],["IMG-20250522-WA0003.jpg","2025-05-22"],["VID-20250524-WA0016.mp4","2025-05-24"],["WhatsApp Image 2026-10-27 at 10.34.35 PM (3).jpeg","2025-05-25"],["IMG-20250527-WA0020.jpg","2025-05-27"],["IMG-20250529-WA0003.jpg","2025-05-29"],["IMG-20250530-WA0004.jpg","2025-05-30"],["IMG-20250604-WA0000.jpg","2025-06-04"],["IMG-20250604-WA0003.jpg","2025-06-04"],["IMG-20250604-WA0046.jpg","2025-06-04"],["lv_7420671099958021384_20250606181232.mp4","2025-06-06"],["IMG_20250611_131320_0444.jpg","2025-06-11"],["IMG_20250611_131325_0604.jpg","2025-06-11"],["IMG_20250611_131328_0321.jpg","2025-06-11"],["lv_7446817124212870461_20250612200216.mp4","2025-06-12"],["lv_7514881250545519933_20250612192850.mp4","2025-06-12"],["IMG-20250613-WA0001.jpg","2025-06-13"],["VID_20250613_214041_128.mp4","2025-06-13"],["lv_7397652548720610567_20250625173527.mp4","2025-06-25"],["lv_0_20250630162225.mp4","2025-06-30"],["IMG-20250709-WA0002.jpg","2025-07-09"],["IMG-20250709-WA0003.jpg","2025-07-09"],["IMG-20250709-WA0004.jpg","2025-07-09"],["IMG-20250709-WA0016.jpg","2025-07-09"],["IMG20250711162310.jpg","2025-07-11"],["1792425496567.jpg","2025-07-11"],["IMG_20250716_164853_0436.jpg","2025-07-16"],["IMG_20250716_164854_0940.jpg","2025-07-16"],["IMG-20250716-WA0020.jpg","2025-07-16"],["IMG-20250716-WA0021.jpg","2025-07-16"],["IMG-20250716-WA0022.jpg","2025-07-16"],["IMG-20250716-WA0033.jpg","2025-07-16"],["IMG-20250716-WA0034.jpg","2025-07-16"],["IMG-20250716-WA0046.jpg","2025-07-16"],["lv_7475573247149411645_20250717131421.mp4","2025-07-17"],["lv_7415216843230678328_20250730190548.mp4","2025-07-30"],["lv_7533064006081187133_20250801000054.mp4","2025-08-01"],["IMG-20250803-WA0014.jpg","2025-08-03"],["IMG-20250803-WA0015.jpg","2025-08-03"],["IMG-20250803-WA0017.jpg","2025-08-03"],["IMG-20250810-WA0010.jpg","2025-08-10"],["IMG-20250813-WA0007.jpg","2025-08-13"],["IMG_20250816_130533.jpg","2025-08-16"],["IMG_20250816_130536.jpg","2025-08-16"],["IMG_20250816_130536_1.jpg","2025-08-16"],["IMG_20250816_130543.jpg","2025-08-16"],["IMG_20250816_133736.jpg","2025-08-16"],["IMG_20250816_133737.jpg","2025-08-16"],["IMG_20250816_133741.jpg","2025-08-16"],["IMG_20250816_133744.jpg","2025-08-16"],["IMG_20250816_133744_1.jpg","2025-08-16"],["IMG_20250816_142044.jpg","2025-08-16"],["IMG_20250913_175305.jpg","2025-09-13"],["lv_7189490065138076929_20250914002538.mp4","2025-09-14"],["IMG_20250920_141329.jpg","2025-09-20"],["IMG_20250920_141338.jpg","2025-09-20"],["IMG_20250920_141431.jpg","2025-09-20"],["IMG_20250920_141451.jpg","2025-09-20"],["IMG_20250920_142023.jpg","2025-09-20"],["IMG-20250920-WA0282.jpg","2025-09-20"],["lv_7551241228231167293_20250920211348.mp4","2025-09-20"],["lv_7555095673784241469_20250930221742.mp4","2025-09-30"],["WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg","2025-10-29"],["WhatsApp Image 2026-10-27 at 10.47.18 PM.jpeg","2025-10-29"],["2025-11-08-233346907.mp4","2025-11-08"],["MVIMG_20251108_194853.jpg","2025-11-08"],["MVIMG_20251108_194922.jpg","2025-11-08"],["MVIMG_20251108_201102.jpg","2025-11-08"],["MVIMG_20251108_201105.jpg","2025-11-08"],["MVIMG_20251108_201118.jpg","2025-11-08"],["MVIMG_20251108_201119.jpg","2025-11-08"],["1792425494273.jpg","2025-11-08"],["lv_0_20251220125814.mp4","2025-12-20"],["Picsart_26-09-21_21-45-29-200.jpg","2026-09-21"],["Picsart_26-09-21_21-47-28-513.jpg","2026-09-21"],["IMG_20261011_183810_226.jpg","2026-10-11"],["VID_20261011_173335_374.mp4","2026-10-11"],["IMG_20261013_220446_218.jpg","2026-10-13"],["1792425495070.webp","2026-10-19"],["Snapchat-840892437.jpg",""],["Snapchat-1299101.mp4",""],["Snapchat-1947055303.jpg",""],["Snapchat-1340013342.jpg",""],["Snapchat-1810511931.mp4",""],["9e7b1d166cac7195c86c9e1a372ab7b7.mp4",""],["Snapchat-562786656.jpg",""]];
 
@@ -8697,44 +8697,44 @@ const recuerdosConFecha = [["IMG_20221120_101052.jpg","2022-11-20"],["WhatsApp I
  * Escribe una linea por recuerdo:  'nombre-del-archivo.jpg': 'Tu texto aqui',
  */
 const notasDeCarito = {
-  'IMG_20221120_101052.jpg': 'Â¿Te acuerdas de esta primera foto? EstÃ¡bamos bien pequeÃ±os. En ese desfile, queriendo o no, nos tocÃ³ juntosâ€¦ y ahÃ­ naciÃ³ decirte "brujita", algo de cariÃ±o. A partir de ahÃ­ ya no me caÃ­ste taaan mal ðŸ¤­',
-  'WhatsApp Image 2026-10-27 at 10.34.35 PM.jpeg': 'Esta foto se explica sola (Â¿te acuerdas que cuando salimos al cine esta era la foto de perfil del grupo?) ðŸ’—',
-  'IMG-20230529-WA0015.jpg': 'En esta estuvimos juntos fuera de la escuela. AhÃ­ empezamos a hablar con un poquito mÃ¡s de confianza.',
-  'IMG20231026132733.jpg': 'Esta es antes de entrar al cine a ver la de FNAF!!!! Que segÃºn tÃº te daba mieditooo ðŸŽƒ',
-  'IMG20231026140347.jpg': 'En esta fue antes de que empezara la peli, que nuestros supuestos amigos nos hicieron sentarnos juntosâ€¦ y queriendo o no, lo hicimos.',
+  'IMG_20221120_101052.jpg': '¿Te acuerdas de esta primera foto? Estábamos bien pequeños. En ese desfile, queriendo o no, nos tocó juntos… y ahí nació decirte "brujita", algo de cariño. A partir de ahí ya no me caíste taaan mal 🤭',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM.jpeg': 'Esta foto se explica sola (¿te acuerdas que cuando salimos al cine esta era la foto de perfil del grupo?) 💗',
+  'IMG-20230529-WA0015.jpg': 'En esta estuvimos juntos fuera de la escuela. Ahí empezamos a hablar con un poquito más de confianza.',
+  'IMG20231026132733.jpg': 'Esta es antes de entrar al cine a ver la de FNAF!!!! Que según tú te daba mieditooo 🎃',
+  'IMG20231026140347.jpg': 'En esta fue antes de que empezara la peli, que nuestros supuestos amigos nos hicieron sentarnos juntos… y queriendo o no, lo hicimos.',
   'IMG20231026165812.jpg': 'Esta es saliendo del cine.',
-  'IMG20231026173238.jpg': 'Era por fechas de DÃ­a de Muertos, habÃ­an decorado, y te tomÃ© algunas fotos posando en las calaveras.',
-  'IMG-20231026-WA0145.jpg': 'Esta la tomaste tÃº. No se ve, pero creo que era en esta donde atrÃ¡s un wey nos sacÃ³ el dedo maloâ€¦ che mamÃ³n jajajaja.',
-  '1792425495757.jpg': 'Pues quÃ© puedo decir: estas fotos son unas de mis favoritas que tengo de ti, simplemente increÃ­bles. Y todo porque querÃ­as que te invitara algo del bazar, Â¿recuerdas? Tu labial, y saliendo te tropezaste JAJAJAJA.',
-  '1792425496237.jpg': 'JAJAJ tu cara ðŸ˜‚',
-  '1792425496109.jpg': 'Otra fotito mÃ¡s.',
-  'WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg': 'Esta que medio salÃ³n nos tomÃ³ foto, segÃºn tÃº. Una foto sÃºper linda y con algo de historia detrÃ¡s, jaja.'
+  'IMG20231026173238.jpg': 'Era por fechas de Día de Muertos, habían decorado, y te tomé algunas fotos posando en las calaveras.',
+  'IMG-20231026-WA0145.jpg': 'Esta la tomaste tú. No se ve, pero creo que era en esta donde atrás un wey nos sacó el dedo malo… che mamón jajajaja.',
+  '1792425495757.jpg': 'Pues qué puedo decir: estas fotos son unas de mis favoritas que tengo de ti, simplemente increíbles. Y todo porque querías que te invitara algo del bazar, ¿recuerdas? Tu labial, y saliendo te tropezaste JAJAJAJA.',
+  '1792425496237.jpg': 'JAJAJ tu cara 😂',
+  '1792425496109.jpg': 'Otra fotito más.',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg': 'Esta que medio salón nos tomó foto, según tú. Una foto súper linda y con algo de historia detrás, jaja.'
 };
 
 const capitulos = [
-  { num: 1, title: 'Secundaria', quote: 'Donde todo empezÃ³...', snoopyPose: 2, hasta: '2025-04-30' },
+  { num: 1, title: 'Secundaria', quote: 'Donde todo empezó...', snoopyPose: 2, hasta: '2025-04-30' },
   { num: 2, title: 'Nuestra Historia', quote: 'Caminando juntos.', snoopyPose: 8, hasta: '2025-09-19' },
   { num: 3, title: 'Siempre Juntos', quote: 'Momentos inolvidables.', snoopyPose: 5, hasta: null }
 ];
 
     /*
-     * ÃLBUMES DE MÃšSICA
-     * Las canciones reales y las carÃ¡tulas las agregamos aquÃ­ cuando me mandes los archivos.
-     * - portada: ruta de la carÃ¡tula del Ã¡lbum (ej. 'musica/portadas/nuestras.jpg')
-     * - color / color2: tonos pastel de la tarjeta del Ã¡lbum
+     * ÁLBUMES DE MÚSICA
+     * Las canciones reales y las carátulas las agregamos aquí cuando me mandes los archivos.
+     * - portada: ruta de la carátula del álbum (ej. 'musica/portadas/nuestras.jpg')
+     * - color / color2: tonos pastel de la tarjeta del álbum
      * - tinta: color del texto de la tarjeta
-     * - profundo / acento: tonos del fondo dinÃ¡mico y de los controles
-     * - archivo: ruta de la canciÃ³n (ej. 'musica/nuestras/01-nombre.mp3')
-     * - portada de la canciÃ³n (opcional): si no se pone, busca automaticamente
-     *   la caratula en 'musica/portadas' con el mismo nombre que la canciÃ³n
+     * - profundo / acento: tonos del fondo dinámico y de los controles
+     * - archivo: ruta de la canción (ej. 'musica/nuestras/01-nombre.mp3')
+     * - portada de la canción (opcional): si no se pone, busca automaticamente
+     *   la caratula en 'musica/portadas' con el mismo nombre que la canción
      *   (ej. 'musica/letras/Enculado Nsqk.mp3' -> 'musica/portadas/Enculado Nsqk.jpg')
      * - si tampoco hay caratula propia, usa la del album
      */
     const albumesMusica = [
       {
         id: 'favoritas',
-        titulo: 'Tus Favoritas âœ¨',
-        descripcion: 'La mÃºsica que mÃ¡s te gusta, siempre contigo',
+        titulo: 'Tus Favoritas ✨',
+        descripcion: 'La música que más te gusta, siempre contigo',
         portada: 'musica/portadas/album-favoritas.jpg',
         color: '#ffcde4',
         color2: '#e8a1c5',
@@ -8744,7 +8744,7 @@ const capitulos = [
         esYoutube: true,
         canciones: [
           { titulo: 'I Will Wait', artista: 'Benjamin Lovett, Winston Marshall, Marcus Mumford, Ted Dwane', spotifyId: '5SLdZ5VyAGBrT4BbIeIEQO' },
-          { titulo: 'KhÃ©?', artista: 'Rauw Alejandro, Romeo Santos', spotifyId: '0Rerqpf0rXnz6ndP7ytQ6O' },
+          { titulo: 'Khé?', artista: 'Rauw Alejandro, Romeo Santos', spotifyId: '0Rerqpf0rXnz6ndP7ytQ6O' },
           { titulo: 'Te Estoy Correteando', artista: 'LATIN MAFIA, Fred again..', spotifyId: '5B579RUazOpBcuxjTZWnMs' },
           { titulo: 'AMOR FATI', artista: 'Jorge Cuellar', spotifyId: '6FfN4fFMsiBK2pgP9mLqxL' },
           { titulo: 'Pdjo', artista: 'Jorge Cuellar', spotifyId: '3aPHGrobz5I3KlmSZJuXJL' },
@@ -8752,44 +8752,44 @@ const capitulos = [
           { titulo: 'El Ideal', artista: 'Jorge Cuellar', spotifyId: '3ABcPw7v19WMTlZ3DeDZlk' },
           { titulo: 'Reminiscencia', artista: 'Jorge Cuellar, Ysrael Barajas', spotifyId: '7f1G5yfj2mcGEwKCHks3lm' },
           { titulo: 'fantasmas', artista: 'HUMBE', spotifyId: '3iTVjevexCuVrBwmkR4qJc' },
-          { titulo: 'Tiroteo - Remix', artista: 'Marc SeguÃ­, Rauw Alejandro, Pol Granch', spotifyId: '4OwhwvKESFtuu06dTgct7i' },
+          { titulo: 'Tiroteo - Remix', artista: 'Marc Seguí, Rauw Alejandro, Pol Granch', spotifyId: '4OwhwvKESFtuu06dTgct7i' },
           { titulo: 'Columbia', artista: 'Quevedo', spotifyId: '6XbtvPmIpyCbjuT0e8cQtp' },
           { titulo: 'Without Me', artista: 'Eminem', spotifyId: '7lQ8MOhq6IN2w8EYcFNSUk' },
-          { titulo: 'PerdÃ³name', artista: 'La FactorÃ­a, Eddy Lover', spotifyId: '1OYZbxODr6TMlaT2PRi6Wi' },
-          { titulo: 'JardÃ­n', artista: 'Jorge Cuellar', spotifyId: '1wHhQO8Yq9mAPW3q9ryoEL' },
+          { titulo: 'Perdóname', artista: 'La Factoría, Eddy Lover', spotifyId: '1OYZbxODr6TMlaT2PRi6Wi' },
+          { titulo: 'Jardín', artista: 'Jorge Cuellar', spotifyId: '1wHhQO8Yq9mAPW3q9ryoEL' },
           { titulo: 'YUANFEN', artista: 'Jorge Cuellar', spotifyId: '6xXq5T9UCMdAobtSLm5sGG' },
-          { titulo: 'conexiÃ³n', artista: 'Conjunto Nuevo Amanecer, Jorge Cuellar', spotifyId: '4rn6cdRuBjw3E05NfhNouj' },
+          { titulo: 'conexión', artista: 'Conjunto Nuevo Amanecer, Jorge Cuellar', spotifyId: '4rn6cdRuBjw3E05NfhNouj' },
           { titulo: '7 DIAS', artista: 'Gabito Ballesteros, Tito Double P', spotifyId: '5Z75FvRFiultmPFWHx5jQ7' },
           { titulo: 'Amigos Con Derechos', artista: 'Reik, Maluma', spotifyId: '4yVO0wOhXsZC1RuPgHP524' },
           { titulo: 'Ya Borracho', artista: 'Herencia De Grandes', spotifyId: '4NyUIohBa3CEMGcXURYSOh' },
-          { titulo: 'BÃ¡jale', artista: 'EdÃ©n MuÃ±oz', spotifyId: '1LOLsJKiqBjgVg0HWAcfpF' },
-          { titulo: 'SÃ­ Veo a Tu MamÃ¡', artista: 'Bad Bunny', spotifyId: '41wtwzCZkXwpnakmwJ239F' },
+          { titulo: 'Bájale', artista: 'Edén Muñoz', spotifyId: '1LOLsJKiqBjgVg0HWAcfpF' },
+          { titulo: 'Sí Veo a Tu Mamá', artista: 'Bad Bunny', spotifyId: '41wtwzCZkXwpnakmwJ239F' },
           { titulo: 'Amor de papel', artista: 'Jorge Cuellar', spotifyId: '2fRsfNYVYrwbFZcJFuSfFx' },
-          { titulo: 'prÃ©stame un beso', artista: 'Jorge Cuellar, Vivian Garcia', spotifyId: '7nDMD0rdJ0HutfgFzqkMWh' },
+          { titulo: 'préstame un beso', artista: 'Jorge Cuellar, Vivian Garcia', spotifyId: '7nDMD0rdJ0HutfgFzqkMWh' },
           { titulo: 'IMU', artista: 'Jorge Cuellar, Ysrael Barajas', spotifyId: '5RGqgYKLBrLMgE2zPI600I' },
           { titulo: 'Criminal', artista: 'NATT NATASHA, Ozuna', spotifyId: '4nt5qwSYkN4d3v57v4bB72' },
           { titulo: 'Gimme Tha Power', artista: 'Molotov', spotifyId: '7bN2XAxC3SN8Ie16xP6lpm' },
-          { titulo: 'Entre Beso Y Beso', artista: 'La Arrolladora Banda El LimÃ³n', spotifyId: '7uL1ZsdxI8l4sgEsgCmTlG' },
+          { titulo: 'Entre Beso Y Beso', artista: 'La Arrolladora Banda El Limón', spotifyId: '7uL1ZsdxI8l4sgEsgCmTlG' },
           { titulo: 'Los Dioses Ocultos', artista: 'Caifanes', spotifyId: '3aYLIO4htUZCAygXUbbc3Q' },
           { titulo: 'Say My Name', artista: 'David Guetta, Bebe Rexha, J Balvin', spotifyId: '4wqIXeDppYSMXaWsnTzpzT' },
           { titulo: 'Me Niego', artista: 'Reik, Ozuna, Wisin', spotifyId: '4ggiDYAkJ7Yk8d5xOr7Xjo' },
           { titulo: 'DE CAROLINA', artista: 'Rauw Alejandro, Playero', spotifyId: '6J3kt4eAqRffh5lBuHJJSO' },
           { titulo: 'Felices los 4', artista: 'Maluma', spotifyId: '1RouRzlg8OKFeqc6LvdxmB' },
-          { titulo: 'Que Nadie Sepa', artista: 'Cardenales De Nuevo LeÃ³n', spotifyId: '3Pj5wV8ftxWXRPK4qQbpiy' },
+          { titulo: 'Que Nadie Sepa', artista: 'Cardenales De Nuevo León', spotifyId: '3Pj5wV8ftxWXRPK4qQbpiy' },
           { titulo: 'X - Remix', artista: 'Nicky Jam, J Balvin, Maluma, Ozuna', spotifyId: '6JjPBQfI2Y8nIjnm65X6Pw' },
-          { titulo: 'Dos Oruguitas', artista: 'SebastiÃ¡n Yatra', spotifyId: '5rohUzwEoRsUvAA1Bf3DLo' },
+          { titulo: 'Dos Oruguitas', artista: 'Sebastián Yatra', spotifyId: '5rohUzwEoRsUvAA1Bf3DLo' },
           { titulo: 'Die With A Smile', artista: 'Lady Gaga, Bruno Mars', spotifyId: '2plbrEY59IikOBgBGLjaoe' },
-          { titulo: 'Nuestra CanciÃ³n', artista: 'Jorge Cuellar, Conjunto Rienda Real', spotifyId: '7oyutGVhqPBMS2TfFD120u' },
+          { titulo: 'Nuestra Canción', artista: 'Jorge Cuellar, Conjunto Rienda Real', spotifyId: '7oyutGVhqPBMS2TfFD120u' },
           { titulo: 'B de Bellako', artista: 'El Malilla, Yeyo, DJ Rockwel Mix', spotifyId: '51ZOE5B5Tq25pMPExRiYVe' },
           { titulo: 'COSAS QUE NO TE DIJE', artista: 'SAIKO', spotifyId: '5xSt1wxZobFcLzHrFakv6z' },
           { titulo: 'Dime', artista: 'SAIKO', spotifyId: '0V1OdRVqjdDA8t9aR0jneU' },
-          { titulo: 'Mami TÃº', artista: 'El Malilla, DJ Hate', spotifyId: '4jhDnHwl6llj46pzUuaON3' },
+          { titulo: 'Mami Tú', artista: 'El Malilla, DJ Hate', spotifyId: '4jhDnHwl6llj46pzUuaON3' },
           { titulo: 'Rodillas', artista: 'El Malilla, DJ Hate', spotifyId: '3V0dDAgNdQod4YwoqrPMZP' },
           { titulo: 'REAL GANGSTA LOVE', artista: 'Trueno', spotifyId: '1pymWRCuZfCd0zdiBJo0Hj' },
           { titulo: 'Gil', artista: 'Milo j, Trueno', spotifyId: '0IwaT6XbMoouFqkMIQcAR0' },
           { titulo: 'El Fin Del Mundo', artista: 'La La Love You, Axolotes Mexicanos', spotifyId: '2cQpVtk5MOSLsGQrgMqT9g' },
-          { titulo: 'Calma - Remix', artista: 'Pedro CapÃ³, Farruko', spotifyId: '5iwz1NiezX7WWjnCgY5TH4' },
-          { titulo: 'Amor a Primera Vista', artista: 'Los Ãngeles Azules, Belinda, Lalo Ebratt, Horacio Palencia', spotifyId: '3SFuRMGcxcTI6j3gny8D8W' },
+          { titulo: 'Calma - Remix', artista: 'Pedro Capó, Farruko', spotifyId: '5iwz1NiezX7WWjnCgY5TH4' },
+          { titulo: 'Amor a Primera Vista', artista: 'Los Ángeles Azules, Belinda, Lalo Ebratt, Horacio Palencia', spotifyId: '3SFuRMGcxcTI6j3gny8D8W' },
           { titulo: 'La Sin Sentimientos', artista: 'Alex Ponce, BLANKO', spotifyId: '4RlwjtqpZN6TC3ILPLrI9G' },
           { titulo: 'Sol', artista: 'Willian', spotifyId: '791SeQLJ0mcwZALYEIlb2V' },
           { titulo: 'Tu Boda', artista: 'Oscar Maydon, Fuerza Regida', spotifyId: '1cOboCuWYI2osTOfolMRS6' },
@@ -8798,51 +8798,51 @@ const capitulos = [
           { titulo: 'Lush Life', artista: 'Zara Larsson', spotifyId: '1rIKgCH4H52lrvDcz50hS8' },
           { titulo: 'Perfecta', artista: 'Miranda!', spotifyId: '09QfIIP4NUx4A3thmovb2o' },
           { titulo: 'Perfect', artista: 'Ed Sheeran', spotifyId: '0tgVpDi06FyKpA1z0VMD4v' },
-          { titulo: 'Me Hace DaÃ±o Verte', artista: 'Fresto Music', spotifyId: '4dyzxv5SsdBtunuU3qj7Ti' },
-          { titulo: 'Monte Fuji', artista: 'Robot95, Neto PeÃ±a, PaloFike', spotifyId: '2GEcLZkMr3wZB7zM8gRRBe' },
+          { titulo: 'Me Hace Daño Verte', artista: 'Fresto Music', spotifyId: '4dyzxv5SsdBtunuU3qj7Ti' },
+          { titulo: 'Monte Fuji', artista: 'Robot95, Neto Peña, PaloFike', spotifyId: '2GEcLZkMr3wZB7zM8gRRBe' },
           { titulo: 'Que Va', artista: 'Alex Sensation, Ozuna', spotifyId: '6J1R5wtPXiHiwiPstOSI56' },
-          { titulo: 'Alguien Como TÃº', artista: 'Josean Log', spotifyId: '2qXwXciJwW4Qdg7KDesOCQ' },
-          { titulo: 'Oye Mi Amor', artista: 'ManÃ¡', spotifyId: '5EJ2THuhAapEIeQOtXUQ0x' },
+          { titulo: 'Alguien Como Tú', artista: 'Josean Log', spotifyId: '2qXwXciJwW4Qdg7KDesOCQ' },
+          { titulo: 'Oye Mi Amor', artista: 'Maná', spotifyId: '5EJ2THuhAapEIeQOtXUQ0x' },
           { titulo: 'Duele El Amor', artista: 'Aleks Syntek, Ana Torroja', spotifyId: '0oXLSuno5adlHcPzlzs8l6' },
           { titulo: 'San Lucas', artista: 'Kevin Kaarl', spotifyId: '3aZxnqYFM8UI2jLgUD3B2a' },
           { titulo: 'Imitadora', artista: 'Romeo Santos', spotifyId: '6r46lnXFbE9fr2d3KNaGbe' },
-          { titulo: 'Titi Me PreguntÃ³', artista: 'Bad Bunny', spotifyId: '1IHWl5LamUGEuP4ozKQSXZ' },
+          { titulo: 'Titi Me Preguntó', artista: 'Bad Bunny', spotifyId: '1IHWl5LamUGEuP4ozKQSXZ' },
           { titulo: 'DtMF', artista: 'Bad Bunny', spotifyId: '3sK8wGT43QFpWrvNQsrQya' },
-          { titulo: 'Ojitos Lindos', artista: 'Bad Bunny, Bomba EstÃ©reo', spotifyId: '3k3NWokhRRkEPhCzPmV8TW' },
+          { titulo: 'Ojitos Lindos', artista: 'Bad Bunny, Bomba Estéreo', spotifyId: '3k3NWokhRRkEPhCzPmV8TW' },
           { titulo: 'La Bachata', artista: 'Manuel Turizo', spotifyId: '5ww2BF9slyYgNOk37BlC4u' },
           { titulo: "There's Nothing Holdin' Me Back", artista: 'Shawn Mendes', spotifyId: '7JJmb5XwzOO8jgpou264Ml', archivo: "musica/nuestras/There's Nothing Holdin' Me Back - Shawn Mendes.mp3" },
           { titulo: 'Si Me Voy (Cups)', artista: 'Paula Rojo, The Wild Horses', spotifyId: '0Wuo2pkJ1rjXhAywjksTso' },
           { titulo: 'Bella', artista: 'Wolfine', spotifyId: '68sQIehHsGohLMgcP5nlND' },
           { titulo: 'Ojos Marrones', artista: 'Lasso', spotifyId: '7gwT3HGL84vF7bgtwL1N88' },
-          { titulo: 'Una Lady Como TÃº', artista: 'Manuel Turizo', spotifyId: '7MHN1aCFtLXjownGhvEQlF' },
+          { titulo: 'Una Lady Como Tú', artista: 'Manuel Turizo', spotifyId: '7MHN1aCFtLXjownGhvEQlF' },
           { titulo: 'Todo De Ti', artista: 'Rauw Alejandro', spotifyId: '3rdAz1fbUfZxYgaCviYhRo', archivo: 'musica/dedicadas/Todo de Ti.mp3' },
-          { titulo: 'To My Love - Tainy Remix', artista: 'Bomba EstÃ©reo, Tainy', spotifyId: '5LciLoxa1gK70yIUeoHgRx' },
+          { titulo: 'To My Love - Tainy Remix', artista: 'Bomba Estéreo, Tainy', spotifyId: '5LciLoxa1gK70yIUeoHgRx' },
           { titulo: 'caperuza', artista: 'Fuerza Regida', spotifyId: '6272S5nkbOvQDazRYq6muV' },
-          { titulo: 'Un Mundo Ideal', artista: 'Jerry VelÃ¡zquez, Annie Rojas', spotifyId: '4qh9Gu38mxY86IvTQUOAGL' },
+          { titulo: 'Un Mundo Ideal', artista: 'Jerry Velázquez, Annie Rojas', spotifyId: '4qh9Gu38mxY86IvTQUOAGL' },
           { titulo: 'Madonna', artista: 'Natanael Cano, Oscar Maydon', spotifyId: '5LhI8m7n8xlQmNe3b7Rwis' },
-          { titulo: 'Mejores Jordans', artista: 'VÃ­ctor Mendivil, Oscar Maydon', spotifyId: '1cZHUhGz7xJ8c4szDipipd' },
+          { titulo: 'Mejores Jordans', artista: 'Víctor Mendivil, Oscar Maydon', spotifyId: '1cZHUhGz7xJ8c4szDipipd' },
           { titulo: 'Perlas Negras', artista: 'Natanael Cano, Gabito Ballesteros', spotifyId: '3piSbt4J3UElNC2d5jhjJr' },
           { titulo: 'Linda Mujer', artista: 'Ian Cordova', spotifyId: '116NyTQvOVrcAWLrGwTiSA' },
           { titulo: 'Chula Vente', artista: 'Luis R Conriquez, Fuerza Regida', spotifyId: '27Y0yW53n0R1Oxle01FKmj' },
-          { titulo: 'ZAZA', artista: 'Oscar Maydon, VÃ­ctor Mendivil', spotifyId: '2xbOCLhDRtiyj5r1o9VwwQ' },
-          { titulo: 'La Ãšltima BÃ¡taka', artista: 'Romeo Santos, Prince Royce', spotifyId: '37SYD80d0jkdXGb54fdFfY' },
-          { titulo: 'Lokita Por MÃ­', artista: 'Romeo Santos, Prince Royce', spotifyId: '2aG4AXf3TUtlmk4s9BLYDi' },
+          { titulo: 'ZAZA', artista: 'Oscar Maydon, Víctor Mendivil', spotifyId: '2xbOCLhDRtiyj5r1o9VwwQ' },
+          { titulo: 'La Última Bátaka', artista: 'Romeo Santos, Prince Royce', spotifyId: '37SYD80d0jkdXGb54fdFfY' },
+          { titulo: 'Lokita Por Mí', artista: 'Romeo Santos, Prince Royce', spotifyId: '2aG4AXf3TUtlmk4s9BLYDi' },
           { titulo: 'Dardos', artista: 'Romeo Santos, Prince Royce', spotifyId: '5SudOD9R1Of6CsJVWZy6CQ' },
           { titulo: 'Mi gran amor', artista: 'Jorge Cuellar', spotifyId: '0h9OowuDE24mx1dZPCFo7c' },
           { titulo: 'Ayayay', artista: 'Jorge Cuellar', spotifyId: '2bcpAh7D4BHjXo9ZGPLIdU' },
-          { titulo: 'Te Amo y MÃ¡s', artista: 'Gustavo Santaolalla, Paul Williams', spotifyId: '5I0aHj2JSQpoxSQnh3XcjO' },
+          { titulo: 'Te Amo y Más', artista: 'Gustavo Santaolalla, Paul Williams', spotifyId: '5I0aHj2JSQpoxSQnh3XcjO' },
           { titulo: 'SOLO POR VOS', artista: 'Trueno', spotifyId: '5Ejw3lC6Srj8VK4fHgTZAi', archivo: 'musica/dedicadas/Trueno - SOLO POR VOS.mp3' },
-          { titulo: 'NiÃ±o', artista: 'Milo j', spotifyId: '4aDbrgm1ZaebS1Bb2dOXac' },
+          { titulo: 'Niño', artista: 'Milo j', spotifyId: '4aDbrgm1ZaebS1Bb2dOXac' },
           { titulo: 'Amor', artista: 'Emmanuel Cortes', spotifyId: '6r6IPuFvUX72kQGc9b46rk' },
-          { titulo: 'Luna - En Vivo', artista: 'ZoÃ©', spotifyId: '7b3k8I1fncAzbk9PHnLkbX' },
-          { titulo: 'Labios Rotos - En Vivo', artista: 'ZoÃ©', spotifyId: '1nULBrlzWatdcjA2ZctIMv' },
+          { titulo: 'Luna - En Vivo', artista: 'Zoé', spotifyId: '7b3k8I1fncAzbk9PHnLkbX' },
+          { titulo: 'Labios Rotos - En Vivo', artista: 'Zoé', spotifyId: '1nULBrlzWatdcjA2ZctIMv' },
           { titulo: 'Doma', artista: 'Josean Log', spotifyId: '58cLm4PaHNt8DDr9ayZnNz' }
         ]
       },
       {
         id: 'nuestras',
         titulo: 'Nuestras canciones',
-        descripcion: 'Las que son de los dos â¤ï¸',
+        descripcion: 'Las que son de los dos ❤️',
         portada: 'musica/portadas/snoopy para nuestras.jpg',
         color: '#f9c9d8',
         color2: '#f0a0ba',
@@ -8852,16 +8852,16 @@ const capitulos = [
         esYoutube: true,
         canciones: [
           { titulo: 'Mon Amour (Remix)', artista: 'Zzoilo & Aitana', archivo: 'musica/nuestras/Zzoilo Ft. Aitana - Mon Amour (Remix).mp3', portada: 'musica/portadas/mon-amour.jpg' },
-          { titulo: 'Loco (Tu Forma de Ser)', artista: 'Los AutÃ©nticos Decadentes', archivo: 'musica/nuestras/Loco (Tu Forma De Ser).mp3' },
+          { titulo: 'Loco (Tu Forma de Ser)', artista: 'Los Auténticos Decadentes', archivo: 'musica/nuestras/Loco (Tu Forma De Ser).mp3' },
           { titulo: "There's Nothing Holdin' Me Back", artista: 'Shawn Mendes', archivo: "musica/nuestras/There's Nothing Holdin' Me Back - Shawn Mendes.mp3" },
-          { titulo: 'Reina Pepiada', artista: 'Ãlvaro DÃ­az', archivo: 'musica/nuestras/Ãlvaro DÃ­az - Reina Pepiada.mp3' },
+          { titulo: 'Reina Pepiada', artista: 'Álvaro Díaz', archivo: 'musica/nuestras/Álvaro Díaz - Reina Pepiada.mp3' },
           { titulo: 'Accidentally in Love', artista: 'Counting Crows', archivo: 'musica/nuestras/Accidentally in love.mp3' },
-          { titulo: 'Labios Rotos', artista: 'ZoÃ©', archivo: 'musica/nuestras/Labios_Rotos_(mp3.pm).m4a' }
+          { titulo: 'Labios Rotos', artista: 'Zoé', archivo: 'musica/nuestras/Labios_Rotos_(mp3.pm).m4a' }
         ]
       },
       {
         id: 'dedicadas',
-        titulo: 'Canciones que te dedicarÃ­a',
+        titulo: 'Canciones que te dedicaría',
         descripcion: 'Cada una tiene algo de ti',
         portada: 'musica/portadas/snoopy para dedicaria.jpg',
         color: '#ffd9c2',
@@ -8871,16 +8871,16 @@ const capitulos = [
         acento: '#ffc09a',
         esYoutube: true,
         canciones: [
-          { titulo: 'Yoko', artista: 'Ãlvaro DÃ­az', archivo: 'musica/dedicadas/Alvaro Diaz - Yoko.mp3' },
+          { titulo: 'Yoko', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - Yoko.mp3' },
           { titulo: 'M.A.I', artista: 'Milo j', archivo: 'musica/dedicadas/Milo j - M.A.I.mp3' },
-          { titulo: 'NO PODEMOS SER AMIGOS', artista: 'Ãlvaro DÃ­az', archivo: 'musica/dedicadas/Alvaro Diaz - NO PODEMOS SER AMIGOS.mp3' },
+          { titulo: 'NO PODEMOS SER AMIGOS', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - NO PODEMOS SER AMIGOS.mp3' },
           { titulo: 'LAURYN', artista: 'Trueno', archivo: 'musica/dedicadas/Trueno - LAURYN.mp3' },
           { titulo: 'SOLO POR VOS', artista: 'Trueno', archivo: 'musica/dedicadas/Trueno - SOLO POR VOS.mp3' },
           { titulo: 'Morocha', artista: 'Milo j', archivo: 'musica/dedicadas/Morocha.mp3' },
-          { titulo: 'Pareja Del AÃ±o', artista: 'SebastiÃ¡n Yatra & Myke Towers', archivo: 'musica/dedicadas/Pareja Del AÃ±o.mp3' },
+          { titulo: 'Pareja Del Año', artista: 'Sebastián Yatra & Myke Towers', archivo: 'musica/dedicadas/Pareja Del Año.mp3' },
           { titulo: 'Todo de Ti', artista: 'Rauw Alejandro', archivo: 'musica/dedicadas/Todo de Ti.mp3' },
-          { titulo: 'QUIÃ‰N TE QUIERE COMO EL NENE', artista: 'Ãlvaro DÃ­az', archivo: 'musica/dedicadas/Alvaro Diaz - Quien Te Quiere Como El Nene.mp3' },
-          { titulo: 'Es por ti', artista: 'â€”', archivo: 'musica/dedicadas/Es por ti.mp3' }
+          { titulo: 'QUIÉN TE QUIERE COMO EL NENE', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - Quien Te Quiere Como El Nene.mp3' },
+          { titulo: 'Es por ti', artista: '—', archivo: 'musica/dedicadas/Es por ti.mp3' }
         ]
       },
       {
@@ -8898,12 +8898,12 @@ const capitulos = [
           { titulo: 'Buenos Aires en llamas', artista: 'Trueno', archivo: 'musica/letras/buenos-aires-en-llamas.mp3' },
           { titulo: 'TU MANTA', artista: 'Milo j', archivo: 'musica/letras/Tu manta.mp3' },
           { titulo: 'Enculado', artista: 'Yukun & NSQK', archivo: 'musica/letras/Enculado Nsqk.mp3' },
-          { titulo: 'A MÃ­', artista: 'Rels B', archivo: 'musica/letras/A mÃ­.mp3' }
+          { titulo: 'A Mí', artista: 'Rels B', archivo: 'musica/letras/A mí.mp3' }
         ]
       },
     ];
 
-    // Orden del reproductor: nuestras â†’ dedicadas â†’ letras â†’ favoritas
+    // Orden del reproductor: nuestras → dedicadas → letras → favoritas
     const ORDEN_ALBUMES = ['nuestras', 'dedicadas', 'letras', 'favoritas'];
     albumesMusica.sort((a, b) => {
       const ia = ORDEN_ALBUMES.indexOf(a.id);
@@ -8932,7 +8932,7 @@ const capitulos = [
     let razonTabActual = 'mias';
     let razonesFocoAnterior = null;
 
-    // Reproductor de mÃºsica
+    // Reproductor de música
     const reproductor = document.getElementById('music-player');
     const shellReproductor = document.getElementById('player-shell');
     const vistaHome = document.getElementById('view-home');
@@ -8991,15 +8991,15 @@ const capitulos = [
     const paletaBase = { color: '#e9a9c0', profundo: '#5e2138', acento: '#ffb3cb' };
 
     // ===== Spotify =====
-    // Cuando tengas la playlist, pega aquÃ­ su link o su ID. Ejemplo:
+    // Cuando tengas la playlist, pega aquí su link o su ID. Ejemplo:
     //   'https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M'
     //   o solo '37i9dQZF1DXcBWIGoYBM5M'
     const SPOTIFY_PLAYLIST = '';
 
     const paletaBusqueda = {
       id: 'busqueda',
-      titulo: 'Buscar canciÃ³n',
-      descripcion: 'Encuentra una canciÃ³n de tu lista',
+      titulo: 'Buscar canción',
+      descripcion: 'Encuentra una canción de tu lista',
       color: '#dbdcff',
       color2: '#b1b5f5',
       tinta: '#211f4a',
@@ -9106,20 +9106,20 @@ const capitulos = [
 
     function tituloDePagina(items) {
       const fechas = items.map((it) => it.fecha).filter(Boolean).sort();
-      if (!fechas.length) return 'Nuestros recuerdos âœ¨';
+      if (!fechas.length) return 'Nuestros recuerdos ✨';
       const a = fechas[0].split('-');
       const b = fechas[fechas.length - 1].split('-');
       const y1 = +a[0], m1 = a[1] ? +a[1] : 0;
       const y2 = +b[0], m2 = b[1] ? +b[1] : 0;
       if (y1 === y2) {
-        if (m1 && m2 && m1 !== m2) return `${MESES[m1 - 1]} â€“ ${MESES[m2 - 1]} ${y1}`;
+        if (m1 && m2 && m1 !== m2) return `${MESES[m1 - 1]} – ${MESES[m2 - 1]} ${y1}`;
         if (m1 && m2) return `${MESES[m1 - 1]} ${y1}`;
         return `${y1}`;
       }
-      if (m1 && m2) return `${MESES[m1 - 1]} ${y1} â€“ ${MESES[m2 - 1]} ${y2}`;
-      if (m1) return `${MESES[m1 - 1]} ${y1} â€“ ${y2}`;
-      if (m2) return `${y1} â€“ ${MESES[m2 - 1]} ${y2}`;
-      return `${y1} â€“ ${y2}`;
+      if (m1 && m2) return `${MESES[m1 - 1]} ${y1} – ${MESES[m2 - 1]} ${y2}`;
+      if (m1) return `${MESES[m1 - 1]} ${y1} – ${y2}`;
+      if (m2) return `${y1} – ${MESES[m2 - 1]} ${y2}`;
+      return `${y1} – ${y2}`;
     }
 
     function buildAlbum() {
@@ -9180,11 +9180,11 @@ const capitulos = [
         chapter: { num: ultimoCapitulo.num, title: ultimoCapitulo.title, index: capitulos.length - 1 },
         left: {
           letter: true,
-          letterText: 'Gracias por todos estos aÃ±os, Carito.\nNo fuimos perfectos, pero fuimos reales.\nMe quedo con lo bonito y te deseo lo mejor.'
+          letterText: 'Gracias por todos estos años, Carito.\nNo fuimos perfectos, pero fuimos reales.\nMe quedo con lo bonito y te deseo lo mejor.'
         },
         right: {
           items: fotoFinal
-            ? [{ ...fotoFinal, note: fotoFinal.note || 'Te quiero muchÃ­simo.' }]
+            ? [{ ...fotoFinal, note: fotoFinal.note || 'Te quiero muchísimo.' }]
             : [],
           isFinal: true
         }
@@ -9202,7 +9202,7 @@ const capitulos = [
 
       const fallback = document.createElement('span');
       fallback.className = 'sticker-fallback';
-      fallback.textContent = 'ðŸ¾';
+      fallback.textContent = '🐾';
       sticker.append(fallback);
       return sticker;
     }
@@ -9237,7 +9237,7 @@ const capitulos = [
       ]
     };
 
-    // Todos los Snoopy recortados de las sÃ¡banas (incluidos los que no salen en las listas).
+    // Todos los Snoopy recortados de las sábanas (incluidos los que no salen en las listas).
     const stickersSnoopyTodos = [
       'snoopy-audifonos.png', 'snoopy-baile.png', 'snoopy-bici.png',
       'snoopy-botella.png', 'snoopy-cama.png', 'snoopy-camara.png',
@@ -9256,7 +9256,7 @@ const capitulos = [
       'snoopy-vinilo-nuevo.png'
     ];
 
-    // Personajes que a Carito le gustan, recortados de las hojas que ella mandÃ³.
+    // Personajes que a Carito le gustan, recortados de las hojas que ella mandó.
     // Curados: fuera los recortes rotos, tiras sueltas y trozos diminutos.
     const stickersPersonajes = [
       // 0aaa9b65 (3)
@@ -9294,7 +9294,7 @@ const capitulos = [
     ];
 
     // Un solo mazo con TODOS los stickers (Snoopy + personajes), mezclado una vez.
-    // AsÃ­ cada pÃ¡gina recibe stickers distintos y los personajes no quedan al final.
+    // Así cada página recibe stickers distintos y los personajes no quedan al final.
     const mazoStickers = (() => {
       const vistos = new Set();
       const lista = [];
@@ -9378,8 +9378,8 @@ const capitulos = [
       if (!transform || transform === 'none' || typeof DOMMatrixReadOnly !== 'function') {
         return { x, y, w, h };
       }
-      // La caja visual de un elemento girado es mÃ¡s grande que offsetWidth/Height:
-      // calculamos su rectÃ¡ngulo real para no taparlo.
+      // La caja visual de un elemento girado es más grande que offsetWidth/Height:
+      // calculamos su rectángulo real para no taparlo.
       const matriz = new DOMMatrixReadOnly(transform);
       const origen = (estilo.transformOrigin || '50% 50%').split(' ').map((v) => parseFloat(v));
       const ox = origen[0] || 0;
@@ -9408,8 +9408,8 @@ const capitulos = [
         && a.y + a.h + margen > b.y;
     }
 
-    // Coloca entre 3 y 5 stickers en los espacios vacÃ­os de una hoja, sin tapar
-    // fotos, tÃ­tulos, botones ni las decoraciones que ya existen.
+    // Coloca entre 3 y 5 stickers en los espacios vacíos de una hoja, sin tapar
+    // fotos, títulos, botones ni las decoraciones que ya existen.
     function sembrarStickers(hoja) {
       const W = hoja.offsetWidth;
       const H = hoja.offsetHeight;
@@ -9434,7 +9434,7 @@ const capitulos = [
       }).length;
       const maximo = 4;
       const margen = 4;
-      // Los stickers que ya estÃ¡n puestos tambiÃ©n son obstÃ¡culo.
+      // Los stickers que ya están puestos también son obstáculo.
       const puestos = [...hoja.querySelectorAll('.sticker-libre')].map((s) => ({
         x: parseFloat(s.style.left) || 0,
         y: parseFloat(s.style.top) || 0,
@@ -9505,8 +9505,8 @@ const capitulos = [
         hoja.dataset.semillaStickers = String(((Number(spread.dataset.indice) || 0) * 2 + indice + 3));
         sembrarStickers(hoja);
       });
-      // Los videos y las fuentes pueden cambiar el tamaÃ±o de las fotos un poco
-      // despuÃ©s: revisamos y recolocamos lo que haya quedado encima.
+      // Los videos y las fuentes pueden cambiar el tamaño de las fotos un poco
+      // después: revisamos y recolocamos lo que haya quedado encima.
       [200, 700, 1600].forEach((ms) => {
         window.setTimeout(() => revisarStickersLibres(spread), ms);
       });
@@ -9581,7 +9581,7 @@ const capitulos = [
       return scrap;
     }
 
-    /* ===== DecoraciÃ³n de la muestra (capÃ­tulo 1 + primer spread) ===== */
+    /* ===== Decoración de la muestra (capítulo 1 + primer spread) ===== */
 
     function crearNodoDecorativo(clase, etiqueta = 'span') {
       const nodo = document.createElement(etiqueta);
@@ -9663,7 +9663,7 @@ const capitulos = [
       const sello = crearNodoDecorativo(`sello ${clase}`);
       const corazon = document.createElement('span');
       corazon.className = 'sello-corazon';
-      corazon.textContent = 'â™¥';
+      corazon.textContent = '♥';
       const small = document.createElement('small');
       small.textContent = texto;
       sello.append(corazon, small);
@@ -9726,7 +9726,7 @@ const capitulos = [
 
       const eyebrow = document.createElement('span');
       eyebrow.className = 'chapter-eyebrow';
-      eyebrow.textContent = 'CapÃ­tulo';
+      eyebrow.textContent = 'Capítulo';
 
       const bigNum = document.createElement('span');
       bigNum.className = 'chapter-big-num';
@@ -9741,7 +9741,7 @@ const capitulos = [
 
       const quote = document.createElement('p');
       quote.className = 'chapter-quote';
-      quote.textContent = `â€œ${spread.quote}â€`;
+      quote.textContent = `“${spread.quote}”`;
 
       const sub = document.createElement('span');
       sub.className = 'chapter-sub';
@@ -9772,7 +9772,7 @@ const capitulos = [
 
       const text = document.createElement('p');
       text.className = 'letter-text';
-      text.textContent = 'Cada foto de este capÃ­tulo es un pedacito de nosotros.';
+      text.textContent = 'Cada foto de este capítulo es un pedacito de nosotros.';
 
       const sign = document.createElement('span');
       sign.className = 'letter-sign';
@@ -9784,7 +9784,7 @@ const capitulos = [
       right.append(makeWashi('washi-rosa washi-carta'));
       right.append(makeRamoPrensado('ramo-prensado ramo-carta'));
       right.append(makeWaxSeal('J&C', 'sello-cera-capitulo'));
-      right.append(makeTicket('SIEMPRE', 'tÃº y yo', 'ticket-capitulo'));
+      right.append(makeTicket('SIEMPRE', 'tú y yo', 'ticket-capitulo'));
       right.append(makeDoodle('heart', 'doodle-carta-heart'));
       right.append(makeDoodle('star', 'doodle-carta-star'));
       right.append(makePageCurl());
@@ -9813,8 +9813,8 @@ const capitulos = [
         hoja.append(makeSello('J + C', 'sello-collage'));
         hoja.append(makeDoodle('star', 'doodle-collage-star'));
       } else {
-        hoja.append(makeTicket('SIEMPRE', 'tÃº y yo', 'ticket-collage'));
-        hoja.append(makeNota('quÃ© bonito\nes recordarte', 'nota-collage'));
+        hoja.append(makeTicket('SIEMPRE', 'tú y yo', 'ticket-collage'));
+        hoja.append(makeNota('qué bonito\nes recordarte', 'nota-collage'));
         hoja.append(makeWaxSeal('J&C', 'sello-cera-collage'));
         hoja.append(makeDoodle('heart', 'doodle-collage-der'));
         hoja.append(makeDoodle('arrow', 'doodle-collage-arrow'));
@@ -9841,7 +9841,7 @@ const capitulos = [
         hoja.append(makeDoodle('star', 'doodle-collage-star'));
       } else {
         hoja.append(makeSnoopySticker('snoopy-corazon-globos.png', 'snoopy-final-der'));
-        hoja.append(makeNota('nuestro Ãºltimo recuerdo\ny el primero de muchos', 'nota-final'));
+        hoja.append(makeNota('nuestro último recuerdo\ny el primero de muchos', 'nota-final'));
         hoja.append(makeWashi('washi-rosa washi-collage-der'));
         hoja.append(makeDoodle('heart', 'doodle-collage-der'));
       }
@@ -9861,7 +9861,7 @@ const capitulos = [
 
       const eyebrow = document.createElement('span');
       eyebrow.className = 'razones-eyebrow';
-      eyebrow.textContent = 'La lista que te escribÃ­';
+      eyebrow.textContent = 'La lista que te escribí';
 
       const bigNum = document.createElement('span');
       bigNum.className = 'razones-big-num';
@@ -9874,19 +9874,19 @@ const capitulos = [
 
       const sub = document.createElement('p');
       sub.className = 'razones-page-sub';
-      sub.textContent = 'La escribÃ­ cuando Ã©ramos nosotros.\nNo le cambiÃ© las palabras.';
+      sub.textContent = 'La escribí cuando éramos nosotros.\nNo le cambié las palabras.';
 
       const button = document.createElement('button');
       button.className = 'razones-btn';
       button.type = 'button';
       button.id = 'abrir-razones';
       button.setAttribute('aria-haspopup', 'dialog');
-      button.innerHTML = 'Ver las 100 razones <span aria-hidden="true">ðŸ’Œ</span>';
+      button.innerHTML = 'Ver las 100 razones <span aria-hidden="true">💌</span>';
       button.addEventListener('click', abrirRazones);
 
       const hint = document.createElement('span');
       hint.className = 'razones-hint';
-      hint.textContent = 'Ãbrelas con calma.';
+      hint.textContent = 'Ábrelas con calma.';
 
       art.append(eyebrow, bigNum, title, sub, button, hint);
       left.append(art);
@@ -9909,7 +9909,7 @@ const capitulos = [
 
       const noteKicker = document.createElement('span');
       noteKicker.className = 'razones-nota-kicker';
-      noteKicker.textContent = 'Y tÃº tambiÃ©n';
+      noteKicker.textContent = 'Y tú también';
 
       const noteTitle = document.createElement('h3');
       noteTitle.className = 'razones-nota-title';
@@ -9917,7 +9917,7 @@ const capitulos = [
 
       const noteText = document.createElement('p');
       noteText.className = 'razones-nota-text';
-      noteText.textContent = 'Â¿Te acuerdas de las que me diste?\nEsas tambiÃ©n las guardo.';
+      noteText.textContent = '¿Te acuerdas de las que me diste?\nEsas también las guardo.';
 
       const noteButton = document.createElement('button');
       noteButton.className = 'razones-btn razones-btn-mini';
@@ -9964,9 +9964,9 @@ const capitulos = [
       const contenidoQuiz = document.createElement('div');
       contenidoQuiz.className = 'actividad-contenido';
       contenidoQuiz.append(
-        crearTextoActividad('actividad-kicker', 'Un juego rÃ¡pido'),
-        crearTextoActividad('actividad-titulo', 'Â¿En quÃ© aÃ±o fue?', 'h3'),
-        crearTextoActividad('actividad-sub', 'Mira la foto y elige el aÃ±o.', 'p')
+        crearTextoActividad('actividad-kicker', 'Un juego rápido'),
+        crearTextoActividad('actividad-titulo', '¿En qué año fue?', 'h3'),
+        crearTextoActividad('actividad-sub', 'Mira la foto y elige el año.', 'p')
       );
 
       const fotoQuiz = document.createElement('div');
@@ -9974,7 +9974,7 @@ const capitulos = [
       fotoQuiz.id = 'quiz-foto';
 
       contenidoQuiz.append(fotoQuiz);
-      contenidoQuiz.append(crearTextoActividad('actividad-sub quiz-pista', 'Elige el aÃ±o en la pÃ¡gina de al lado â†’', 'p'));
+      contenidoQuiz.append(crearTextoActividad('actividad-sub quiz-pista', 'Elige el año en la página de al lado →', 'p'));
 
       left.append(contenidoQuiz);
       left.append(makeWashi('washi-actividad-izq'));
@@ -9993,9 +9993,9 @@ const capitulos = [
       const marcador = crearTextoActividad('actividad-kicker', 'Pregunta 1 de 5');
       marcador.id = 'quiz-marcador';
 
-      const tituloRespuestas = crearTextoActividad('actividad-titulo respuestas-titulo', 'Â¿En quÃ© aÃ±o fue?', 'h3');
+      const tituloRespuestas = crearTextoActividad('actividad-titulo respuestas-titulo', '¿En qué año fue?', 'h3');
 
-      const estado = crearTextoActividad('respuestas-estado', 'Elige un aÃ±o.', 'p');
+      const estado = crearTextoActividad('respuestas-estado', 'Elige un año.', 'p');
       estado.id = 'quiz-estado';
       estado.setAttribute('aria-live', 'polite');
 
@@ -10041,7 +10041,7 @@ const capitulos = [
       const marcador = document.getElementById('quiz-marcador');
       const reiniciar = document.getElementById('quiz-reiniciar');
       if (!document.getElementById('quiz-foto')) return;
-      if (estado) estado.textContent = 'Elige un aÃ±o.';
+      if (estado) estado.textContent = 'Elige un año.';
       if (marcador) marcador.textContent = 'Pregunta 1 de 5';
       if (reiniciar) reiniciar.hidden = true;
       if (window.Juego && Juego.iniciarRonda) Juego.iniciarRonda();
@@ -10083,7 +10083,7 @@ const capitulos = [
       fotoContenedor.replaceChildren();
       const foto = makeMediaButton(pregunta, pregunta.number, false);
       foto.classList.add('quiz-polaroid');
-      foto.setAttribute('aria-label', 'Mira la foto y adivina el aÃ±o');
+      foto.setAttribute('aria-label', 'Mira la foto y adivina el año');
       fotoContenedor.append(foto);
       resolvePolaroidButton(foto);
 
@@ -10111,7 +10111,7 @@ const capitulos = [
         opcionesContenedor.append(boton);
       });
 
-      if (estado) estado.textContent = 'Elige un aÃ±o.';
+      if (estado) estado.textContent = 'Elige un año.';
       if (marcador) marcador.textContent = `Pregunta ${quizRonda} de 5`;
       if (window.Juego && Juego.pintarHud) Juego.pintarHud();
     }
@@ -10138,13 +10138,13 @@ const capitulos = [
       }
       if (estado) {
         if (anio === quizAnioCorrecto) {
-          estado.textContent = `Â¡SÃ­! Era ${quizAnioCorrecto}.`;
+          estado.textContent = `¡Sí! Era ${quizAnioCorrecto}.`;
         } else if (respuestaJuego && respuestaJuego.escudo) {
-          estado.textContent = `Casi. Era ${quizAnioCorrecto}. ðŸ›¡ï¸ Tu racha se salvÃ³.`;
+          estado.textContent = `Casi. Era ${quizAnioCorrecto}. 🛡️ Tu racha se salvó.`;
         } else {
           estado.textContent = `Casi. Era ${quizAnioCorrecto}.`;
         }
-        if (respuestaJuego && respuestaJuego.gano) estado.textContent += `  +${respuestaJuego.gano} â¤ï¸`;
+        if (respuestaJuego && respuestaJuego.gano) estado.textContent += `  +${respuestaJuego.gano} ❤️`;
       }
       if (marcador) marcador.textContent = `Aciertos: ${quizPuntaje}/${quizRonda}`;
 
@@ -10165,9 +10165,9 @@ const capitulos = [
       if (marcador) marcador.textContent = `Aciertos: ${quizPuntaje}/5`;
       if (estado) {
         if (quizPuntaje === 5) {
-          estado.textContent = '5 de 5. Te sabes nuestra historia ðŸ’—';
+          estado.textContent = '5 de 5. Te sabes nuestra historia 💗';
         } else if (quizPuntaje >= 3) {
-          estado.textContent = `${quizPuntaje} de 5. QuÃ© bonito acordarse.`;
+          estado.textContent = `${quizPuntaje} de 5. Qué bonito acordarse.`;
         } else {
           estado.textContent = `${quizPuntaje} de 5. Lo importante es el recuerdo.`;
         }
@@ -10187,7 +10187,7 @@ const capitulos = [
         disponibles = recuerdosActividad.slice();
       }
       if (!disponibles.length) {
-        contenedor.replaceChildren(crearTextoActividad('frasco-vacio', 'TodavÃ­a no hay recuerdos guardados.', 'p'));
+        contenedor.replaceChildren(crearTextoActividad('frasco-vacio', 'Todavía no hay recuerdos guardados.', 'p'));
         return;
       }
 
@@ -10200,7 +10200,7 @@ const capitulos = [
 
       const foto = makeMediaButton(recuerdo, recuerdo.number, true);
       foto.classList.add('frasco-polaroid');
-      foto.setAttribute('aria-label', 'Ver el recuerdo que saliÃ³ del frasco');
+      foto.setAttribute('aria-label', 'Ver el recuerdo que salió del frasco');
       tarjeta.append(foto);
       contenedor.replaceChildren(tarjeta);
       resolvePolaroidButton(foto);
@@ -10216,10 +10216,10 @@ const capitulos = [
       const placeholder = document.createElement('div');
       placeholder.className = 'media-placeholder';
       const label = document.createElement('span');
-      label.textContent = 'â¤ï¸';
+      label.textContent = '❤️';
       label.style.fontSize = '28px';
       const sub = document.createElement('small');
-      sub.textContent = 'Carito & Yo âœ¨';
+      sub.textContent = 'Carito & Yo ✨';
       sub.style.fontFamily = "'Caveat', cursive";
       sub.style.fontSize = '16px';
       placeholder.append(label, sub);
@@ -10240,7 +10240,7 @@ const capitulos = [
       badge.className = 'video-thumb-badge';
       const playIcon = document.createElement('span');
       playIcon.className = 'video-play';
-      playIcon.textContent = 'â–¶';
+      playIcon.textContent = '▶';
       badge.append(playIcon);
 
       wrap.append(vid, badge);
@@ -10305,7 +10305,7 @@ const capitulos = [
       return button;
     }
 
-    // Si la carpeta de recuerdos no estÃ¡ (por ejemplo al abrir solo el HTML),
+    // Si la carpeta de recuerdos no está (por ejemplo al abrir solo el HTML),
     // no disparamos cientos de rutas por foto: eso era lo que trababa el libro.
     const FALLOS_EXACTOS_LIMITE = 4;
     const MAX_CANDIDATOS_IMAGEN = 10;
@@ -10316,7 +10316,7 @@ const capitulos = [
     let verificandoAssets = false;
 
     // Antes de dar por perdida la carpeta, comprobamos con una imagen nueva.
-    // AsÃ­ un fallo suelto de red no convierte todo el Ã¡lbum en marcadores.
+    // Así un fallo suelto de red no convierte todo el álbum en marcadores.
     function verificarAssets(ruta) {
       if (assetsAusentes || verificandoAssets || !ruta) return;
       verificandoAssets = true;
@@ -10431,7 +10431,7 @@ const capitulos = [
         const onError = () => {
           if (settled) return;
           settled = true;
-          // Los videos abortan al cambiar de hoja; no cuentan para el diagnÃ³stico.
+          // Los videos abortan al cambiar de hoja; no cuentan para el diagnóstico.
           tryNextVideo();
         };
 
@@ -10483,7 +10483,7 @@ const capitulos = [
           <span class="sobre-solapa" aria-hidden="true"></span>
           <span class="sobre-sello" aria-hidden="true">J&C</span>
           <span class="sobre-para">Para Carito</span>
-          <span class="sobre-de">de JosÃ© Ãngel</span>
+          <span class="sobre-de">de José Ángel</span>
           <span class="sobre-hint">Toca para abrir</span>
         `;
 
@@ -10507,13 +10507,13 @@ const capitulos = [
 
         const cartaFirma = document.createElement('span');
         cartaFirma.className = 'carta-final-firma';
-        cartaFirma.textContent = 'Con cariÃ±o, JosÃ© Ãngel';
+        cartaFirma.textContent = 'Con cariño, José Ángel';
 
         const cerrarBoton = document.createElement('button');
         cerrarBoton.className = 'carta-cerrar';
         cerrarBoton.type = 'button';
         cerrarBoton.setAttribute('aria-label', 'Cerrar la carta y volver al sobre');
-        cerrarBoton.innerHTML = '<span class="carta-cerrar-x" aria-hidden="true">âœ•</span><span>Cerrar</span>';
+        cerrarBoton.innerHTML = '<span class="carta-cerrar-x" aria-hidden="true">✕</span><span>Cerrar</span>';
 
         carta.append(cartaKicker, cartaHeading, cartaBody, cartaFirma);
 
@@ -10577,7 +10577,7 @@ const capitulos = [
         const closeButton = document.createElement('button');
         closeButton.className = 'portada-btn';
         closeButton.type = 'button';
-        closeButton.textContent = 'Cerrar con Amor â¤ï¸';
+        closeButton.textContent = 'Cerrar con Amor ❤️';
         closeButton.addEventListener('click', cerrarLibro);
         action.append(closeButton);
         page.append(action);
@@ -10602,16 +10602,16 @@ const capitulos = [
                 : spread.type === 'tienda' ? ' tienda-spread' : '';
         spreadElement.className = `spread${spreadIndex === 0 ? ' on' : ''}${extraClass}`;
         spreadElement.setAttribute('aria-label', spread.type === 'separator'
-          ? `CapÃ­tulo ${spread.num}: ${spread.title}`
+          ? `Capítulo ${spread.num}: ${spread.title}`
           : spread.type === 'razones'
-            ? 'La lista que te escribÃ­'
+            ? 'La lista que te escribí'
             : spread.type === 'actividades'
               ? 'Juegos y recuerdos'
               : spread.type === 'mural'
                 ? 'Mi mural de cartas'
                 : spread.type === 'tienda'
                   ? 'La tienda de recuerdos'
-                  : spread.isFinal ? 'PÃ¡gina final' : `PÃ¡ginas ${spreadIndex + 1}`);
+                  : spread.isFinal ? 'Página final' : `Páginas ${spreadIndex + 1}`);
         spreadElement.setAttribute('aria-hidden', String(spreadIndex !== 0));
         spreadElement.dataset.indice = String(spreadIndex);
 
@@ -10631,7 +10631,7 @@ const capitulos = [
           pintarSpreadFechas(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else {
           const capitulo = spread.chapter || { num: 1, title: '' };
-          const kicker = `CapÃ­tulo ${String(capitulo.num).padStart(2, '0')} Â· ${capitulo.title}`;
+          const kicker = `Capítulo ${String(capitulo.num).padStart(2, '0')} · ${capitulo.title}`;
 
           const left = document.createElement('div');
           left.className = 'hoja izq';
@@ -10668,8 +10668,8 @@ const capitulos = [
       iniciarQuizSiHaceFalta();
     }
 
-    // Si el Ã¡lbum se vuelve a pintar (por ejemplo al cargar los recuerdos de
-    // Supabase), el juego de aÃ±os se queda sin foto ni opciones. Lo reiniciamos.
+    // Si el álbum se vuelve a pintar (por ejemplo al cargar los recuerdos de
+    // Supabase), el juego de años se queda sin foto ni opciones. Lo reiniciamos.
     function iniciarQuizSiHaceFalta() {
       const foto = document.getElementById('quiz-foto');
       if (!foto || foto.children.length) return;
@@ -10840,18 +10840,18 @@ const capitulos = [
       if (razonesTitulo) {
         razonesTitulo.textContent = esMias
           ? '100 razones por las que te amo'
-          : '100 cosas que amo demasiado de mi niÃ±o bello ðŸ’—';
+          : '100 cosas que amo demasiado de mi niño bello 💗';
         razonesTitulo.classList.toggle('razones-title-larga', !esMias);
       }
       if (razonesSub) {
         razonesSub.textContent = esMias
-          ? 'La escribÃ­ cuando Ã©ramos nosotros. No le cambiÃ© las palabras.'
-          : 'La escribiste tÃº. La guardo tal como me la diste.';
+          ? 'La escribí cuando éramos nosotros. No le cambié las palabras.'
+          : 'La escribiste tú. La guardo tal como me la diste.';
       }
       if (razonesPieTexto) {
         razonesPieTexto.textContent = esMias
           ? 'No es para pedirte nada: es para que sepas que fue verdad.'
-          : 'Estas tambiÃ©n las guardo. Y tambiÃ©n fueron verdad.';
+          : 'Estas también las guardo. Y también fueron verdad.';
       }
       if (razonesTeAmo) razonesTeAmo.hidden = !esMias;
 
@@ -10926,7 +10926,7 @@ const capitulos = [
       if (contenedor) contenedor.replaceChildren();
     }
 
-    const heartChoices = ['â¤ï¸', 'ðŸ’–', 'ðŸ’—', 'ðŸ’“', 'ðŸ’ž', 'ðŸ’•', 'ðŸ’˜', 'ðŸ©·', 'ðŸ©µ', 'ðŸ’š', 'ðŸ’›', 'ðŸ§¡', 'ðŸ’œ', 'ðŸ–¤', 'ðŸ¤', 'ðŸ¤Ž'];
+    const heartChoices = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '🩷', '🩵', '💚', '💛', '🧡', '💜', '🖤', '🤍', '🤎'];
 
     function createLargeHeart() {
       const container = document.getElementById('hearts-container');
@@ -10941,13 +10941,13 @@ const capitulos = [
       window.setTimeout(() => heart.remove(), 14000);
     }
 
-    /* ===== Reproductor de mÃºsica ===== */
+    /* ===== Reproductor de música ===== */
 
     function glyphNota() {
       const span = document.createElement('span');
       span.className = 'cover-glyph';
       span.setAttribute('aria-hidden', 'true');
-      span.textContent = 'â™ª';
+      span.textContent = '♪';
       return span;
     }
 
@@ -11033,7 +11033,7 @@ const capitulos = [
         tarjeta.style.setProperty('--c1', album.color);
         tarjeta.style.setProperty('--c2', album.color2);
         tarjeta.style.setProperty('--tinta', album.tinta);
-        tarjeta.setAttribute('aria-label', `Abrir el Ã¡lbum ${album.titulo}`);
+        tarjeta.setAttribute('aria-label', `Abrir el álbum ${album.titulo}`);
 
         const portada = document.createElement('span');
         portada.className = 'album-cover cover-art';
@@ -11044,7 +11044,7 @@ const capitulos = [
         cuerpo.className = 'album-card-body';
         const kicker = document.createElement('span');
         kicker.className = 'album-card-kicker';
-        kicker.textContent = `Ãlbum ${String(indice + 1).padStart(2, '0')}`;
+        kicker.textContent = `Álbum ${String(indice + 1).padStart(2, '0')}`;
         const titulo = document.createElement('span');
         titulo.className = 'album-card-title';
         titulo.textContent = album.titulo;
@@ -11053,7 +11053,7 @@ const capitulos = [
         desc.textContent = album.descripcion;
         const cuenta = document.createElement('span');
         cuenta.className = 'album-card-count';
-        cuenta.textContent = `${album.canciones.length} ${album.canciones.length === 1 ? 'canciÃ³n' : 'canciones'}`;
+        cuenta.textContent = `${album.canciones.length} ${album.canciones.length === 1 ? 'canción' : 'canciones'}`;
         cuerpo.append(kicker, titulo, desc, cuenta);
 
         tarjeta.append(portada, cuerpo);
@@ -11086,7 +11086,7 @@ const capitulos = [
       info.className = 'album-head-info';
       const kicker = document.createElement('span');
       kicker.className = 'album-head-kicker';
-      kicker.textContent = 'Ãlbum';
+      kicker.textContent = 'Álbum';
       const titulo = document.createElement('h3');
       titulo.className = 'album-head-title';
       titulo.textContent = album.titulo;
@@ -11209,17 +11209,17 @@ const capitulos = [
       botonAtras.hidden = vista === 'home';
       if (vista === 'home') {
         eyebrow.textContent = 'Para Carito';
-        tituloCabecera.textContent = 'Nuestra mÃºsica';
+        tituloCabecera.textContent = 'Nuestra música';
       } else if (vista === 'album' && albumVisto) {
-        eyebrow.textContent = 'Ãlbum';
+        eyebrow.textContent = 'Álbum';
         tituloCabecera.textContent = albumVisto.titulo;
       } else if (vista === 'song') {
         const cancion = cancionDeContexto();
         eyebrow.textContent = albumActual ? albumActual.titulo : 'Sonando ahora';
         tituloCabecera.textContent = cancion ? cancion.titulo : 'Reproduciendo';
       } else if (vista === 'busqueda') {
-        eyebrow.textContent = 'Buscar canciÃ³n';
-        tituloCabecera.textContent = 'Encuentra su canciÃ³n';
+        eyebrow.textContent = 'Buscar canción';
+        tituloCabecera.textContent = 'Encuentra su canción';
       }
     }
 
@@ -11354,7 +11354,7 @@ const capitulos = [
       return `https://open.spotify.com/search/${encodeURIComponent(consulta)}`;
     }
 
-    // Abre Spotify en una ventanita chiquita encima de la pÃ¡gina, sin mandarte a otra pestaÃ±a.
+    // Abre Spotify en una ventanita chiquita encima de la página, sin mandarte a otra pestaña.
     function abrirVentanaSpotify(url) {
       if (!url) return null;
       const ancho = 440;
@@ -11380,8 +11380,8 @@ const capitulos = [
         }
       }
       if (!ventana) {
-        // Si el navegador bloquea la ventanita, al menos no sacamos a nadie de la pÃ¡gina sin avisar.
-        mostrarNota('Tu navegador bloqueÃ³ la ventanita. Permite las ventanas emergentes o toca de nuevo ðŸ’•');
+        // Si el navegador bloquea la ventanita, al menos no sacamos a nadie de la página sin avisar.
+        mostrarNota('Tu navegador bloqueó la ventanita. Permite las ventanas emergentes o toca de nuevo 💕');
       }
       return ventana;
     }
@@ -11406,7 +11406,7 @@ const capitulos = [
       botonPlay.setAttribute('aria-label', 'Abrir en Spotify');
       kickerCancion.textContent = 'En Spotify';
       miniSpotifyBadge.hidden = false;
-      mostrarNota('Esta canciÃ³n se escucha en Spotify. Toca el botÃ³n verde ðŸŽ§');
+      mostrarNota('Esta canción se escucha en Spotify. Toca el botón verde 🎧');
     }
 
     function desactivarSpotify() {
@@ -11466,7 +11466,7 @@ const capitulos = [
         return;
       }
       if (audio.paused) {
-        audio.play().catch(() => mostrarNota('Toca de nuevo para escuchar ðŸ’•'));
+        audio.play().catch(() => mostrarNota('Toca de nuevo para escuchar 💕'));
       } else {
         audio.pause();
       }
@@ -11592,7 +11592,7 @@ const capitulos = [
         arrastrandoSeek = true;
         seek.classList.add('arrastrando');
         if (seekTrack.setPointerCapture) {
-          try { seekTrack.setPointerCapture(evento.pointerId); } catch (e) { /* puntero sintÃ©tico */ }
+          try { seekTrack.setPointerCapture(evento.pointerId); } catch (e) { /* puntero sintético */ }
         }
         const ratio = ratioDeEvento(evento);
         tiempoActual.textContent = formatoTiempo(ratio * duracion);
@@ -11694,7 +11694,7 @@ const capitulos = [
       } else {
         resultadosBusqueda.replaceChildren();
         pistaBusqueda.hidden = false;
-        pistaBusqueda.textContent = 'Escribe el nombre de una canciÃ³n o de un artista ðŸ’•';
+        pistaBusqueda.textContent = 'Escribe el nombre de una canción o de un artista 💕';
         enlaceBusquedaSpotify.hidden = true;
       }
       window.setTimeout(() => entradaBusqueda.focus({ preventScroll: true }), 140);
@@ -11720,7 +11720,7 @@ const capitulos = [
       if (!q) {
         resultadosBusqueda.replaceChildren();
         pistaBusqueda.hidden = false;
-        pistaBusqueda.textContent = 'Escribe el nombre de una canciÃ³n o de un artista ðŸ’•';
+        pistaBusqueda.textContent = 'Escribe el nombre de una canción o de un artista 💕';
         enlaceBusquedaSpotify.hidden = true;
         return;
       }
@@ -11734,7 +11734,7 @@ const capitulos = [
         pistaBusqueda.hidden = true;
       } else {
         pistaBusqueda.hidden = false;
-        pistaBusqueda.textContent = 'No estÃ¡ en tu lista, pero puedes buscarla en Spotify ðŸ’•';
+        pistaBusqueda.textContent = 'No está en tu lista, pero puedes buscarla en Spotify 💕';
       }
       enlaceBusquedaSpotify.hidden = false;
       enlaceBusquedaSpotify.href = `https://open.spotify.com/search/${encodeURIComponent(consulta)}`;
@@ -11757,13 +11757,13 @@ const capitulos = [
         nombre.textContent = cancion.titulo;
         const artista = document.createElement('span');
         artista.className = 'track-artist';
-        artista.textContent = `${cancion.artista || 'â€”'} Â· ${album.titulo}`;
+        artista.textContent = `${cancion.artista || '—'} · ${album.titulo}`;
         info.append(nombre, artista);
 
         const flecha = document.createElement('span');
         flecha.className = 'search-go';
         flecha.setAttribute('aria-hidden', 'true');
-        flecha.textContent = 'â–¶';
+        flecha.textContent = '▶';
 
         boton.append(miniatura, info, flecha);
         boton.addEventListener('click', () => abrirCancion(album.id, indice));
@@ -11815,7 +11815,7 @@ const capitulos = [
       flipEnCurso = false;
     }
 
-    // Al girar el telÃ©fono o cambiar el ancho, los stickers se reparten de nuevo.
+    // Al girar el teléfono o cambiar el ancho, los stickers se reparten de nuevo.
     let reajusteStickersTimer = 0;
     window.addEventListener('resize', () => {
       window.clearTimeout(reajusteStickersTimer);
@@ -11839,7 +11839,7 @@ const capitulos = [
       const activo = stage.querySelector('.spread.on');
       if (activo) {
         // rAF da el layout ya pintado; el temporizador es el respaldo por si el
-        // navegador pausa los frames (pestaÃ±a en segundo plano).
+        // navegador pausa los frames (pestaña en segundo plano).
         let pegado = false;
         const pegar = () => {
           if (pegado) return;
@@ -11955,8 +11955,8 @@ const capitulos = [
       pageJump.value = String(idx + 1);
       pageTotal.textContent = String(albumSpreads.length);
       pageStatus.textContent = spread.type === 'separator'
-        ? `CapÃ­tulo ${spread.num}, pÃ¡gina ${idx + 1} de ${albumSpreads.length}`
-        : `PÃ¡gina ${idx + 1} de ${albumSpreads.length}`;
+        ? `Capítulo ${spread.num}, página ${idx + 1} de ${albumSpreads.length}`
+        : `Página ${idx + 1} de ${albumSpreads.length}`;
     }
 
     function irAPaginaEscrita() {
