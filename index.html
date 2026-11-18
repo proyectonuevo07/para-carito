@@ -5771,6 +5771,26 @@
       font-size: clamp(13px, 1.5vw, 16px);
     }
 
+    .quiz-tiempo {
+      width: min(70%, 230px);
+      height: 6px;
+      border: 1px solid rgba(139, 91, 59, 0.3);
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.6);
+      overflow: hidden;
+    }
+
+    .quiz-tiempo i {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #34d399, #fbbf24);
+      transition: width 0.25s linear, background 0.3s ease;
+    }
+
+    .quiz-tiempo.prisa i { background: linear-gradient(90deg, #fb923c, #ef4444); }
+
     .hoja.muestra .quiz-foto-wrap .polaroid-item {
       width: min(78%, 250px);
     }
@@ -5872,6 +5892,7 @@
     .mural-barra {
       width: min(84%, 250px);
       height: 9px;
+      flex: none;
       border: 1px solid rgba(139, 91, 59, 0.35);
       border-radius: 99px;
       background: rgba(255, 255, 255, 0.66);
@@ -6063,6 +6084,328 @@
 
     .mural-regalo-btn:hover { transform: translateY(-1px); }
     .mural-regalo-hecho { margin: 0; color: #8b6a3a; font-family: 'Special Elite', monospace; font-size: 9px; }
+
+    /* -------- colección: vitrinas, hoja de estampas, misiones -------- */
+    .coleccion {
+      justify-content: flex-start;
+      gap: clamp(4px, 0.9vh, 9px);
+      padding-top: clamp(2px, 1vh, 10px);
+      overflow: hidden;
+    }
+
+    .coleccion-vitrinas {
+      display: grid;
+      width: 100%;
+      flex: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(4px, 0.7vw, 7px);
+    }
+
+    .vitrina {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px solid rgba(139, 91, 59, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 253, 247, 0.9);
+      padding: 4px 5px 5px;
+      color: #4a3327;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(90, 55, 25, 0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .vitrina:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(90, 55, 25, 0.2); }
+
+    .vitrina-top { display: flex; align-items: center; justify-content: space-between; gap: 3px; }
+    .vitrina-nombre { font-family: 'Caveat', cursive; font-size: clamp(11px, 1.5vw, 15px); font-weight: 700; line-height: 1; }
+    .vitrina-cuenta { color: rgba(111, 74, 48, 0.8); font-family: 'Special Elite', monospace; font-size: clamp(7px, 0.9vw, 9px); }
+
+    .vitrina-foto {
+      display: grid;
+      width: 100%;
+      height: clamp(44px, 8.2vh, 70px);
+      place-items: center;
+      border-radius: 5px;
+      background: linear-gradient(150deg, #efe3cf, #d9c7ab);
+      overflow: hidden;
+    }
+
+    .vitrina-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .vitrina-vacia { color: rgba(111, 74, 48, 0.45); font-family: 'Permanent Marker', cursive; font-size: clamp(14px, 2vw, 22px); }
+
+    .vitrina.comun .vitrina-foto { background: linear-gradient(150deg, #b6f3e2, #4fd1c5); }
+    .vitrina.rara .vitrina-foto { background: linear-gradient(150deg, #bfdbfe, #60a5fa); }
+    .vitrina.epica .vitrina-foto { background: linear-gradient(150deg, #f5d0fe, #c084fc); }
+    .vitrina.legendaria .vitrina-foto { background: linear-gradient(150deg, #fde68a, #fbbf24); }
+
+    .vitrina-barra {
+      display: block;
+      width: 100%;
+      height: 5px;
+      border-radius: 99px;
+      background: rgba(139, 91, 59, 0.18);
+      overflow: hidden;
+    }
+
+    .vitrina-barra i { display: block; height: 100%; border-radius: 99px; background: currentColor; transition: width 0.6s ease; }
+    .vitrina.comun { color: #0d9488; }
+    .vitrina.rara { color: #2563eb; }
+    .vitrina.epica { color: #a21caf; }
+    .vitrina.legendaria { color: #b45309; }
+
+    .vitrina-ultima {
+      overflow: hidden;
+      color: rgba(111, 74, 48, 0.85);
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6.5px, 0.85vw, 8.5px);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mural-hitos { display: flex; flex: none; flex-wrap: wrap; justify-content: center; gap: 4px; }
+
+    .mural-hito {
+      border: 1px dashed rgba(139, 91, 59, 0.4);
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 1px 7px;
+      color: rgba(111, 74, 48, 0.75);
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(7px, 0.9vw, 9px);
+    }
+
+    .mural-hito.ok { border-color: #b45309; background: linear-gradient(160deg, #fff3cf, #f7d98b); color: #7b4a1f; }
+
+    .coleccion-bloque {
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px dashed rgba(139, 91, 59, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 253, 247, 0.55);
+      padding: 3px 5px 4px;
+    }
+
+    .coleccion-bloque-cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 4px; }
+    .coleccion-bloque-titulo { color: #7b4a34; font-family: 'Special Elite', monospace; font-size: clamp(7px, 0.95vw, 9.5px); letter-spacing: 0.05em; text-transform: uppercase; }
+    .coleccion-bloque-cuenta { color: #b23a5a; font-family: 'Caveat', cursive; font-size: clamp(9px, 1.2vw, 12px); }
+
+    .mural-recientes { display: flex; min-height: 34px; flex-wrap: wrap; gap: 4px; }
+
+    .mural-reciente {
+      position: relative;
+      width: clamp(28px, 4.2vw, 42px);
+      aspect-ratio: 63 / 88;
+      border: 0;
+      border-radius: 4px;
+      background: linear-gradient(150deg, #6ee7b7, #0f766e);
+      padding: 1px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(50, 25, 20, 0.22);
+    }
+
+    .mural-reciente.rara { background: linear-gradient(150deg, #93c5fd, #1d4ed8); }
+    .mural-reciente.epica { background: linear-gradient(150deg, #f0abfc, #86198f); }
+    .mural-reciente.legendaria { background: linear-gradient(150deg, #fde047, #b45309); }
+    .mural-reciente.afuera { box-shadow: 0 0 0 2px #7c3aed, 0 2px 5px rgba(50, 25, 20, 0.22); }
+    .mural-reciente img { display: block; width: 100%; height: 100%; border-radius: 3px; object-fit: cover; }
+    .mural-reciente:hover { transform: translateY(-2px) scale(1.06); }
+
+    .mural-vacio { margin: 0; color: rgba(111, 74, 48, 0.7); font-family: 'Special Elite', monospace; font-size: clamp(7px, 0.9vw, 9px); }
+
+    .mural-apertura { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+    .mural-apertura-nota { color: #7b4a34; font-family: 'Special Elite', monospace; font-size: clamp(7px, 0.9vw, 9px); }
+
+    .mural-mini-btn {
+      border: 1px solid rgba(178, 58, 90, 0.5);
+      border-radius: 99px;
+      background: linear-gradient(160deg, #fff2dd, #fbd9b0);
+      padding: 2px 8px;
+      color: #8a3a2a;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(7px, 0.9vw, 9px);
+      cursor: pointer;
+    }
+
+    .mural-mini-btn.afuera { border-color: rgba(109, 40, 217, 0.55); background: linear-gradient(160deg, #ede9fe, #ddd6fe); color: #5b21b6; }
+    .mural-mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .mural-misiones { display: flex; flex-direction: column; gap: 3px; }
+
+    .mision { display: flex; align-items: center; gap: 4px; }
+    .mision-emoji { flex: none; font-size: clamp(10px, 1.3vw, 13px); line-height: 1; }
+    .mision-texto { display: flex; min-width: 0; flex: 1; align-items: baseline; justify-content: space-between; gap: 4px; }
+    .mision-texto b { overflow: hidden; color: #5a3a24; font-family: 'Caveat', cursive; font-size: clamp(10px, 1.3vw, 14px); font-weight: 700; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+    .mision-texto small { flex: none; color: rgba(111, 74, 48, 0.75); font-family: 'Special Elite', monospace; font-size: clamp(6.5px, 0.8vw, 8.5px); }
+    .mision.hecha { opacity: 0.65; }
+    .mision-sello { color: #0d9488; font-size: clamp(10px, 1.3vw, 13px); }
+
+    .mision-mini-barra { flex: none; width: 34px; height: 4px; border-radius: 99px; background: rgba(139, 91, 59, 0.2); overflow: hidden; }
+    .mision-mini-barra i { display: block; height: 100%; border-radius: 99px; background: #b23a5a; }
+
+    .mision-btn {
+      flex: none;
+      border: 0;
+      border-radius: 99px;
+      background: linear-gradient(135deg, #34d399, #0d9488);
+      padding: 1px 7px;
+      color: #fff;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6.5px, 0.8vw, 8.5px);
+      cursor: pointer;
+    }
+
+    .mural-botones { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .mural-boton {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      border: 1px solid rgba(139, 91, 59, 0.4);
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 3px 9px;
+      color: #6f4a30;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(7px, 0.9vw, 9px);
+      cursor: pointer;
+    }
+
+    .mural-boton b { font-family: 'Caveat', cursive; font-size: clamp(10px, 1.2vw, 13px); }
+    .mural-boton:hover { background: #fff8ec; }
+
+    .coleccion > .mural-boton { flex: none; align-self: center; justify-content: center; gap: 6px; padding: 4px 14px; }
+
+    /* hoja de estampas */
+    .jg-panel.jg-panel-galeria {
+      display: flex;
+      width: min(94vw, 760px);
+      max-height: 88dvh;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .jg-galeria {
+      display: grid;
+      flex: 1 1 auto;
+      min-height: 0;
+      grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+      gap: 7px;
+      overflow-y: auto;
+      padding: 2px;
+    }
+
+    .jg-panel-galeria > .jg-titulo,
+    .jg-panel-galeria > .jg-eyebrow { flex: none; }
+    .jg-panel-galeria > .jg-hint { flex: none; margin: 6px 0 2px; }
+    .jg-panel-galeria > .jg-btn { flex: none; align-self: center; margin-top: 2px; }
+
+    .jg-estampa {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 3px;
+      border: 0;
+      background: none;
+      padding: 0;
+      color: #5a3a24;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .jg-estampa-foto {
+      display: block;
+      width: 100%;
+      aspect-ratio: 63 / 88;
+      border: 3px solid #fdf8ef;
+      border-radius: 7px;
+      background: linear-gradient(150deg, #efe3cf, #d9c7ab);
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(70, 45, 25, 0.2);
+    }
+
+    .jg-estampa-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .jg-estampa.comun .jg-estampa-foto { border-color: #5eead4; }
+    .jg-estampa.rara .jg-estampa-foto { border-color: #93c5fd; }
+    .jg-estampa.epica .jg-estampa-foto { border-color: #f0abfc; }
+    .jg-estampa.legendaria .jg-estampa-foto { border-color: #fcd34d; }
+
+    .jg-estampa.sin-catalogar .jg-estampa-foto { border-color: #cdb99c; border-style: dashed; filter: grayscale(0.55) sepia(0.18) brightness(0.94); }
+    .jg-estampa.sin-catalogar:hover .jg-estampa-foto { filter: grayscale(0.2) sepia(0.06); }
+
+    .jg-estampa-nombre { overflow: hidden; font-family: 'Caveat', cursive; font-size: clamp(10px, 1.4vw, 14px); line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+    .jg-estampa.sin-catalogar .jg-estampa-nombre { color: #9a8570; font-family: 'Permanent Marker', cursive; }
+    .jg-estampa-estrellas { color: #b8860b; font-size: 8px; line-height: 1; letter-spacing: -1px; }
+
+    .jg-estampa-tab {
+      border-radius: 99px;
+      background: rgba(139, 91, 59, 0.12);
+      padding: 0 5px;
+      color: #8a6a4a;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6px, 0.8vw, 7.5px);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* elegir carta por 3 repetidas */
+    .jg-elegir-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 8px 0 4px; max-height: 56dvh; overflow-y: auto; padding: 2px; }
+
+    .jg-elegir-carta {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 3px;
+      border: 2px solid #fdf8ef;
+      border-radius: 7px;
+      background: linear-gradient(150deg, #efe3cf, #d9c7ab);
+      padding: 2px;
+      color: #5a3a24;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .jg-elegir-carta.comun { border-color: #5eead4; }
+    .jg-elegir-carta.rara { border-color: #93c5fd; }
+    .jg-elegir-carta.epica { border-color: #f0abfc; }
+    .jg-elegir-carta.legendaria { border-color: #fcd34d; }
+    .jg-elegir-carta.exclusiva { border-color: #a78bfa; }
+    .jg-elegir-carta img { display: block; width: 100%; aspect-ratio: 63 / 88; border-radius: 4px; object-fit: cover; }
+    .jg-elegir-carta span { overflow: hidden; font-family: 'Caveat', cursive; font-size: clamp(9px, 1.2vw, 12px); line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+    .jg-elegir-carta:hover { transform: translateY(-2px); }
+
+    .jg-btn-elegir {
+      border-color: #7c3aed;
+      background: linear-gradient(135deg, #a855f7, #6d28d9);
+      color: #fff;
+    }
+
+    .juego-chip-dias { background: linear-gradient(135deg, #fde68a, #fbbf24); color: #6b3f00; }
+
+    /* mural de cartas de afuera */
+    .mural-grid.afuera { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+
+    .mural-celda.afuera.tiene { box-shadow: 0 0 0 2px #a78bfa, 0 3px 8px rgba(60, 20, 90, 0.32); }
+    .mural-celda.afuera.bloqueada { border-color: rgba(109, 40, 217, 0.45); background: repeating-linear-gradient(45deg, rgba(109, 40, 217, 0.08) 0 4px, transparent 4px 8px), rgba(248, 245, 255, 0.75); }
+    .mural-celda.afuera .mural-interrogacion { color: rgba(109, 40, 217, 0.55); font-size: clamp(14px, 2vw, 24px); }
+    .mural-celda.pronto { cursor: default; opacity: 0.7; }
+
+    .mural-pronto {
+      color: rgba(109, 40, 217, 0.55);
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6px, 0.8vw, 8px);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .mural-barra.afuera i { background: linear-gradient(90deg, #c4b5fd, #7c3aed); box-shadow: 0 0 8px rgba(124, 58, 237, 0.55); }
 
     /* -------- tienda -------- */
     .hoja-tienda { background: #fdf8ef; }
@@ -6525,6 +6868,25 @@
     .jg-carta.rara { --g1: #60a5fa; --g2: #2563eb; --g3: #171463; --rare: #1d4ed8; }
     .jg-carta.epica { --g1: #e879f9; --g2: #a21caf; --g3: #3b0764; --rare: #86198f; }
     .jg-carta.legendaria { --g1: #fde047; --g2: #f59e0b; --g3: #7c2d12; --rare: #b45309; }
+    .jg-carta.exclusiva { --g1: #c4b5fd; --g2: #7c3aed; --g3: #1e1b4b; --rare: #6d28d9; }
+
+    .jg-cinta {
+      position: absolute;
+      top: 5px;
+      right: -22px;
+      z-index: 4;
+      width: 88px;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      padding: 1px 0;
+      color: #fff;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(5.5px, 1.5vw, 7px);
+      letter-spacing: 0.06em;
+      text-align: center;
+      transform: rotate(38deg);
+      box-shadow: 0 2px 6px rgba(40, 10, 60, 0.35);
+      pointer-events: none;
+    }
 
     /* Rayos de sol + brillo de lámina */
     .jg-carta::before {
@@ -6657,6 +7019,16 @@
       text-align: center;
       transform: rotate(-0.6deg);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+    }
+
+    .jg-carta-frase.pendiente {
+      border-style: dotted;
+      background: rgba(250, 245, 232, 0.92);
+      color: #8a6a4a;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(7px, 2.1vw, 9.5px);
+      letter-spacing: 0.02em;
+      transform: none;
     }
 
     .jg-carta-info {
@@ -6874,6 +7246,14 @@
       .juego-boost { padding: 2px 6px; font-size: 8.5px; }
       .hoja.muestra .quiz-foto-wrap .polaroid-item { width: min(82%, 225px); }
       .hoja.muestra .quiz-foto-wrap .polaroid-item img { height: clamp(132px, 27vh, 205px); }
+      .coleccion-vitrinas { gap: 4px; }
+      .vitrina { padding: 3px 4px 4px; }
+      .vitrina-foto { height: 54px; }
+      .coleccion-bloque { padding: 2px 4px 3px; }
+      .mural-reciente { width: clamp(26px, 6vw, 34px); }
+      .jg-elegir-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .mural-grid.afuera { grid-template-rows: none; grid-auto-rows: auto; align-content: start; }
+      .mural-grid.afuera .mural-celda { aspect-ratio: 63 / 88; }
     }
 
     @media (max-height: 500px) {
@@ -6898,6 +7278,28 @@
       .jg-panel-carta .jg-resultado { margin-top: 6px; font-size: 13px; }
       .jg-panel-carta .jg-acciones { margin-top: 7px; }
       .jg-panel-carta .jg-cerrar { top: 5px; right: 5px; }
+      .coleccion { gap: 2px; }
+      .coleccion .actividad-sub { display: none; }
+      .vitrina-foto { height: 40px; }
+      .vitrina-ultima { display: none; }
+      .mural-hitos { display: none; }
+      .coleccion-bloque { padding: 1px 4px 2px; }
+      .mural-recientes { min-height: 0; flex-wrap: nowrap; overflow: hidden; }
+      .jg-estampa-nombre { display: none; }
+      .mural-grid.afuera { grid-template-rows: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; align-content: stretch; }
+      .mural-grid.afuera .mural-celda { height: 100%; aspect-ratio: auto; }
+      .coleccion-vitrinas { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; }
+      .vitrina { gap: 1px; padding: 2px 3px 3px; }
+      .vitrina-nombre { font-size: 10px; }
+      .vitrina-foto { height: 36px; }
+      .vitrina-barra { height: 4px; }
+      .mural-pagina { gap: 3px; }
+      .coleccion-bloque { gap: 1px; }
+      .coleccion-bloque-titulo { font-size: 7px; }
+      .mural-reciente { width: 24px; }
+      .mision-texto b { font-size: 10px; }
+      .mision-mini-barra { display: none; }
+      .mural-botones { gap: 3px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -7484,21 +7886,24 @@ guías
       comun: { nombre: 'Común', corto: 'común', tier: 3 },
       rara: { nombre: 'Rara', corto: 'rara', tier: 5 },
       epica: { nombre: 'Épica', corto: 'épica', tier: 8 },
-      legendaria: { nombre: 'Legendaria', corto: 'legendaria', tier: 12 }
+      legendaria: { nombre: 'Legendaria', corto: 'legendaria', tier: 12 },
+      exclusiva: { nombre: 'De afuera', corto: 'de afuera', tier: 15 }
     };
 
-    // Cartas curadas: las fotos con más gracia del libro. Casi todas son de ella
-    // sola, medio borrosas o distorsionadas: eso es lo que las hace legendarias.
-    const CARTAS = [
-      { id: 'c01', archivo: '1792425495128.jpg', fecha: '2025-03-03', nombre: 'La Que Habla Solo', tipo: 'Traviesa', rareza: 'comun', risa: 79, siesta: 12, frase: 'Contaba algo importantísimo. Nadie sabe qué.' },
-      { id: 'c02', archivo: '1792425496651.jpg', fecha: '2025-03-03', nombre: 'Media Siesta', tipo: 'Dormilona', rareza: 'comun', risa: 74, siesta: 78, frase: 'Un ojo despierto, el otro ya se fue a dormir.' },
+    // ------------------------------------------------------------------------
+    // CATÁLOGO COMPLETO
+    // Todas las fotos del álbum son cartas. Las que ya tienen nombre e historia
+    // viven en CARTAS_CURADAS; las demás se generan solas desde la lista del
+    // álbum y quedan como "Historia pendiente" hasta que Carito mande su texto.
+    // ------------------------------------------------------------------------
+
+    // Las 16 fotos del álbum que ya tienen carta escrita a mano.
+    const CARTAS_CURADAS = [
       { id: 'c03', archivo: 'IMG_20250913_175305.jpg', fecha: '2025-09-13', nombre: 'La Mirada de Juicio', tipo: 'Dramática', rareza: 'comun', risa: 83, siesta: 20, frase: 'Te está juzgando. Y con toda la razón.' },
       { id: 'c04', archivo: 'IMG_20250920_141451.jpg', fecha: '2025-09-20', nombre: 'La Explicación', tipo: 'Traviesa', rareza: 'comun', risa: 86, siesta: 15, frase: 'A mitad de la frase más seria de su vida.' },
       { id: 'c05', archivo: 'IMG-20250604-WA0000.jpg', fecha: '2025-06-04', nombre: 'Se Rindió', tipo: 'Dormilona', rareza: 'comun', risa: 72, siesta: 96, frase: 'Levantó la mano para rendirse y ahí se quedó.' },
       { id: 'c06', archivo: 'IMG-20250604-WA0003.jpg', fecha: '2025-06-04', nombre: 'No Me Tomes Fotos', tipo: 'Dramática', rareza: 'comun', risa: 80, siesta: 44, frase: 'Cara tapada, pero se le escucha la risa.' },
-      { id: 'c07', archivo: 'Snapchat-1947055303.jpg', fecha: '2025-03-03', nombre: 'La Consentida', tipo: 'Romántica', rareza: 'comun', risa: 68, siesta: 34, frase: 'Con su corazoncito y sus calcomanías. Consentida.' },
-      { id: 'c08', archivo: '1792425496378.jpg', fecha: '2025-03-03', nombre: 'La de Buen Día', tipo: 'Romántica', rareza: 'comun', risa: 70, siesta: 10, frase: 'Le salió el sol en la cara y sonrió. Fin.' },
-      { id: 'c09', archivo: '1792425495010.jpg', fecha: '2025-03-03', nombre: 'El Mentón', tipo: 'Dramática', rareza: 'rara', risa: 88, siesta: 52, frase: 'Mentón arriba, ojos entrecerrados, cero contexto.' },
+      { id: 'c07', archivo: 'Snapchat-1947055303.jpg', fecha: '', nombre: 'La Consentida', tipo: 'Romántica', rareza: 'comun', risa: 68, siesta: 34, frase: 'Con su corazoncito y sus calcomanías. Consentida.' },
       { id: 'c10', archivo: 'IMG_20250920_141338.jpg', fecha: '2025-09-20', nombre: 'La Risa Nerviosa', tipo: 'Traviesa', rareza: 'rara', risa: 90, siesta: 18, frase: 'Se rió tanto que la foto salió movida.' },
       { id: 'c11', archivo: 'IMG20240611125502_01.jpg', fecha: '2024-06-11', nombre: 'La de Última Fila', tipo: 'Dormilona', rareza: 'rara', risa: 81, siesta: 70, frase: 'En su clase, mirando al techo, pensando en el recreo.' },
       { id: 'c12', archivo: 'IMG-20250527-WA0020.jpg', fecha: '2025-05-27', nombre: 'Gravedad Cero', tipo: 'Traviesa', rareza: 'rara', risa: 89, siesta: 88, frase: 'Descubrió que las fotos también van de cabeza.' },
@@ -7507,10 +7912,236 @@ guías
       { id: 'c15', archivo: 'IMG-20250604-WA0046.jpg', fecha: '2025-06-04', nombre: 'La Cara Derretida', tipo: 'Dormilona', rareza: 'epica', risa: 95, siesta: 74, frase: 'Ojos cerrados, cabeza de lado, cara inexistente.' },
       { id: 'c16', archivo: 'IMG-20250529-WA0003.jpg', fecha: '2025-05-29', nombre: 'El Tercer Integrante', tipo: 'Traviesa', rareza: 'epica', risa: 94, siesta: 12, frase: 'En la selfie del espejo también salió el perro.' },
       { id: 'c17', archivo: 'IMG-20250109-WA0015.jpg', fecha: '2025-01-09', nombre: 'Dúo Perruno', tipo: 'Traviesa', rareza: 'epica', risa: 96, siesta: 26, frase: 'Dos dálmatas con lentes. Nada más que decir.' },
-      { id: 'c18', archivo: 'Snapchat-1340013342.jpg', fecha: '2025-01-09', nombre: 'Blanco y Negro', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 22, frase: 'La única foto donde los dos salen igual de raros.' },
+      { id: 'c18', archivo: 'Snapchat-1340013342.jpg', fecha: '', nombre: 'Blanco y Negro', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 22, frase: 'La única foto donde los dos salen igual de raros.' },
       { id: 'c19', archivo: '1792425494791.jpg', fecha: '2025-03-03', nombre: 'Primer Plano', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 8, frase: 'Se acercó tanto que ya se le ven los pixeles del alma.' },
-      { id: 'c20', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2026-10-27', nombre: 'Modo Murciélago', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 90, frase: 'Boca abajo, con lentes y carita pintada. Insuperable.' }
+      { id: 'c20', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2025-10-29', nombre: 'Modo Murciélago', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 90, frase: 'Boca abajo, con lentes y carita pintada. Insuperable.' }
     ];
+
+    // Cartas exclusivas: fotos que NO están en el álbum. Solo se consiguen
+    // jugando y viven en su propio mural, el de "Cartas de afuera".
+    const CARTAS_EXCLUSIVAS = [
+      { id: 'c01', archivo: '1792425495128.jpg', fecha: '2025-03-03', nombre: 'La Que Habla Solo', tipo: 'Traviesa', rareza: 'comun', risa: 79, siesta: 12, frase: 'Contaba algo importantísimo. Nadie sabe qué.', exclusiva: true },
+      { id: 'c02', archivo: '1792425496651.jpg', fecha: '2025-03-03', nombre: 'Media Siesta', tipo: 'Dormilona', rareza: 'comun', risa: 74, siesta: 78, frase: 'Un ojo despierto, el otro ya se fue a dormir.', exclusiva: true },
+      { id: 'c08', archivo: '1792425496378.jpg', fecha: '2025-03-03', nombre: 'La de Buen Día', tipo: 'Romántica', rareza: 'comun', risa: 70, siesta: 10, frase: 'Le salió el sol en la cara y sonrió. Fin.', exclusiva: true },
+      { id: 'c09', archivo: '1792425495010.jpg', fecha: '2025-03-03', nombre: 'El Mentón', tipo: 'Dramática', rareza: 'rara', risa: 88, siesta: 52, frase: 'Mentón arriba, ojos entrecerrados, cero contexto.', exclusiva: true }
+    ];
+
+    // Clasificación de las 99 fotos del álbum: 47 comunes, 30 raras,
+    // 16 épicas y 6 legendarias. Las 16 curadas conservan su rareza.
+    const RAREZA_POR_ARCHIVO = {
+      'IMG_20221120_101052.jpg': 'comun',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM.jpeg': 'rara',
+      'IMG-20230529-WA0015.jpg': 'comun',
+      'IMG20231026132733.jpg': 'comun',
+      'IMG20231026140347.jpg': 'rara',
+      'IMG20231026165812.jpg': 'comun',
+      'IMG20231026173238.jpg': 'epica',
+      'IMG-20231026-WA0145.jpg': 'comun',
+      '1792425495757.jpg': 'comun',
+      '1792425496237.jpg': 'comun',
+      '1792425496109.jpg': 'rara',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg': 'comun',
+      'IMG20240221081503.jpg': 'rara',
+      'IMG20240221083212.jpg': 'comun',
+      '1792425495524.jpg': 'rara',
+      'IMG-20240301-WA0004.jpg': 'comun',
+      'IMG20240611124839.jpg': 'comun',
+      'IMG20240611124839_01.jpg': 'rara',
+      'IMG20240611125502_01.jpg': 'rara',
+      'IMG20241218105521.jpg': 'comun',
+      'IMG-20250109-WA0008.jpg': 'legendaria',
+      'IMG-20250109-WA0012.jpg': 'epica',
+      'IMG-20250109-WA0015.jpg': 'epica',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg': 'comun',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM (2).jpeg': 'comun',
+      '1792425494791.jpg': 'legendaria',
+      '1792425494740.jpg': 'rara',
+      'IMG_20250325_155616_0781.jpg': 'rara',
+      'IMG-20250328-WA0008.jpg': 'comun',
+      'IMG_20250402_162514_0624.jpg': 'epica',
+      'IMG_20250402_180149.jpg': 'rara',
+      'IMG20250509102100.jpg': 'comun',
+      'IMG-20250519-WA0007.jpg': 'rara',
+      'IMG-20250522-WA0003.jpg': 'legendaria',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM (3).jpeg': 'rara',
+      'IMG-20250527-WA0020.jpg': 'rara',
+      'IMG-20250529-WA0003.jpg': 'epica',
+      'IMG-20250530-WA0004.jpg': 'rara',
+      'IMG-20250604-WA0000.jpg': 'comun',
+      'IMG-20250604-WA0003.jpg': 'comun',
+      'IMG-20250604-WA0046.jpg': 'epica',
+      'IMG_20250611_131320_0444.jpg': 'epica',
+      'IMG_20250611_131325_0604.jpg': 'rara',
+      'IMG_20250611_131328_0321.jpg': 'epica',
+      'IMG-20250613-WA0001.jpg': 'rara',
+      'IMG-20250709-WA0002.jpg': 'comun',
+      'IMG-20250709-WA0003.jpg': 'rara',
+      'IMG-20250709-WA0004.jpg': 'epica',
+      'IMG-20250709-WA0016.jpg': 'rara',
+      'IMG20250711162310.jpg': 'rara',
+      '1792425496567.jpg': 'rara',
+      'IMG_20250716_164853_0436.jpg': 'comun',
+      'IMG_20250716_164854_0940.jpg': 'comun',
+      'IMG-20250716-WA0020.jpg': 'comun',
+      'IMG-20250716-WA0021.jpg': 'comun',
+      'IMG-20250716-WA0022.jpg': 'comun',
+      'IMG-20250716-WA0033.jpg': 'rara',
+      'IMG-20250716-WA0034.jpg': 'comun',
+      'IMG-20250716-WA0046.jpg': 'comun',
+      'IMG-20250803-WA0014.jpg': 'rara',
+      'IMG-20250803-WA0015.jpg': 'rara',
+      'IMG-20250803-WA0017.jpg': 'comun',
+      'IMG-20250810-WA0010.jpg': 'rara',
+      'IMG-20250813-WA0007.jpg': 'legendaria',
+      'IMG_20250816_130533.jpg': 'rara',
+      'IMG_20250816_130536.jpg': 'comun',
+      'IMG_20250816_130536_1.jpg': 'comun',
+      'IMG_20250816_130543.jpg': 'comun',
+      'IMG_20250816_133736.jpg': 'comun',
+      'IMG_20250816_133737.jpg': 'comun',
+      'IMG_20250816_133741.jpg': 'comun',
+      'IMG_20250816_133744.jpg': 'comun',
+      'IMG_20250816_133744_1.jpg': 'comun',
+      'IMG_20250816_142044.jpg': 'comun',
+      'IMG_20250913_175305.jpg': 'comun',
+      'IMG_20250920_141329.jpg': 'epica',
+      'IMG_20250920_141338.jpg': 'rara',
+      'IMG_20250920_141431.jpg': 'rara',
+      'IMG_20250920_141451.jpg': 'comun',
+      'IMG_20250920_142023.jpg': 'rara',
+      'IMG-20250920-WA0282.jpg': 'comun',
+      'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg': 'legendaria',
+      'WhatsApp Image 2026-10-27 at 10.47.18 PM.jpeg': 'rara',
+      'MVIMG_20251108_194853.jpg': 'epica',
+      'MVIMG_20251108_194922.jpg': 'epica',
+      'MVIMG_20251108_201102.jpg': 'rara',
+      'MVIMG_20251108_201105.jpg': 'comun',
+      'MVIMG_20251108_201118.jpg': 'comun',
+      'MVIMG_20251108_201119.jpg': 'epica',
+      '1792425494273.jpg': 'comun',
+      'Picsart_26-09-21_21-45-29-200.jpg': 'comun',
+      'Picsart_26-09-21_21-47-28-513.jpg': 'comun',
+      'IMG_20261011_183810_226.jpg': 'comun',
+      'IMG_20261013_220446_218.jpg': 'epica',
+      '1792425495070.webp': 'comun',
+      'Snapchat-840892437.jpg': 'legendaria',
+      'Snapchat-1947055303.jpg': 'comun',
+      'Snapchat-1340013342.jpg': 'epica',
+      'Snapchat-562786656.jpg': 'epica'
+    };
+
+    const CURADAS_POR_ARCHIVO = {};
+    CARTAS_CURADAS.forEach(function (c) { CURADAS_POR_ARCHIVO[c.archivo] = c; });
+
+    let CARTAS = [];
+    let catalogoLocalListo = false;
+
+    function hashArchivo(texto) {
+      let h = 2166136261;
+      const s = String(texto || '');
+      for (let i = 0; i < s.length; i++) {
+        h ^= s.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return (h >>> 0).toString(36);
+    }
+
+    function idsUsados() {
+      const set = new Set();
+      CARTAS.forEach(function (c) { if (c && c.id) set.add(c.id); });
+      CARTAS_EXCLUSIVAS.forEach(function (c) { if (c && c.id) set.add(c.id); });
+      return set;
+    }
+
+    function nombrePendiente(numero) {
+      return 'Recuerdo N.º ' + String(numero).padStart(2, '0');
+    }
+
+    function crearCartaDesdeFoto(foto, numero, usados) {
+      const archivo = String(foto.archivo || foto.src || '');
+      const curada = CURADAS_POR_ARCHIVO[archivo];
+      if (curada) {
+        return Object.assign({}, curada, {
+          src: foto.src || ('recuerdos/' + archivo),
+          fecha: curada.fecha || foto.fecha || '',
+          numero: numero
+        });
+      }
+      let id = 'a' + hashArchivo(archivo);
+      let sufijo = 1;
+      while (usados.has(id)) {
+        id = 'a' + hashArchivo(archivo) + '-' + sufijo;
+        sufijo += 1;
+      }
+      usados.add(id);
+      const rareza = RAREZA_POR_ARCHIVO[archivo] || 'comun';
+      const risa = 60 + (parseInt(hashArchivo(archivo + 'risa'), 36) % 40);
+      return {
+        id: id,
+        archivo: archivo,
+        src: foto.src || ('recuerdos/' + archivo),
+        fecha: foto.fecha || '',
+        nombre: nombrePendiente(numero),
+        tipo: 'Recuerdo',
+        rareza: rareza,
+        risa: risa,
+        siesta: 0,
+        frase: 'Historia pendiente ✎',
+        pendiente: true,
+        numero: numero
+      };
+    }
+
+    function construirCatalogo() {
+      if (!catalogoLocalListo) {
+        let lista = null;
+        try {
+          if (typeof recuerdosConFecha !== 'undefined' && Array.isArray(recuerdosConFecha)) lista = recuerdosConFecha;
+        } catch (error) { lista = null; }
+        if (!lista) return CARTAS;
+        CARTAS = [];
+        const usados = idsUsados();
+        lista.forEach(function (par) {
+          const archivo = par && par[0];
+          if (!archivo || /\.(mp4|mov|webm|m4v|ogv)$/i.test(archivo)) return;
+          const foto = { archivo: archivo, fecha: par[1] || '', src: 'recuerdos/' + archivo };
+          CARTAS.push(crearCartaDesdeFoto(foto, CARTAS.length + 1, usados));
+        });
+        catalogoLocalListo = true;
+      }
+      agregarFotosDinamicas();
+      return CARTAS;
+    }
+
+    function agregarFotosDinamicas() {
+      const extra = Array.isArray(window.recuerdosDinamicosJuego) ? window.recuerdosDinamicosJuego : [];
+      if (!extra.length) return;
+      const conocidos = new Set(CARTAS.map(function (c) { return c.archivo; }));
+      extra.forEach(function (foto) {
+        if (!foto || !foto.src) return;
+        const archivo = String(foto.archivo || foto.src);
+        if (conocidos.has(archivo)) return;
+        conocidos.add(archivo);
+        const usados = idsUsados();
+        CARTAS.push(crearCartaDesdeFoto(Object.assign({}, foto, { archivo: archivo }), CARTAS.length + 1, usados));
+      });
+    }
+
+    function catalogo() { return construirCatalogo(); }
+    function cartasExclusivas() { construirCatalogo(); return CARTAS_EXCLUSIVAS; }
+    function cartaPorId(id) {
+      construirCatalogo();
+      return CARTAS.find(function (c) { return c.id === id; })
+        || CARTAS_EXCLUSIVAS.find(function (c) { return c.id === id; })
+        || null;
+    }
+    function srcCarta(carta) {
+      if (!carta) return '';
+      if (carta.src) return carta.src;
+      return 'recuerdos/' + (carta.archivo || '');
+    }
+    function totalCatalogo() { construirCatalogo(); return CARTAS.length; }
+    function totalExclusivas() { return CARTAS_EXCLUSIVAS.length; }
 
     const VALES = [
       { id: 'abrazo', cat: 'vale', emoji: '🤗', nombre: 'Abrazo de 5 minutos', precio: 10, detalle: 'Sin soltar, sin prisa, sin excusas.' },
@@ -7535,7 +8166,8 @@ guías
       { id: 'pista', cat: 'mejora', emoji: '💡', nombre: 'Pista', precio: 10, detalle: 'Te dice el mes y cuántos años han pasado.' },
       { id: 'escudo', cat: 'mejora', emoji: '🛡️', nombre: 'Escudo de racha', precio: 20, detalle: 'Si fallas, tu racha no se rompe. Una vez.' },
       { id: 'doble', cat: 'mejora', emoji: '✖️', nombre: 'Doble corazones', precio: 25, detalle: 'La próxima partida da el doble de corazones.' },
-      { id: 'sobreExtra', cat: 'mejora', emoji: '🎁', nombre: 'Sobre extra', precio: 30, detalle: 'Un sobre común para abrir cuando quieras.' }
+      { id: 'sobreExtra', cat: 'mejora', emoji: '🎁', nombre: 'Sobre extra', precio: 12, detalle: 'Un sobre común para abrir cuando quieras.' },
+      { id: 'sobreAfuera', cat: 'mejora', emoji: '🌍', nombre: 'Sobre de afuera', precio: 30, detalle: 'Solo trae cartas exclusivas, de las que no están en el álbum.' }
     ];
 
     const STICKERS = ['snoopy-corazon.png', 'snoopy-helado.png', 'snoopy-gato.png', 'snoopy-fresa.png',
@@ -7548,6 +8180,9 @@ guías
       vales: [], comprados: {}, boosts: { comodin: 0, pista: 0, escudo: 0 },
       ultimoDia: '', dobleProxima: false, marcoHolo: false, tintaOro: false,
       stickers: [], vistas: {}, recientes: [], regalos: {},
+      sobreDiario: '', rachaDias: 0, ultimoDiaJuego: '', premiosDias: {},
+      hitos: {}, repetidas: { comun: 0, rara: 0, epica: 0, legendaria: 0, exclusiva: 0 },
+      misiones: { fecha: '', aciertos: 0, partidas: 0, sobres: 0, cobradas: {} },
       _x2: false, _doble: false, _ganadas: 0, _sobresRonda: 0, _tiersRonda: {}
     };
 
@@ -7570,8 +8205,19 @@ guías
       e.vistas = e.vistas && typeof e.vistas === 'object' ? e.vistas : {};
       e.recientes = Array.isArray(e.recientes) ? e.recientes : [];
       e.regalos = e.regalos && typeof e.regalos === 'object' ? e.regalos : {};
+      e.hitos = e.hitos && typeof e.hitos === 'object' ? e.hitos : {};
+      e.premiosDias = e.premiosDias && typeof e.premiosDias === 'object' ? e.premiosDias : {};
+      e.repetidas = Object.assign({ comun: 0, rara: 0, epica: 0, legendaria: 0, exclusiva: 0 }, e.repetidas || {});
+      const m = e.misiones && typeof e.misiones === 'object' ? e.misiones : {};
+      e.misiones = {
+        fecha: m.fecha || '',
+        aciertos: Number(m.aciertos) || 0,
+        partidas: Number(m.partidas) || 0,
+        sobres: Number(m.sobres) || 0,
+        cobradas: m.cobradas && typeof m.cobradas === 'object' ? m.cobradas : {}
+      };
       ['corazones', 'historico', 'racha', 'mejorRacha', 'partidas', 'aciertos', 'perfectas',
-        'sobresSinNueva', 'sobresTotal'].forEach((k) => { e[k] = Number(e[k]) || 0; });
+        'sobresSinNueva', 'sobresTotal', 'rachaDias'].forEach((k) => { e[k] = Number(e[k]) || 0; });
       return e;
     }
 
@@ -7645,6 +8291,22 @@ guías
       }
       estado.dobleProxima = estado.dobleProxima || r.dobleProxima;
       estado.ultimoDia = estado.ultimoDia || r.ultimoDia;
+      estado.rachaDias = Math.max(Number(estado.rachaDias) || 0, Number(r.rachaDias) || 0);
+      estado.ultimoDiaJuego = estado.ultimoDiaJuego > (r.ultimoDiaJuego || '') ? estado.ultimoDiaJuego : (r.ultimoDiaJuego || estado.ultimoDiaJuego);
+      estado.sobreDiario = estado.sobreDiario > (r.sobreDiario || '') ? estado.sobreDiario : (r.sobreDiario || estado.sobreDiario);
+      Object.keys(r.hitos).forEach((k) => { if (!estado.hitos[k]) estado.hitos[k] = r.hitos[k]; });
+      Object.keys(r.premiosDias).forEach((k) => { if (!estado.premiosDias[k]) estado.premiosDias[k] = r.premiosDias[k]; });
+      Object.keys(r.repetidas).forEach((k) => {
+        estado.repetidas[k] = Math.max(Number(estado.repetidas[k]) || 0, Number(r.repetidas[k]) || 0);
+      });
+      if (r.misiones.fecha === estado.misiones.fecha) {
+        estado.misiones.aciertos = Math.max(estado.misiones.aciertos, r.misiones.aciertos);
+        estado.misiones.partidas = Math.max(estado.misiones.partidas, r.misiones.partidas);
+        estado.misiones.sobres = Math.max(estado.misiones.sobres, r.misiones.sobres);
+        Object.keys(r.misiones.cobradas).forEach((k) => { estado.misiones.cobradas[k] = true; });
+      } else if (r.misiones.fecha > estado.misiones.fecha) {
+        estado.misiones = r.misiones;
+      }
       guardar();
     }
 
@@ -7775,6 +8437,7 @@ guías
 
     function iniciarRonda() {
       cerrarOverlay();
+      revisarDias();
       estado._x2 = estado.ultimoDia !== hoyISO();
       estado._doble = Boolean(estado.dobleProxima);
       estado._ganadas = 0;
@@ -7822,6 +8485,7 @@ guías
       if (acierto) {
         estado.racha = (Number(estado.racha) || 0) + 1;
         estado.mejorRacha = Math.max(Number(estado.mejorRacha) || 0, estado.racha);
+        estado.misiones.aciertos = Math.min(99, (Number(estado.misiones.aciertos) || 0) + 1);
         gano = multiplicador();
         estado.corazones += gano;
         estado.historico += gano;
@@ -7851,7 +8515,8 @@ guías
 
     function registrarAciertoFoto(archivo) {
       if (!archivo) return;
-      const carta = CARTAS.find(function (c) { return c.archivo === archivo; });
+      construirCatalogo();
+      const carta = CARTAS.find(function (c) { return c.archivo === archivo || c.src === archivo; });
       if (!carta) return;
       const mio = estado.cartas[carta.id];
       if (!mio) return;
@@ -7859,7 +8524,9 @@ guías
     }
 
     function terminarRonda(puntaje) {
+      revisarMisiones();
       estado.partidas = (Number(estado.partidas) || 0) + 1;
+      estado.misiones.partidas = Math.min(99, (Number(estado.misiones.partidas) || 0) + 1);
       estado.aciertos = (Number(estado.aciertos) || 0) + (Number(puntaje) || 0);
       estado.ultimoDia = hoyISO();
       if (estado._doble) estado.dobleProxima = false;
@@ -7899,6 +8566,9 @@ guías
         if (item.id === 'sobreExtra') {
           estado.sobres.push(nuevoSobre('comun'));
           estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
+        } else if (item.id === 'sobreAfuera') {
+          estado.sobres.push(nuevoSobre('exclusiva'));
+          estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
         } else if (item.id === 'doble') {
           estado.dobleProxima = true;
         } else {
@@ -7934,7 +8604,10 @@ guías
     /* -------------------------------- boosts -------------------------------- */
 
     function anioDelQuiz() {
-      try { return typeof quizAnioCorrecto !== 'undefined' ? quizAnioCorrecto : ''; } catch (error) { return ''; }
+      try {
+        if (typeof quizValorCorrecto !== 'undefined' && quizValorCorrecto) return quizValorCorrecto;
+        return typeof quizAnioCorrecto !== 'undefined' ? quizAnioCorrecto : '';
+      } catch (error) { return ''; }
     }
 
     function quizYaRespondida() {
@@ -7949,7 +8622,8 @@ guías
       }
       const correcto = anioDelQuiz();
       const opciones = Array.from(document.querySelectorAll('#quiz-opciones .quiz-opcion')).filter(function (b) {
-        return !b.disabled && b.dataset.anio !== correcto && !b.classList.contains('descartada');
+        const valor = b.dataset.valor || b.dataset.anio;
+        return !b.disabled && valor !== correcto && !b.classList.contains('descartada');
       });
       if (!opciones.length) return false;
       estado.boosts.comodin -= 1;
@@ -8021,6 +8695,9 @@ guías
       const nivel = nivelActual();
       const chipNivel = el('span', 'juego-chip juego-chip-nivel', nivel.nombre);
       hud.append(chipCorazones, chipRacha, chipNivel);
+      if (estado.rachaDias > 0) {
+        hud.append(el('span', 'juego-chip juego-chip-dias', '📅 ' + estado.rachaDias + (estado.rachaDias === 1 ? ' día' : ' días')));
+      }
 
       if (estado._x2) hud.append(el('span', 'juego-chip juego-chip-x2', 'x2 hoy'));
 
@@ -8127,12 +8804,19 @@ guías
 
     function crearCartaNodo(carta, mio, opciones) {
       const opt = opciones || {};
+      construirCatalogo();
       const rareza = RAREZAS[carta.rareza] || RAREZAS.comun;
-      const indice = CARTAS.indexOf(carta) + 1;
-      const nodo = el('div', 'jg-carta ' + carta.rareza + (estado.marcoHolo ? ' holo-marco' : '') + (opt.grande === false ? ' mini' : ''));
+      const lista = carta.exclusiva ? CARTAS_EXCLUSIVAS : CARTAS;
+      const indice = lista.indexOf(carta) + 1;
+      const total = lista.length;
+      const nodo = el('div', 'jg-carta ' + carta.rareza
+        + (carta.exclusiva ? ' exclusiva' : '')
+        + (estado.marcoHolo ? ' holo-marco' : '')
+        + (opt.grande === false ? ' mini' : ''));
       nodo.dataset.carta = carta.id;
       nodo.append(el('span', 'jg-foil'));
       if (estado.marcoHolo) nodo.append(el('span', 'jg-holo'));
+      if (carta.exclusiva) nodo.append(el('span', 'jg-cinta', 'DE AFUERA'));
 
       const arriba = el('div', 'jg-carta-top');
       arriba.append(el('span', 'jg-carta-nombre', carta.nombre));
@@ -8143,7 +8827,7 @@ guías
       const img = document.createElement('img');
       img.alt = 'Carta ' + carta.nombre;
       img.loading = 'lazy';
-      img.src = 'recuerdos/' + carta.archivo;
+      img.src = srcCarta(carta);
       img.addEventListener('error', function () {
         foto.replaceChildren(el('span', 'jg-carta-sin', '??'));
       });
@@ -8155,12 +8839,13 @@ guías
         return nodo;
       }
 
-      const frase = el('p', 'jg-carta-frase', '“' + carta.frase + '”');
+      const frase = el('p', 'jg-carta-frase' + (carta.pendiente ? ' pendiente' : ''),
+        carta.pendiente ? carta.frase : '“' + carta.frase + '”');
       const info = el('div', 'jg-carta-info');
       info.append(el('span', 'jg-carta-tipo', carta.tipo));
-      info.append(el('span', 'jg-carta-fecha', fechaCorta(carta.fecha)));
+      info.append(el('span', 'jg-carta-fecha', carta.fecha ? fechaCorta(carta.fecha) : 'Sin fecha'));
       const pie = el('div', 'jg-carta-pie');
-      const izq = el('span', 'jg-carta-rare', rareza.nombre + ' · N.º ' + String(indice).padStart(2, '0') + '/20');
+      const izq = el('span', 'jg-carta-rare', rareza.nombre + ' · N.º ' + String(indice).padStart(2, '0') + '/' + total);
       const der = el('span', 'jg-carta-estrellas', estrellas(mio && mio.nivel));
       pie.append(izq, der);
 
@@ -8180,8 +8865,13 @@ guías
     }
 
     function sacarCarta(rareza) {
-      const delTipo = CARTAS.filter(function (c) { return c.rareza === rareza; });
-      const lista = delTipo.length ? delTipo : CARTAS.slice();
+      construirCatalogo();
+      const esExclusiva = rareza === 'exclusiva';
+      const delTipo = esExclusiva
+        ? CARTAS_EXCLUSIVAS.slice()
+        : CARTAS.filter(function (c) { return c.rareza === rareza; });
+      const lista = delTipo.length ? delTipo : (esExclusiva ? [] : CARTAS.slice());
+      if (!lista.length) return null;
       const nuevas = lista.filter(function (c) { return !estado.cartas[c.id]; });
       let elegida = null;
 
@@ -8195,16 +8885,19 @@ guías
 
       if (estado.cartas[elegida.id]) {
         const r = RAREZAS[elegida.rareza] || RAREZAS[rareza] || RAREZAS.comun;
-        const bonus = r.nombre === 'Legendaria' ? 6 : (r.nombre === 'Épica' ? 4 : 3);
+        const bonus = r.nombre === 'Legendaria' ? 6 : (r.nombre === 'Épica' ? 4 : (r.nombre === 'De afuera' ? 8 : 3));
         estado.corazones += bonus;
         estado.historico += bonus;
         const nivel = Math.min(5, (Number(estado.cartas[elegida.id].nivel) || 0) + 1);
         estado.cartas[elegida.id].nivel = nivel;
-        return { carta: elegida, repetida: true, bonus: bonus, nivel: nivel };
+        const clave = esExclusiva ? 'exclusiva' : rareza;
+        estado.repetidas[clave] = Math.min(3, (Number(estado.repetidas[clave]) || 0) + 1);
+        return { carta: elegida, repetida: true, bonus: bonus, nivel: nivel, repetidas: estado.repetidas[clave] };
       }
 
       estado.cartas[elegida.id] = { obtenida: hoyISO(), nivel: 0 };
-      return { carta: elegida, repetida: false };
+      revisarHitos();
+      return { carta: elegida, repetida: false, nuevas: nuevas.length };
     }
 
     function abrirSobre(id) {
@@ -8215,16 +8908,22 @@ guías
     }
 
     function mostrarSobre(rareza, sobreId) {
+      construirCatalogo();
+      const esAfuera = rareza === 'exclusiva';
+      if (esAfuera && !CARTAS_EXCLUSIVAS.length) {
+        toast('Todavía no hay cartas de afuera. Pronto habrá más 🌍');
+        return;
+      }
       const info = RAREZAS[rareza] || RAREZAS.comun;
       const ov = crearOverlay('jg-overlay-sobre');
-      const panel = panelBase(ov, 'Un sobre para ti', 'Sobre ' + info.corto);
+      const panel = panelBase(ov, esAfuera ? 'Un sobre de afuera' : 'Un sobre para ti', 'Sobre ' + info.corto);
 
       const sobre = el('div', 'jg-sobre ' + rareza);
       sobre.setAttribute('role', 'button');
       sobre.setAttribute('tabindex', '0');
       sobre.setAttribute('aria-label', 'Abrir sobre ' + info.corto);
       sobre.append(el('div', 'jg-sobre-cuerpo'));
-      const sello = el('div', 'jg-sello', 'C');
+      const sello = el('div', 'jg-sello', esAfuera ? '🌍' : 'C');
       sobre.append(sello);
       panel.append(sobre);
       panel.append(el('p', 'jg-hint', 'Toca el sobre para abrirlo'));
@@ -8241,7 +8940,16 @@ guías
           if (indice < 0) indice = estado.sobres.findIndex(function (s) { return s && s.rareza === rareza; });
           if (indice >= 0) estado.sobres.splice(indice, 1);
           const resultado = sacarCarta(rareza);
+          if (!resultado) {
+            guardar();
+            cerrarOverlay();
+            toast('Ese sobre todavía no tiene cartas. Pronto habrá más 🌍');
+            pintarMuralEnVivo();
+            return;
+          }
+          estado.misiones.sobres = Math.min(99, (Number(estado.misiones.sobres) || 0) + 1);
           guardar();
+          pintarMuralEnVivo();
           mostrarCarta(resultado, rareza);
         }, 620);
       };
@@ -8266,10 +8974,24 @@ guías
         const b = el('span', 'jg-badge jg-badge-rep', 'Repetida · Estrella ' + (resultado.nivel || 1));
         panel.append(b);
         panel.append(el('p', 'jg-resultado', 'Ya la tenías: se convirtió en +' + (resultado.bonus || 3) + ' ❤️ y subió de nivel.'));
+        const clave = carta.exclusiva ? 'exclusiva' : carta.rareza;
+        const cuenta = Number(estado.repetidas[clave]) || 0;
+        if (cuenta >= 3) {
+          const elegir = el('button', 'jg-btn jg-btn-elegir', '🎁 Elegir una carta nueva');
+          elegir.type = 'button';
+          elegir.addEventListener('click', function () {
+            cerrarOverlay();
+            abrirEleccion(clave);
+          });
+          panel.append(elegir);
+          panel.append(el('p', 'jg-hint', 'Juntaste 3 repetidas de esta rareza. Tú eliges cuál quieres.'));
+        } else {
+          panel.append(el('p', 'jg-hint', cuenta + ' de 3 repetidas para elegir una carta nueva de esta rareza.'));
+        }
       } else {
         const b = el('span', 'jg-badge jg-badge-nueva', '¡Nueva! · ' + info.corto);
         panel.append(b);
-        panel.append(el('p', 'jg-resultado', '¡Carta ' + info.corto + ' nueva para tu mural!'));
+        panel.append(el('p', 'jg-resultado', '¡Carta ' + info.corto + ' nueva para tu colección!'));
       }
 
       const acciones = el('div', 'jg-acciones');
@@ -8293,6 +9015,181 @@ guías
         acciones.append(otro);
       }
       panel.append(acciones);
+    }
+
+    /* ------------------------- hitos, misiones, días ------------------------- */
+
+    const HITOS = [
+      { n: 10, corazones: 10, sobre: 'rara', nombre: '10 cartas' },
+      { n: 25, corazones: 15, sobre: 'epica', nombre: '25 cartas' },
+      { n: 50, corazones: 25, sobre: 'legendaria', nombre: '50 cartas' },
+      { n: 75, corazones: 30, sobre: 'exclusiva', nombre: '75 cartas' },
+      { n: 99, corazones: 50, sobre: 'legendaria', nombre: 'Colección completa' }
+    ];
+
+    const MISIONES = [
+      { id: 'aciertos', meta: 4, premio: 8, emoji: '🎯', nombre: 'Acierta 4 fotos' },
+      { id: 'partidas', meta: 2, premio: 8, emoji: '🎮', nombre: 'Juega 2 partidas' },
+      { id: 'sobres', meta: 1, premio: 5, emoji: '🎁', nombre: 'Abre 1 sobre' }
+    ];
+
+    function contarAlbum() {
+      construirCatalogo();
+      return CARTAS.filter(function (c) { return estado.cartas[c.id]; }).length;
+    }
+
+    function contarExclusivas() {
+      return CARTAS_EXCLUSIVAS.filter(function (c) { return estado.cartas[c.id]; }).length;
+    }
+
+    function revisarHitos() {
+      const total = contarAlbum();
+      HITOS.forEach(function (hito) {
+        if (total < hito.n || estado.hitos[hito.n]) return;
+        estado.hitos[hito.n] = hoyISO();
+        estado.corazones += hito.corazones;
+        estado.historico += hito.corazones;
+        if (hito.sobre) {
+          estado.sobres.push(nuevoSobre(hito.sobre));
+          estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
+        }
+        if (hito.n === 99) estado.tintaOro = true;
+        toast('🏆 ' + hito.nombre + ': +' + hito.corazones + ' ❤️ y un sobre ' + (RAREZAS[hito.sobre] || RAREZAS.comun).corto);
+      });
+    }
+
+    function revisarMisiones() {
+      const hoy = hoyISO();
+      if (estado.misiones.fecha !== hoy) {
+        estado.misiones = { fecha: hoy, aciertos: 0, partidas: 0, sobres: 0, cobradas: {} };
+      }
+    }
+
+    function misionesHoy() {
+      revisarMisiones();
+      return MISIONES.map(function (m) {
+        return {
+          id: m.id, meta: m.meta, premio: m.premio, emoji: m.emoji, nombre: m.nombre,
+          progreso: Math.min(m.meta, Number(estado.misiones[m.id]) || 0),
+          cobrada: Boolean(estado.misiones.cobradas[m.id])
+        };
+      });
+    }
+
+    function cobrarMision(id) {
+      revisarMisiones();
+      const m = MISIONES.find(function (x) { return x.id === id; });
+      if (!m || estado.misiones.cobradas[id]) return;
+      if ((Number(estado.misiones[id]) || 0) < m.meta) return;
+      estado.misiones.cobradas[id] = true;
+      estado.corazones += m.premio;
+      estado.historico += m.premio;
+      guardar();
+      pintarHud();
+      pintarMuralEnVivo();
+      toast('🎯 Misión cumplida: +' + m.premio + ' ❤️');
+    }
+
+    function ayerISO() {
+      const d = new Date();
+      d.setDate(d.getDate() - 1);
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function revisarSobreDiario() {
+      const hoy = hoyISO();
+      if (estado.sobreDiario === hoy) return;
+      estado.sobreDiario = hoy;
+      estado.sobres.push(Object.assign(nuevoSobre('comun'), { diario: true }));
+      estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
+      guardar();
+      toast('🎁 Tu sobre gratis del día ya está en el mural');
+    }
+
+    function revisarDias() {
+      const hoy = hoyISO();
+      revisarMisiones();
+      if (estado.ultimoDiaJuego !== hoy) {
+        if (estado.ultimoDiaJuego === ayerISO()) {
+          estado.rachaDias = Math.max(0, Number(estado.rachaDias) || 0) + 1;
+        } else {
+          estado.rachaDias = 1;
+        }
+        estado.ultimoDiaJuego = hoy;
+        const premios = {
+          3: { corazones: 5, sobre: 'comun' },
+          7: { corazones: 10, sobre: 'rara' },
+          14: { corazones: 15, sobre: 'epica' },
+          30: { corazones: 25, sobre: 'exclusiva' }
+        };
+        const premio = premios[estado.rachaDias];
+        const clave = hoy + ':' + estado.rachaDias;
+        if (premio && !estado.premiosDias[clave]) {
+          estado.premiosDias[clave] = true;
+          estado.corazones += premio.corazones;
+          estado.historico += premio.corazones;
+          estado.sobres.push(nuevoSobre(premio.sobre));
+          estado.sobresTotal = (Number(estado.sobresTotal) || 0) + 1;
+          toast('🔥 Racha de ' + estado.rachaDias + ' días: +' + premio.corazones + ' ❤️ y un sobre ' + (RAREZAS[premio.sobre] || RAREZAS.comun).corto);
+        }
+      }
+      revisarSobreDiario();
+      guardar();
+    }
+
+    function abrirEleccion(clave) {
+      construirCatalogo();
+      const esAfuera = clave === 'exclusiva';
+      const info = RAREZAS[clave] || RAREZAS.comun;
+      const pool = (esAfuera ? CARTAS_EXCLUSIVAS : CARTAS.filter(function (c) { return c.rareza === clave; }))
+        .filter(function (c) { return !estado.cartas[c.id]; });
+
+      const ov = crearOverlay('jg-overlay-elegir');
+      const panel = panelBase(ov, 'Elige tu carta', '3 repetidas · ' + info.nombre);
+
+      if (!pool.length) {
+        panel.append(el('p', 'jg-detalle', 'Ya tienes todas las cartas ' + info.corto + 's. Te dejo ' + (esAfuera ? 15 : 12) + ' ❤️ de premio.'));
+        const b = el('button', 'jg-btn', 'Recibir ' + (esAfuera ? 15 : 12) + ' ❤️');
+        b.type = 'button';
+        b.addEventListener('click', function () {
+          const premio = esAfuera ? 15 : 12;
+          estado.corazones += premio;
+          estado.historico += premio;
+          estado.repetidas[clave] = 0;
+          guardar();
+          cerrarOverlay();
+          pintarHud();
+          pintarMuralEnVivo();
+          toast('+' + premio + ' ❤️ por las repetidas');
+        });
+        panel.append(b);
+        return;
+      }
+
+      panel.append(el('p', 'jg-detalle', 'Escoge la que más te guste. Se queda para siempre en tu colección.'));
+      const grid = el('div', 'jg-elegir-grid');
+      pool.slice(0, 12).forEach(function (carta) {
+        const b = el('button', 'jg-elegir-carta ' + carta.rareza);
+        b.type = 'button';
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.alt = carta.nombre;
+        img.src = srcCarta(carta);
+        b.append(img);
+        b.append(el('span', '', carta.nombre));
+        b.addEventListener('click', function () {
+          estado.cartas[carta.id] = { obtenida: hoyISO(), nivel: 0 };
+          estado.repetidas[clave] = 0;
+          revisarHitos();
+          guardar();
+          cerrarOverlay();
+          pintarHud();
+          pintarMuralEnVivo();
+          mostrarCarta({ carta: carta, repetida: false, elegida: true }, carta.exclusiva ? 'exclusiva' : carta.rareza);
+        });
+        grid.append(b);
+      });
+      panel.append(grid);
     }
 
     function mostrarResumen(puntaje, bono) {
@@ -8361,8 +9258,12 @@ guías
         { id: 'r8', emoji: '🌟', nombre: 'Racha de 8', ok: estado.mejorRacha >= 8 },
         { id: 'r12', emoji: '👑', nombre: 'Racha de 12', ok: estado.mejorRacha >= 12 },
         { id: 'perfecta', emoji: '🎯', nombre: 'Partida perfecta', ok: estado.perfectas > 0 },
-        { id: 'diez', emoji: '📚', nombre: '10 cartas', ok: Object.keys(estado.cartas).length >= 10 },
-        { id: 'todas', emoji: '🏆', nombre: 'Colección completa', ok: Object.keys(estado.cartas).length >= CARTAS.length }
+        { id: 'diez', emoji: '📚', nombre: '10 cartas', ok: contarAlbum() >= 10 },
+        { id: 'veinticinco', emoji: '📖', nombre: '25 cartas', ok: contarAlbum() >= 25 },
+        { id: 'cincuenta', emoji: '🏅', nombre: '50 cartas', ok: contarAlbum() >= 50 },
+        { id: 'setenta', emoji: '👑', nombre: '75 cartas', ok: contarAlbum() >= 75 },
+        { id: 'afuera', emoji: '🌍', nombre: 'Una carta de afuera', ok: contarExclusivas() > 0 },
+        { id: 'todas', emoji: '🏆', nombre: 'Colección completa', ok: contarAlbum() >= totalCatalogo() }
       ];
     }
 
@@ -8410,10 +9311,9 @@ guías
       const pageRight = String(spreadIndex * 2 + 2).padStart(2, '0');
 
       const izq = hojaMural('izq', pageLeft, cap);
-      const contenido = el('div', 'mural-contenido');
+      const contenido = el('div', 'mural-contenido coleccion');
       contenido.append(el('span', 'actividad-kicker', 'Mi colección'));
-      contenido.append(el('h3', 'actividad-titulo', 'El mural de Carito'));
-      contenido.append(el('p', 'actividad-sub', 'Cada racha enciende una carta. Solo las más divertidas.'));
+      contenido.append(el('h3', 'actividad-titulo', 'El álbum de Carito'));
       const contador = el('div', 'mural-contador');
       contador.id = 'mural-contador';
       contenido.append(contador);
@@ -8421,18 +9321,13 @@ guías
       barra.append(el('i', '', ''));
       barra.querySelector('i').id = 'mural-barra-i';
       contenido.append(barra);
-      const sobres = el('div', 'mural-sobres');
-      sobres.id = 'mural-sobres';
-      contenido.append(sobres);
-      const regalo = el('div', 'mural-regalo');
-      regalo.id = 'mural-regalo';
-      contenido.append(regalo);
-      contenido.append(el('p', 'mural-nota', 'Racha de 3 → común · 5 → rara · 8 → épica · 12 → legendaria.'));
-      const sellosBoton = el('button', 'mural-sellos-btn');
-      sellosBoton.type = 'button';
-      sellosBoton.id = 'mural-sellos';
-      sellosBoton.addEventListener('click', abrirSellos);
-      contenido.append(sellosBoton);
+      const vitrinas = el('div', 'coleccion-vitrinas');
+      vitrinas.id = 'mural-vitrinas';
+      contenido.append(vitrinas);
+      const hitos = el('div', 'mural-hitos');
+      hitos.id = 'mural-hitos';
+      contenido.append(hitos);
+      contenido.append(el('p', 'mural-nota', 'Cada foto del libro tiene su carta. Toca una vitrina para ver la hoja de estampas completa.'));
       const sticker = el('span', 'mural-sticker');
       sticker.setAttribute('aria-hidden', 'true');
       sticker.style.backgroundImage = "url('stickers/snoopy-corazon.png')";
@@ -8442,10 +9337,35 @@ guías
       izq.decoraciones.forEach(function (n) { if (n) izq.hoja.append(n); });
 
       const der = hojaMural('der', pageRight, cap);
-      const pagina = el('div', 'mural-pagina');
-      const grid = el('div', 'mural-grid');
-      grid.id = 'mural-grid';
-      pagina.append(grid);
+      der.hoja.classList.add('hoja-coleccion-der');
+      const pagina = el('div', 'mural-pagina coleccion-der');
+      pagina.id = 'mural-pagina';
+      pagina.append(bloqueColeccion('Recién catalogadas', 'mural-recientes'));
+      pagina.append(bloqueColeccion('Sobres', 'mural-sobres'));
+      const apertura = el('div', 'mural-apertura');
+      apertura.id = 'mural-apertura';
+      pagina.append(apertura);
+      pagina.append(bloqueColeccion('Misiones de hoy', 'mural-misiones'));
+      const botones = el('div', 'mural-botones');
+      const afuera = el('button', 'mural-boton');
+      afuera.type = 'button';
+      afuera.id = 'mural-afuera';
+      afuera.addEventListener('click', function () {
+        try {
+          const i = albumSpreads.findIndex(function (s) { return s.type === 'afuera'; });
+          if (i >= 0) mostrarSpread(i);
+          else toast('Las cartas de afuera todavía no tienen página 🌍');
+        } catch (error) { toast('Las cartas de afuera todavía no tienen página 🌍'); }
+      });
+      const sellosBoton = el('button', 'mural-boton');
+      sellosBoton.type = 'button';
+      sellosBoton.id = 'mural-sellos';
+      sellosBoton.addEventListener('click', abrirSellos);
+      botones.append(afuera, sellosBoton);
+      pagina.append(botones);
+      const regalo = el('div', 'mural-regalo');
+      regalo.id = 'mural-regalo';
+      pagina.append(regalo);
       der.hoja.append(pagina);
       der.decoraciones.forEach(function (n) { if (n) der.hoja.append(n); });
 
@@ -8453,95 +9373,375 @@ guías
       return [izq.hoja, der.hoja];
     }
 
-    function pintarMuralEnVivo() {
-      const contador = document.getElementById('mural-contador');
-      if (!contador) return;
-      const total = CARTAS.length;
-      const tiene = Object.keys(estado.cartas).length;
-      contador.replaceChildren(el('strong', '', String(tiene)), el('span', '', ' / ' + total + ' cartas'));
-      const barra = document.getElementById('mural-barra-i');
-      if (barra) barra.style.width = Math.round((tiene / total) * 100) + '%';
+    function bloqueColeccion(titulo, id) {
+      const bloque = el('div', 'coleccion-bloque');
+      const cabeza = el('div', 'coleccion-bloque-cabeza');
+      const t = el('span', 'coleccion-bloque-titulo', titulo);
+      cabeza.append(t);
+      if (id === 'mural-sobres' || id === 'mural-misiones') {
+        const cuenta = el('b', 'coleccion-bloque-cuenta');
+        cuenta.id = id + '-cuenta';
+        cabeza.append(cuenta);
+      }
+      bloque.append(cabeza);
+      const cuerpo = el('div', id === 'mural-recientes' ? 'mural-recientes' : (id === 'mural-sobres' ? 'mural-sobres' : 'mural-misiones'));
+      cuerpo.id = id;
+      bloque.append(cuerpo);
+      return bloque;
+    }
 
-      const grid = document.getElementById('mural-grid');
-      if (grid) {
-        grid.replaceChildren();
-        grid.classList.toggle('holo', !!estado.marcoHolo);
-        llenarGrid(grid);
+    function pintarMuralEnVivo() {
+      construirCatalogo();
+      revisarMisiones();
+      const contador = document.getElementById('mural-contador');
+      if (contador) {
+        const total = totalCatalogo();
+        const tiene = contarAlbum();
+        contador.replaceChildren(el('strong', '', String(tiene)), el('span', '', ' / ' + total + ' catalogadas'));
+        const barra = document.getElementById('mural-barra-i');
+        if (barra) barra.style.width = (total ? Math.round((tiene / total) * 100) : 0) + '%';
+      }
+
+      const vitrinas = document.getElementById('mural-vitrinas');
+      if (vitrinas) {
+        vitrinas.replaceChildren();
+        ['comun', 'rara', 'epica', 'legendaria'].forEach(function (r) {
+          vitrinas.append(vitrinaNodo(r));
+        });
+      }
+
+      const hitos = document.getElementById('mural-hitos');
+      if (hitos) {
+        hitos.replaceChildren();
+        HITOS.forEach(function (h) {
+          const chip = el('span', 'mural-hito' + (estado.hitos[h.n] ? ' ok' : ''));
+          chip.textContent = (estado.hitos[h.n] ? '✓ ' : '🔒 ') + h.n;
+          chip.title = h.nombre + (estado.hitos[h.n] ? ' · conseguido' : ' · faltan ' + Math.max(0, h.n - contarAlbum()));
+          hitos.append(chip);
+        });
+      }
+
+      const recientes = document.getElementById('mural-recientes');
+      if (recientes) {
+        recientes.replaceChildren();
+        const lista = CARTAS.concat(CARTAS_EXCLUSIVAS)
+          .filter(function (c) { return estado.cartas[c.id]; })
+          .sort(function (a, b) {
+            const fa = String((estado.cartas[a.id] || {}).obtenida || '');
+            const fb = String((estado.cartas[b.id] || {}).obtenida || '');
+            return fb.localeCompare(fa);
+          })
+          .slice(0, 6);
+        if (!lista.length) {
+          recientes.append(el('p', 'mural-vacio', 'Todavía no has catalogado ninguna. Abre tu primer sobre 🎁'));
+        } else {
+          lista.forEach(function (carta) {
+            const b = el('button', 'mural-reciente ' + carta.rareza + (carta.exclusiva ? ' afuera' : ''));
+            b.type = 'button';
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.alt = carta.nombre;
+            img.src = srcCarta(carta);
+            b.append(img);
+            const est = estrellas((estado.cartas[carta.id] || {}).nivel);
+            if (est) b.append(el('span', 'mural-estrellas', est));
+            b.addEventListener('click', function () { verCarta(carta.id); });
+            recientes.append(b);
+          });
+        }
       }
 
       const sobres = document.getElementById('mural-sobres');
       if (sobres) {
         sobres.replaceChildren();
+        const cuenta = document.getElementById('mural-sobres-cuenta');
+        if (cuenta) cuenta.textContent = estado.sobres.length ? estado.sobres.length + ' sin abrir' : '';
         if (!estado.sobres.length) {
-          sobres.append(el('p', 'mural-sin-sobres', 'Todavía no tienes sobres. Gana una racha de 3 en el juego.'));
+          sobres.append(el('p', 'mural-sin-sobres', 'Sin sobres por abrir. Gana una racha de 3 o compra uno extra.'));
         } else {
-          sobres.append(el('p', 'mural-sobres-titulo', 'Sobres sin abrir:'));
-          estado.sobres.slice(0, 3).forEach(function (sobre) {
+          estado.sobres.slice(0, 4).forEach(function (sobre) {
             const info = RAREZAS[sobre.rareza] || RAREZAS.comun;
             const b = el('button', 'jg-sobre-mini ' + sobre.rareza);
             b.type = 'button';
-            b.append(el('span', 'jg-sobre-mini-emoji', '🎁'), el('span', '', info.corto));
+            b.append(el('span', 'jg-sobre-mini-emoji', '🎁'), el('span', '', 'Sobre ' + info.corto));
             b.addEventListener('click', function () { abrirSobre(sobre.id); });
             sobres.append(b);
           });
-          if (estado.sobres.length > 3) {
-            sobres.append(el('span', 'mural-mas', '+' + (estado.sobres.length - 3) + ' más'));
+          if (estado.sobres.length > 4) {
+            sobres.append(el('span', 'mural-mas', '+' + (estado.sobres.length - 4) + ' más'));
           }
         }
       }
 
-      const sellosBoton = document.getElementById('mural-sellos');
-      if (sellosBoton) {
+      const apertura = document.getElementById('mural-apertura');
+      if (apertura) {
+        apertura.replaceChildren();
+        apertura.append(el('span', 'mural-apertura-nota', 'Extra:'));
+        const comprar = el('button', 'mural-mini-btn', '🎁 Sobre · 12 ❤️');
+        comprar.type = 'button';
+        comprar.disabled = estado.corazones < 12;
+        comprar.addEventListener('click', function () {
+          const item = VALES.find(function (v) { return v.id === 'sobreExtra'; });
+          if (item && comprarItem(item)) {
+            toast('🎁 Sobre extra comprado. Ábrelo cuando quieras.');
+            pintarMuralEnVivo();
+          }
+        });
+        apertura.append(comprar);
+        const afuera = el('button', 'mural-mini-btn afuera', '🌍 Sobre de afuera · 30 ❤️');
+        afuera.type = 'button';
+        afuera.disabled = estado.corazones < 30;
+        afuera.addEventListener('click', function () {
+          const item = VALES.find(function (v) { return v.id === 'sobreAfuera'; });
+          if (item && comprarItem(item)) {
+            toast('🌍 Sobre de afuera comprado. Solo trae cartas que no están en el álbum.');
+            pintarMuralEnVivo();
+          }
+        });
+        apertura.append(afuera);
+      }
+
+      const misiones = document.getElementById('mural-misiones');
+      if (misiones) {
+        misiones.replaceChildren();
+        const lista = misionesHoy();
+        const cuenta = document.getElementById('mural-misiones-cuenta');
+        if (cuenta) cuenta.textContent = lista.filter(function (m) { return m.cobrada; }).length + '/3';
+        lista.forEach(function (m) {
+          const fila = el('div', 'mision' + (m.cobrada ? ' hecha' : '') + (m.progreso >= m.meta ? ' lista' : ''));
+          fila.append(el('span', 'mision-emoji', m.emoji));
+          const texto = el('span', 'mision-texto');
+          texto.append(el('b', '', m.nombre));
+          texto.append(el('small', '', m.progreso + ' / ' + m.meta));
+          fila.append(texto);
+          if (m.cobrada) {
+            fila.append(el('span', 'mision-sello', '✓'));
+          } else if (m.progreso >= m.meta) {
+            const b = el('button', 'mision-btn', '+' + m.premio + ' ❤️');
+            b.type = 'button';
+            b.addEventListener('click', function () { cobrarMision(m.id); });
+            fila.append(b);
+          } else {
+            const mini = el('span', 'mision-mini-barra');
+            const i = el('i', '', '');
+            i.style.width = Math.round((m.progreso / m.meta) * 100) + '%';
+            mini.append(i);
+            fila.append(mini);
+          }
+          misiones.append(fila);
+        });
+      }
+
+      const botonAfuera = document.getElementById('mural-afuera');
+      if (botonAfuera) {
+        botonAfuera.replaceChildren(
+          el('span', '', '🌍 Cartas de afuera'),
+          el('b', '', contarExclusivas() + '/' + CARTAS_EXCLUSIVAS.length)
+        );
+      }
+      const botonSellos = document.getElementById('mural-sellos');
+      if (botonSellos) {
         const hechos = sellos().filter(function (s) { return s.ok; }).length;
-        sellosBoton.textContent = '🏅 Mis sellos · ' + hechos + '/' + sellos().length;
+        botonSellos.replaceChildren(
+          el('span', '', '🏅 Mis sellos'),
+          el('b', '', hechos + '/' + sellos().length)
+        );
       }
 
       const regalo = document.getElementById('mural-regalo');
       if (regalo) {
         regalo.replaceChildren();
         const temp = temporada();
-        if (!temp) return;
-        const clave = temp.id + '-' + hoyISO().slice(0, 4);
-        if (estado.regalos[clave]) {
-          regalo.append(el('p', 'mural-regalo-hecho', '🎁 Regalo de ' + temp.nombre + ' ya abierto'));
-          return;
+        if (temp) {
+          const clave = temp.id + '-' + hoyISO().slice(0, 4);
+          if (estado.regalos[clave]) {
+            regalo.append(el('p', 'mural-regalo-hecho', '🎁 Regalo de ' + temp.nombre + ' ya abierto'));
+          } else {
+            const b = el('button', 'mural-regalo-btn', temp.emoji + ' Regalo de ' + temp.nombre);
+            b.type = 'button';
+            b.addEventListener('click', function () { abrirRegalo(temp); });
+            regalo.append(b);
+          }
         }
-        const b = el('button', 'mural-regalo-btn', temp.emoji + ' Regalo de ' + temp.nombre);
-        b.type = 'button';
-        b.addEventListener('click', function () { abrirRegalo(temp); });
-        regalo.append(b);
       }
+
+      pintarAfueraEnVivo();
     }
 
-    function llenarGrid(grid) {
-      CARTAS.forEach(function (carta) {
+    function vitrinaNodo(rareza) {
+      const info = RAREZAS[rareza] || RAREZAS.comun;
+      const lista = CARTAS.filter(function (c) { return c.rareza === rareza; });
+      const tiene = lista.filter(function (c) { return estado.cartas[c.id]; });
+      const ultima = tiene.length ? tiene[tiene.length - 1] : null;
+      const pct = lista.length ? Math.round((tiene.length / lista.length) * 100) : 0;
+      const b = el('button', 'vitrina ' + rareza);
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Ver hoja de estampas ' + info.nombre);
+      const top = el('span', 'vitrina-top');
+      top.append(el('span', 'vitrina-nombre', info.nombre));
+      top.append(el('span', 'vitrina-cuenta', tiene.length + '/' + lista.length));
+      b.append(top);
+      const foto = el('span', 'vitrina-foto');
+      if (ultima) {
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.alt = ultima.nombre;
+        img.src = srcCarta(ultima);
+        foto.append(img);
+      } else {
+        foto.append(el('span', 'vitrina-vacia', '?'));
+      }
+      b.append(foto);
+      const barra = el('span', 'vitrina-barra');
+      const i = el('i', '', '');
+      i.style.width = pct + '%';
+      barra.append(i);
+      b.append(barra);
+      b.append(el('span', 'vitrina-ultima', ultima ? 'Última: ' + ultima.nombre : 'Aún sin estrenar'));
+      b.addEventListener('click', function () { abrirGaleria(rareza); });
+      return b;
+    }
+
+    function abrirGaleria(rareza) {
+      construirCatalogo();
+      const info = RAREZAS[rareza] || RAREZAS.comun;
+      const lista = CARTAS.filter(function (c) { return c.rareza === rareza; });
+      const tiene = lista.filter(function (c) { return estado.cartas[c.id]; }).length;
+      const ov = crearOverlay('jg-overlay-galeria');
+      const panel = panelBase(ov, 'Hoja de estampas', info.nombre + ' · ' + tiene + '/' + lista.length);
+      panel.classList.add('jg-panel-galeria');
+      const grid = el('div', 'jg-galeria');
+      lista.forEach(function (carta) {
         const mio = estado.cartas[carta.id];
-        const celda = el('button', 'mural-celda ' + carta.rareza + (mio ? ' tiene' : ' bloqueada'));
-        celda.type = 'button';
+        const b = el('button', 'jg-estampa ' + rareza + (mio ? ' tiene' : ' sin-catalogar'));
+        b.type = 'button';
+        const foto = el('span', 'jg-estampa-foto');
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.alt = mio ? carta.nombre : 'Foto sin catalogar';
+        img.src = srcCarta(carta);
+        foto.append(img);
+        b.append(foto);
         if (mio) {
-          celda.setAttribute('aria-label', 'Ver carta ' + carta.nombre);
+          b.append(el('span', 'jg-estampa-nombre', carta.nombre));
+          const est = estrellas(mio.nivel);
+          if (est) b.append(el('span', 'jg-estampa-estrellas', est));
+          b.addEventListener('click', function () {
+            cerrarOverlay();
+            verCarta(carta.id);
+          });
+        } else {
+          b.append(el('span', 'jg-estampa-tab', 'sin catalogar'));
+          b.addEventListener('click', function () {
+            toast('Aún sin catalogar. Gánala abriendo sobres 🎁');
+          });
+        }
+        grid.append(b);
+      });
+      panel.append(grid);
+      panel.append(el('p', 'jg-hint', 'Las que faltan se ven con su marco de cartón. Las tuyas ya tienen su rareza.'));
+      const cerrar = el('button', 'jg-btn jg-btn-suave', 'Cerrar');
+      cerrar.type = 'button';
+      cerrar.addEventListener('click', cerrarOverlay);
+      panel.append(cerrar);
+    }
+
+    function pintarSpreadAfuera(spread, spreadIndex) {
+      const cap = Number(spread && spread.chapter && spread.chapter.num) || 3;
+      const pageLeft = String(spreadIndex * 2 + 1).padStart(2, '0');
+      const pageRight = String(spreadIndex * 2 + 2).padStart(2, '0');
+
+      const izq = hojaMural('izq', pageLeft, cap);
+      const contenido = el('div', 'mural-contenido coleccion');
+      contenido.append(el('span', 'actividad-kicker', 'No están en el álbum'));
+      contenido.append(el('h3', 'actividad-titulo', 'Cartas de afuera'));
+      const contador = el('div', 'mural-contador');
+      contador.id = 'mural-afuera-contador';
+      contenido.append(contador);
+      const barra = el('div', 'mural-barra afuera');
+      barra.append(el('i', '', ''));
+      barra.querySelector('i').id = 'mural-afuera-barra-i';
+      contenido.append(barra);
+      contenido.append(el('p', 'actividad-sub', 'Estas fotos no están en el libro. Solo se consiguen con sobres de afuera, y por eso aquí sí hay verdadero misterio.'));
+      contenido.append(el('p', 'mural-nota', 'Los consigues en la racha de 30 días, en el hito de 75 cartas o en la tienda por 30 ❤️.'));
+      const volver = el('button', 'mural-boton', '← Volver a mi colección');
+      volver.type = 'button';
+      volver.addEventListener('click', function () {
+        try {
+          const i = albumSpreads.findIndex(function (s) { return s.type === 'mural'; });
+          if (i >= 0) mostrarSpread(i);
+        } catch (error) { /* nada */ }
+      });
+      contenido.append(volver);
+      const sticker = el('span', 'mural-sticker');
+      sticker.setAttribute('aria-hidden', 'true');
+      sticker.style.backgroundImage = "url('stickers/snoopy-estrella.png')";
+      contenido.append(sticker);
+      izq.hoja.append(contenido);
+      izq.decoraciones.forEach(function (n) { if (n) izq.hoja.append(n); });
+
+      const der = hojaMural('der', pageRight, cap);
+      const pagina = el('div', 'mural-pagina');
+      const grid = el('div', 'mural-grid afuera');
+      grid.id = 'mural-afuera-grid';
+      pagina.append(grid);
+      der.hoja.append(pagina);
+      der.decoraciones.forEach(function (n) { if (n) der.hoja.append(n); });
+
+      window.setTimeout(pintarAfueraEnVivo, 0);
+      return [izq.hoja, der.hoja];
+    }
+
+    function pintarAfueraEnVivo() {
+      const contador = document.getElementById('mural-afuera-contador');
+      if (contador) {
+        const total = CARTAS_EXCLUSIVAS.length;
+        const tiene = contarExclusivas();
+        contador.replaceChildren(el('strong', '', String(tiene)), el('span', '', ' / ' + total + ' de afuera'));
+        const barra = document.getElementById('mural-afuera-barra-i');
+        if (barra) barra.style.width = (total ? Math.round((tiene / total) * 100) : 0) + '%';
+      }
+      const grid = document.getElementById('mural-afuera-grid');
+      if (!grid) return;
+      grid.replaceChildren();
+      grid.classList.toggle('holo', !!estado.marcoHolo);
+      const totalSlots = Math.max(8, Math.ceil(CARTAS_EXCLUSIVAS.length / 4) * 4);
+      for (let i = 0; i < totalSlots; i++) {
+        const carta = CARTAS_EXCLUSIVAS[i];
+        if (!carta) {
+          const pronto = el('div', 'mural-celda bloqueada pronto');
+          pronto.append(el('span', 'mural-interrogacion', '🔒'));
+          pronto.append(el('span', 'mural-pronto', 'Pronto'));
+          grid.append(pronto);
+          continue;
+        }
+        const mio = estado.cartas[carta.id];
+        if (mio) {
+          const celda = el('button', 'mural-celda tiene afuera ' + carta.rareza);
+          celda.type = 'button';
           const img = document.createElement('img');
           img.loading = 'lazy';
           img.alt = carta.nombre;
-          img.src = 'recuerdos/' + carta.archivo;
-          img.addEventListener('error', function () { celda.classList.add('bloqueada'); });
+          img.src = srcCarta(carta);
           celda.append(img);
           const est = estrellas(mio.nivel);
           if (est) celda.append(el('span', 'mural-estrellas', est));
           celda.addEventListener('click', function () { verCarta(carta.id); });
+          grid.append(celda);
         } else {
-          celda.setAttribute('aria-label', 'Carta sin descubrir');
+          const celda = el('button', 'mural-celda bloqueada afuera');
+          celda.type = 'button';
           celda.append(el('span', 'mural-interrogacion', '?'));
           celda.addEventListener('click', function () {
-            toast('Esa carta todavía no sale. ¡Sigue jugando! 🎁');
+            toast('Esta carta vive afuera del álbum. Abre un sobre de afuera 🌍');
           });
+          grid.append(celda);
         }
-        grid.append(celda);
-      });
+      }
     }
 
     function verCarta(id) {
-      const carta = CARTAS.find(function (c) { return c.id === id; });
+      const carta = cartaPorId(id);
       const mio = estado.cartas[id];
       if (!carta || !mio) return;
       const ov = crearOverlay('jg-overlay-carta');
@@ -8813,7 +10013,11 @@ guías
       if (!vale) return;
       vale.canjeado = hoyISO();
       guardar();
-      const texto = 'Hola 💌 Canjeé mi vale «' + vale.nombre + ' ' + vale.emoji + '» en el libro de nosotros (Vale N.º ' + vale.codigo + '). Cuando puedas, lo espero.';
+      const texto = 'Hola, mi niño 💗\n\n'
+        + 'Ya canjeé mi vale ' + vale.emoji + '\n'
+        + '🎟️ Vale N.º ' + vale.codigo + ': ' + vale.nombre + '\n\n'
+        + 'Lo guardé en nuestro libro de recuerdos 📖✨\n'
+        + 'Cuando puedas, lo espero con muchas ganas 🥰';
       const base = WA_NUMERO ? 'https://wa.me/' + WA_NUMERO + '?text=' : 'https://wa.me/?text=';
       try {
         window.open(base + encodeURIComponent(texto), '_blank', 'noopener');
@@ -8837,17 +10041,20 @@ guías
       abrirSobre: abrirSobre,
       abrirSellos: abrirSellos,
       pintarSpreadMural: pintarSpreadMural,
+      pintarSpreadAfuera: pintarSpreadAfuera,
       pintarSpreadTienda: pintarSpreadTienda,
-      refrescar: function () { pintarHud(); pintarMuralEnVivo(); pintarTiendaEnVivo(); },
+      refrescar: function () { pintarHud(); pintarMuralEnVivo(); pintarAfueraEnVivo(); pintarTiendaEnVivo(); },
       estado: function () { return estado; }
     };
     window.pintarSpreadMural = pintarSpreadMural;
+    window.pintarSpreadAfuera = pintarSpreadAfuera;
     window.pintarSpreadTienda = pintarSpreadTienda;
 
     cargarLocal();
+    revisarDias();
     pintarHud();
     sincronizarNube(0);
-    window.setTimeout(function () { pintarMuralEnVivo(); pintarTiendaEnVivo(); }, 400);
+    window.setTimeout(function () { pintarMuralEnVivo(); pintarAfueraEnVivo(); pintarTiendaEnVivo(); }, 400);
   })();
 </script>
 
@@ -9194,6 +10401,11 @@ const capitulos = [
     let quizPuntaje = 0;
     let quizRespondida = false;
     let quizAnioCorrecto = '';
+    let quizTipo = 'anio';
+    let quizPlan = [];
+    let quizValorCorrecto = '';
+    let quizIntervalo = null;
+    let quizSegundos = 0;
     let quizTemporizador = null;
     let frascoUsados = new Set();
     let heartsTimer = null;
@@ -9333,6 +10545,11 @@ const capitulos = [
 
       spreads.push({
         type: 'mural',
+        chapter: { num: ultimoCapitulo.num, title: ultimoCapitulo.title, index: capitulos.length - 1 }
+      });
+
+      spreads.push({
+        type: 'afuera',
         chapter: { num: ultimoCapitulo.num, title: ultimoCapitulo.title, index: capitulos.length - 1 }
       });
 
@@ -10135,13 +11352,15 @@ const capitulos = [
         crearTextoActividad('actividad-titulo', '¿En qué año fue?', 'h3'),
         crearTextoActividad('actividad-sub', 'Mira la foto y elige el año.', 'p')
       );
+      contenidoQuiz.querySelector('.actividad-titulo').id = 'quiz-titulo';
+      contenidoQuiz.querySelector('.actividad-sub').id = 'quiz-sub';
 
       const fotoQuiz = document.createElement('div');
       fotoQuiz.className = 'quiz-foto-wrap';
       fotoQuiz.id = 'quiz-foto';
 
       contenidoQuiz.append(fotoQuiz);
-      contenidoQuiz.append(crearTextoActividad('actividad-sub quiz-pista', 'Elige el año en la página de al lado →', 'p'));
+      contenidoQuiz.append(crearTextoActividad('actividad-sub quiz-pista', 'Elige la respuesta en la página de al lado →', 'p'));
 
       left.append(contenidoQuiz);
       left.append(makeWashi('washi-actividad-izq'));
@@ -10161,6 +11380,15 @@ const capitulos = [
       marcador.id = 'quiz-marcador';
 
       const tituloRespuestas = crearTextoActividad('actividad-titulo respuestas-titulo', '¿En qué año fue?', 'h3');
+      tituloRespuestas.id = 'quiz-titulo-der';
+
+      const tiempo = document.createElement('div');
+      tiempo.className = 'quiz-tiempo';
+      tiempo.id = 'quiz-tiempo';
+      tiempo.setAttribute('aria-hidden', 'true');
+      const tiempoBarra = document.createElement('i');
+      tiempoBarra.id = 'quiz-tiempo-i';
+      tiempo.append(tiempoBarra);
 
       const estado = crearTextoActividad('respuestas-estado', 'Elige un año.', 'p');
       estado.id = 'quiz-estado';
@@ -10186,7 +11414,7 @@ const capitulos = [
       hudJuego.className = 'juego-hud';
       hudJuego.id = 'quiz-hud';
 
-      contenidoRespuestas.append(marcador, tituloRespuestas, estado, opcionesQuiz, boostsJuego, hudJuego, reiniciar);
+      contenidoRespuestas.append(marcador, tituloRespuestas, tiempo, estado, opcionesQuiz, boostsJuego, hudJuego, reiniciar);
       right.append(contenidoRespuestas);
       right.append(makeWashi('washi-actividad-der'));
       right.append(makeDoodle('star', 'doodle-actividad-der'));
@@ -10197,18 +11425,75 @@ const capitulos = [
       return [left, right];
     }
 
+    const QUIZ_SEGUNDOS = 14;
+
+    const TEMPORADAS = [
+      { valor: 'verano', nombre: 'Verano', detalle: 'ene – mar', meses: [1, 2, 3] },
+      { valor: 'otono', nombre: 'Otoño', detalle: 'abr – jun', meses: [4, 5, 6] },
+      { valor: 'invierno', nombre: 'Invierno', detalle: 'jul – sep', meses: [7, 8, 9] },
+      { valor: 'primavera', nombre: 'Primavera', detalle: 'oct – dic', meses: [10, 11, 12] }
+    ];
+
+    function temporadaDeMes(mes) {
+      const m = Number(mes) || 0;
+      return TEMPORADAS.find(function (t) { return t.meses.indexOf(m) >= 0; }) || null;
+    }
+
+    function limpiarTiempoQuiz() {
+      window.clearInterval(quizIntervalo);
+      quizIntervalo = null;
+    }
+
+    function arrancarTiempoQuiz() {
+      limpiarTiempoQuiz();
+      const caja = document.getElementById('quiz-tiempo');
+      const barra = document.getElementById('quiz-tiempo-i');
+      let restante = QUIZ_SEGUNDOS * 1000;
+      const pintar = function () {
+        const pct = Math.max(0, Math.min(100, (restante / (QUIZ_SEGUNDOS * 1000)) * 100));
+        if (barra) barra.style.width = pct + '%';
+        if (caja) caja.classList.toggle('prisa', restante <= 4500);
+      };
+      pintar();
+      quizIntervalo = window.setInterval(function () {
+        if (!document.querySelector('.actividades-spread.on')) return;
+        restante -= 100;
+        pintar();
+        if (restante <= 0) {
+          limpiarTiempoQuiz();
+          responderQuiz(null, null);
+        }
+      }, 100);
+    }
+
+    function etiquetaDelValorCorrecto() {
+      if (quizTipo === 'mes') {
+        const m = Number(quizValorCorrecto);
+        return MESES[m - 1] || quizValorCorrecto;
+      }
+      if (quizTipo === 'temporada') {
+        const t = TEMPORADAS.find(function (x) { return x.valor === quizValorCorrecto; });
+        return t ? t.nombre : quizValorCorrecto;
+      }
+      return quizValorCorrecto;
+    }
+
     function iniciarQuiz() {
       window.clearTimeout(quizTemporizador);
+      limpiarTiempoQuiz();
       quizRonda = 0;
       quizPuntaje = 0;
       quizRespondida = false;
       quizAnioCorrecto = '';
+      quizValorCorrecto = '';
+      quizTipo = 'anio';
+      quizPlan = ['anio', 'anio', 'anio', 'mes', 'temporada'].sort(function () { return Math.random() - 0.5; });
       quizUsadas = new Set();
       const estado = document.getElementById('quiz-estado');
       const marcador = document.getElementById('quiz-marcador');
       const reiniciar = document.getElementById('quiz-reiniciar');
       if (!document.getElementById('quiz-foto')) return;
-      if (estado) estado.textContent = 'Elige un año.';
+      if (estado) estado.textContent = 'Elige una respuesta.';
       if (marcador) marcador.textContent = 'Pregunta 1 de 5';
       if (reiniciar) reiniciar.hidden = true;
       if (window.Juego && Juego.iniciarRonda) Juego.iniciarRonda();
@@ -10216,10 +11501,14 @@ const capitulos = [
     }
 
     function crearPreguntaQuiz() {
+      limpiarTiempoQuiz();
       const fotoContenedor = document.getElementById('quiz-foto');
       const opcionesContenedor = document.getElementById('quiz-opciones');
       const estado = document.getElementById('quiz-estado');
       const marcador = document.getElementById('quiz-marcador');
+      const titulo = document.getElementById('quiz-titulo');
+      const tituloDer = document.getElementById('quiz-titulo-der');
+      const sub = document.getElementById('quiz-sub');
       if (!fotoContenedor || !opcionesContenedor) return;
 
       let pregunta = null;
@@ -10243,73 +11532,144 @@ const capitulos = [
       }
 
       quizUsadas.add(pregunta.archivo);
-      quizAnioCorrecto = String(pregunta.fecha || '').slice(0, 4);
+      const fecha = String(pregunta.fecha || '');
+      const anio = fecha.slice(0, 4);
+      const mes = Number(fecha.slice(5, 7)) || 0;
       quizRonda += 1;
       quizRespondida = false;
+
+      const posibles = ['anio', 'anio'];
+      if (mes) posibles.push('mes', 'temporada');
+      const planeado = quizPlan[Math.min(quizRonda - 1, quizPlan.length - 1)];
+      quizTipo = planeado && posibles.indexOf(planeado) >= 0
+        ? planeado
+        : posibles[Math.floor(Math.random() * posibles.length)];
 
       fotoContenedor.replaceChildren();
       const foto = makeMediaButton(pregunta, pregunta.number, false);
       foto.classList.add('quiz-polaroid');
-      foto.setAttribute('aria-label', 'Mira la foto y adivina el año');
+      foto.setAttribute('aria-label', 'Mira la foto y responde');
       fotoContenedor.append(foto);
       resolvePolaroidButton(foto);
 
-      const anios = (window.Juego && Juego.aniosDisponibles)
-        ? Juego.aniosDisponibles(recuerdosActividad)
-        : [...new Set(recuerdosActividad
-          .filter((item) => item.fecha && item.fecha.split('-')[0])
-          .map((item) => item.fecha.slice(0, 4)))];
-      const opciones = [quizAnioCorrecto];
-      anios
-        .filter((anio) => anio !== quizAnioCorrecto)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3)
-        .forEach((anio) => opciones.push(anio));
-      opciones.sort(() => Math.random() - 0.5);
+      let tituloTexto = '¿En qué año fue?';
+      let subTexto = 'Mira la foto y elige el año.';
+      let etiqueta = 'Elige el año.';
+      let pares = [];
+
+      if (quizTipo === 'mes') {
+        tituloTexto = '¿En qué mes fue?';
+        subTexto = 'Mira la foto y elige el mes.';
+        etiqueta = 'Elige el mes.';
+        quizValorCorrecto = String(mes);
+        const meses = [];
+        recuerdosActividad.forEach(function (item) {
+          const m = Number(String(item.fecha || '').slice(5, 7));
+          if (m && meses.indexOf(m) < 0) meses.push(m);
+        });
+        const opcionesMes = [mes];
+        meses.filter(function (m) { return m !== mes; })
+          .sort(function () { return Math.random() - 0.5; })
+          .slice(0, 3)
+          .forEach(function (m) { opcionesMes.push(m); });
+        let extraMes = 1;
+        while (opcionesMes.length < 4) {
+          const m = ((mes - extraMes - 1 + 12) % 12) + 1;
+          if (opcionesMes.indexOf(m) < 0) opcionesMes.push(m);
+          extraMes += 1;
+        }
+        opcionesMes.sort(function () { return Math.random() - 0.5; });
+        pares = opcionesMes.map(function (m) { return { valor: String(m), etiqueta: MESES[m - 1] }; });
+      } else if (quizTipo === 'temporada') {
+        tituloTexto = '¿En qué temporada fue?';
+        subTexto = 'Elige la temporada del año.';
+        etiqueta = 'Elige la temporada.';
+        const temp = temporadaDeMes(mes) || TEMPORADAS[0];
+        quizValorCorrecto = temp.valor;
+        pares = TEMPORADAS.map(function (t) {
+          return { valor: t.valor, etiqueta: t.nombre + ' · ' + t.detalle };
+        }).sort(function () { return Math.random() - 0.5; });
+      } else {
+        quizTipo = 'anio';
+        quizValorCorrecto = anio;
+        const anios = (window.Juego && Juego.aniosDisponibles)
+          ? Juego.aniosDisponibles(recuerdosActividad)
+          : [...new Set(recuerdosActividad
+            .filter(function (item) { return item.fecha && item.fecha.split('-')[0]; })
+            .map(function (item) { return item.fecha.slice(0, 4); }))];
+        const opcionesAnio = [anio];
+        anios.filter(function (a) { return a !== anio; })
+          .sort(function () { return Math.random() - 0.5; })
+          .slice(0, 3)
+          .forEach(function (a) { opcionesAnio.push(a); });
+        let extraAnio = 1;
+        while (opcionesAnio.length < 4) {
+          const a = String(Number(anio) - extraAnio);
+          if (opcionesAnio.indexOf(a) < 0) opcionesAnio.push(a);
+          extraAnio += 1;
+        }
+        opcionesAnio.sort(function () { return Math.random() - 0.5; });
+        pares = opcionesAnio.map(function (a) { return { valor: a, etiqueta: a }; });
+      }
+
+      quizAnioCorrecto = quizValorCorrecto;
+
+      if (titulo) titulo.textContent = tituloTexto;
+      if (tituloDer) tituloDer.textContent = tituloTexto;
+      if (sub) sub.textContent = subTexto;
 
       opcionesContenedor.replaceChildren();
-      opciones.forEach((anio) => {
+      pares.forEach(function (par) {
         const boton = document.createElement('button');
         boton.className = 'quiz-opcion';
         boton.type = 'button';
-        boton.dataset.anio = anio;
-        boton.textContent = anio;
-        boton.addEventListener('click', () => responderQuiz(anio, boton));
+        boton.dataset.valor = par.valor;
+        boton.textContent = par.etiqueta;
+        boton.addEventListener('click', function () { responderQuiz(par.valor, boton); });
         opcionesContenedor.append(boton);
       });
 
-      if (estado) estado.textContent = 'Elige un año.';
+      if (estado) estado.textContent = etiqueta;
       if (marcador) marcador.textContent = `Pregunta ${quizRonda} de 5`;
       if (window.Juego && Juego.pintarHud) Juego.pintarHud();
+      arrancarTiempoQuiz();
     }
 
-    function responderQuiz(anio, boton) {
+    function responderQuiz(valor, boton) {
       if (quizRespondida) return;
       quizRespondida = true;
+      limpiarTiempoQuiz();
+      const sinTiempo = valor === null || valor === undefined;
+      const acierto = !sinTiempo && valor === quizValorCorrecto;
       const botones = Array.from(document.querySelectorAll('#quiz-opciones .quiz-opcion'));
-      botones.forEach((opcion) => {
+      botones.forEach(function (opcion) {
         opcion.disabled = true;
-        if (opcion.dataset.anio === quizAnioCorrecto) opcion.classList.add('correcta');
+        if (opcion.dataset.valor === quizValorCorrecto) opcion.classList.add('correcta');
       });
-      if (anio === quizAnioCorrecto) {
+      if (acierto) {
         quizPuntaje += 1;
       } else if (boton) {
         boton.classList.add('incorrecta');
       }
 
+      const correcta = etiquetaDelValorCorrecto();
+      const enMinuscula = correcta.charAt(0).toLowerCase() + correcta.slice(1);
+      const frase = quizTipo === 'anio' ? 'Era ' + correcta : 'Fue en ' + enMinuscula;
       const estado = document.getElementById('quiz-estado');
       const marcador = document.getElementById('quiz-marcador');
       let respuestaJuego = null;
       if (window.Juego && Juego.responder) {
-        respuestaJuego = Juego.responder(anio === quizAnioCorrecto);
+        respuestaJuego = Juego.responder(acierto);
       }
       if (estado) {
-        if (anio === quizAnioCorrecto) {
-          estado.textContent = `¡Sí! Era ${quizAnioCorrecto}.`;
+        if (acierto) {
+          estado.textContent = '¡Sí! ' + frase + '.';
+        } else if (sinTiempo) {
+          estado.textContent = '⏰ Se acabó el tiempo. ' + frase + '.';
         } else if (respuestaJuego && respuestaJuego.escudo) {
-          estado.textContent = `Casi. Era ${quizAnioCorrecto}. 🛡️ Tu racha se salvó.`;
+          estado.textContent = 'Casi. ' + frase + '. 🛡️ Tu racha se salvó.';
         } else {
-          estado.textContent = `Casi. Era ${quizAnioCorrecto}.`;
+          estado.textContent = 'Casi. ' + frase + '.';
         }
         if (respuestaJuego && respuestaJuego.gano) estado.textContent += `  +${respuestaJuego.gano} ❤️`;
       }
@@ -10322,13 +11682,16 @@ const capitulos = [
         } else {
           crearPreguntaQuiz();
         }
-      }, 1100);
+      }, 1300);
     }
 
     function terminarQuiz() {
+      limpiarTiempoQuiz();
       const estado = document.getElementById('quiz-estado');
       const marcador = document.getElementById('quiz-marcador');
       const reiniciar = document.getElementById('quiz-reiniciar');
+      const barra = document.getElementById('quiz-tiempo-i');
+      if (barra) barra.style.width = '0%';
       if (marcador) marcador.textContent = `Aciertos: ${quizPuntaje}/5`;
       if (estado) {
         if (quizPuntaje === 5) {
@@ -10766,7 +12129,9 @@ const capitulos = [
               ? ' actividades-spread'
               : spread.type === 'mural'
                 ? ' mural-spread'
-                : spread.type === 'tienda' ? ' tienda-spread' : '';
+                : spread.type === 'afuera'
+                  ? ' afuera-spread'
+                  : spread.type === 'tienda' ? ' tienda-spread' : '';
         spreadElement.className = `spread${spreadIndex === 0 ? ' on' : ''}${extraClass}`;
         spreadElement.setAttribute('aria-label', spread.type === 'separator'
           ? `Capítulo ${spread.num}: ${spread.title}`
@@ -10776,9 +12141,11 @@ const capitulos = [
               ? 'Juegos y recuerdos'
               : spread.type === 'mural'
                 ? 'Mi mural de cartas'
-                : spread.type === 'tienda'
-                  ? 'La tienda de recuerdos'
-                  : spread.isFinal ? 'Página final' : `Páginas ${spreadIndex + 1}`);
+                : spread.type === 'afuera'
+                  ? 'Cartas de afuera'
+                  : spread.type === 'tienda'
+                    ? 'La tienda de recuerdos'
+                    : spread.isFinal ? 'Página final' : `Páginas ${spreadIndex + 1}`);
         spreadElement.setAttribute('aria-hidden', String(spreadIndex !== 0));
         spreadElement.dataset.indice = String(spreadIndex);
 
@@ -10790,6 +12157,8 @@ const capitulos = [
           makeActividadesSpread(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else if (spread.type === 'mural' && typeof pintarSpreadMural === 'function') {
           pintarSpreadMural(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
+        } else if (spread.type === 'afuera' && typeof pintarSpreadAfuera === 'function') {
+          pintarSpreadAfuera(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else if (spread.type === 'tienda' && typeof pintarSpreadTienda === 'function') {
           pintarSpreadTienda(spread, spreadIndex).forEach((sheet) => spreadElement.append(sheet));
         } else if (spread.type === 'dinamico' && typeof pintarSpreadDinamico === 'function') {
