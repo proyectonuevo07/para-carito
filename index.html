@@ -5883,7 +5883,8 @@
       width: 0;
       height: 100%;
       border-radius: 99px;
-      background: linear-gradient(90deg, #d98a9c, #e0b45f, #8fae9a);
+      background: linear-gradient(90deg, #ff4ecd, #ffb703, #4ade80, #38bdf8, #a855f7);
+      box-shadow: 0 0 8px rgba(255, 90, 200, 0.55);
       transition: width 0.7s cubic-bezier(0.2, 0.8, 0.3, 1);
     }
 
@@ -5960,12 +5961,13 @@
       display: block;
       width: 100%;
       height: 100%;
-      border: 1.5px solid rgba(139, 91, 59, 0.28);
-      border-radius: 4px;
-      background: #f7efe2;
+      border: 0;
+      border-radius: 5px;
+      background: linear-gradient(155deg, #cbd5c0, #8fa08a);
       padding: 2px;
       overflow: hidden;
       cursor: pointer;
+      box-shadow: 0 2px 5px rgba(80, 50, 30, 0.2);
       transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
@@ -5973,31 +5975,63 @@
       display: block;
       width: 100%;
       height: 100%;
-      border-radius: 2px;
+      border-radius: 3px;
       object-fit: cover;
     }
 
-    .mural-celda.tiene { border-color: var(--r, #8a9a7b); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) inset, 0 2px 4px rgba(80, 50, 30, 0.14); }
-    .mural-celda.tiene:hover { z-index: 2; transform: translateY(-2px) scale(1.04); }
-    .mural-celda.comun { --r: #8a9a7b; }
-    .mural-celda.rara { --r: #5b8fb9; }
-    .mural-celda.epica { --r: #9b6bb5; }
-    .mural-celda.legendaria { --r: #c29a4b; }
+    .mural-celda.tiene { box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85) inset, 0 3px 7px rgba(50, 25, 20, 0.24); }
+    .mural-celda.tiene::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 5px;
+      background: linear-gradient(130deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 38%, rgba(0, 0, 0, 0.12) 100%);
+      pointer-events: none;
+    }
+    .mural-celda.tiene:hover { z-index: 2; transform: translateY(-2px) scale(1.05); }
+    .mural-celda.comun { background: linear-gradient(155deg, #34d399, #14b8a6 55%, #065f46); }
+    .mural-celda.rara { background: linear-gradient(155deg, #38bdf8, #3b82f6 55%, #1e1b4b); }
+    .mural-celda.epica { background: linear-gradient(155deg, #f472b6, #c026d3 55%, #4c1d95); }
+    .mural-celda.legendaria { background: linear-gradient(155deg, #fde047, #fb923c 50%, #9a3412); }
 
     .mural-celda.bloqueada {
       display: grid;
       place-items: center;
-      border-style: dashed;
+      border: 1.5px dashed rgba(139, 91, 59, 0.4);
       background:
-        repeating-linear-gradient(45deg, rgba(139, 91, 59, 0.05) 0 4px, transparent 4px 8px),
-        rgba(255, 255, 255, 0.45);
+        repeating-linear-gradient(45deg, rgba(139, 91, 59, 0.07) 0 4px, transparent 4px 8px),
+        rgba(255, 255, 255, 0.55);
+      box-shadow: none;
       cursor: help;
     }
 
+    .mural-celda.bloqueada::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(70% 60% at 50% 40%, rgba(255, 255, 255, 0.8), transparent 70%);
+      pointer-events: none;
+    }
+
     .mural-interrogacion {
-      color: rgba(111, 74, 48, 0.42);
+      position: relative;
+      color: rgba(111, 74, 48, 0.5);
       font-family: 'Permanent Marker', cursive;
       font-size: clamp(11px, 1.6vw, 18px);
+    }
+
+    /* Marco holográfico en el mural: rim vivo y colorido */
+    .mural-grid.holo .mural-celda.tiene {
+      animation: jgMuralHolo 3s linear infinite;
+    }
+
+    @keyframes jgMuralHolo {
+      0% { box-shadow: 0 0 10px 2px rgba(255, 78, 205, 0.9), 0 0 0 2px #ff4ecd inset; }
+      20% { box-shadow: 0 0 12px 2px rgba(255, 209, 102, 0.9), 0 0 0 2px #ffd166 inset; }
+      40% { box-shadow: 0 0 12px 2px rgba(74, 222, 128, 0.9), 0 0 0 2px #4ade80 inset; }
+      60% { box-shadow: 0 0 12px 2px rgba(56, 189, 248, 0.9), 0 0 0 2px #38bdf8 inset; }
+      80% { box-shadow: 0 0 12px 2px rgba(168, 85, 247, 0.9), 0 0 0 2px #a855f7 inset; }
+      100% { box-shadow: 0 0 10px 2px rgba(255, 78, 205, 0.9), 0 0 0 2px #ff4ecd inset; }
     }
 
     .mural-estrellas {
@@ -6415,9 +6449,17 @@
     }
 
     .jg-sobre.abierto .jg-sobre-cuerpo::after { transform: rotateX(180deg); opacity: 0.2; }
-    .jg-sobre.rara .jg-sobre-cuerpo { background: linear-gradient(160deg, #eaf3fb, #d8e7f3); }
-    .jg-sobre.epica .jg-sobre-cuerpo { background: linear-gradient(160deg, #f2eafb, #e2d6f0); }
-    .jg-sobre.legendaria .jg-sobre-cuerpo { background: linear-gradient(160deg, #fff5d6, #f2dfa8); }
+    .jg-sobre.comun .jg-sobre-cuerpo { background: linear-gradient(160deg, #ecfdf5, #a7f3d0); box-shadow: 0 10px 22px rgba(13,148,136,.22), 0 0 0 2px rgba(45,212,191,.35); }
+    .jg-sobre.rara .jg-sobre-cuerpo { background: linear-gradient(160deg, #eff6ff, #bfdbfe); box-shadow: 0 10px 22px rgba(37,99,235,.22), 0 0 0 2px rgba(96,165,250,.4); }
+    .jg-sobre.epica .jg-sobre-cuerpo { background: linear-gradient(160deg, #fdf4ff, #f5d0fe); box-shadow: 0 10px 22px rgba(162,28,175,.22), 0 0 0 2px rgba(232,121,249,.4); }
+    .jg-sobre.legendaria .jg-sobre-cuerpo { background: linear-gradient(160deg, #fffbeb, #fde68a); box-shadow: 0 10px 22px rgba(245,158,11,.26), 0 0 0 2px rgba(253,224,71,.55), 0 0 18px rgba(251,146,60,.35); }
+    .jg-sobre { transition: transform 0.2s ease, filter 0.2s ease; }
+    .jg-sobre.revelando { animation: jgSobreFlash 0.55s ease; }
+    @keyframes jgSobreFlash {
+      0% { transform: scale(1); filter: brightness(1); }
+      40% { transform: scale(1.04); filter: brightness(1.18) saturate(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
 
     .jg-sello {
       position: absolute;
@@ -6449,86 +6491,152 @@
     .jg-hint { margin: 4px 0 0; color: #8b6a4a; font-family: 'Caveat', cursive; font-size: 15px; }
 
     /* -------- carta -------- */
-    .jg-panel-carta { width: min(94vw, 330px); }
+    .jg-panel-carta { width: min(94vw, 336px); }
 
     .jg-carta {
+      --g1: #2dd4bf;
+      --g2: #0d9488;
+      --g3: #134e4a;
+      --rare: #0f766e;
       position: relative;
       display: flex;
-      width: min(72vw, 250px);
+      width: min(72vw, 252px);
       aspect-ratio: 63 / 88;
       margin: 0 auto;
       flex-direction: column;
-      gap: 3px;
-      border: 1px solid #cdae86;
-      border-radius: 11px;
+      gap: 4px;
+      border: 0;
+      border-radius: 13px;
       background:
-        radial-gradient(120% 60% at 20% 0%, rgba(255, 255, 255, 0.96), transparent 60%),
-        linear-gradient(160deg, #fffaf0, #f4e6d0);
-      padding: 7px;
-      box-shadow: 0 14px 26px rgba(70, 40, 20, 0.32);
-      color: #4a3327;
+        radial-gradient(120% 64% at 8% -6%, rgba(255, 255, 255, 0.34), transparent 52%),
+        radial-gradient(90% 58% at 104% 104%, rgba(0, 0, 0, 0.32), transparent 62%),
+        linear-gradient(158deg, var(--g1) 0%, var(--g2) 54%, var(--g3) 100%);
+      padding: 8px 8px 7px;
+      box-shadow: 0 16px 30px rgba(30, 16, 40, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+      color: #fffdf8;
       text-align: left;
       overflow: hidden;
+      isolation: isolate;
       transition: transform 0.18s ease;
       will-change: transform;
     }
 
-    .jg-carta.comun { --rare: #8a9a7b; }
-    .jg-carta.rara { --rare: #5b8fb9; }
-    .jg-carta.epica { --rare: #9b6bb5; }
-    .jg-carta.legendaria { --rare: #c29a4b; }
+    .jg-carta.comun { --g1: #2dd4bf; --g2: #0d9488; --g3: #0b3d3d; --rare: #0f766e; }
+    .jg-carta.rara { --g1: #60a5fa; --g2: #2563eb; --g3: #171463; --rare: #1d4ed8; }
+    .jg-carta.epica { --g1: #e879f9; --g2: #a21caf; --g3: #3b0764; --rare: #86198f; }
+    .jg-carta.legendaria { --g1: #fde047; --g2: #f59e0b; --g3: #7c2d12; --rare: #b45309; }
 
+    /* Rayos de sol + brillo de lámina */
     .jg-carta::before {
       content: '';
       position: absolute;
-      inset: 0;
-      border: 2px solid var(--rare, #8a9a7b);
-      border-radius: 11px;
+      inset: -30% -10%;
+      z-index: 0;
+      background:
+        repeating-conic-gradient(from 0deg at 24% 6%, rgba(255, 255, 255, 0.13) 0deg 7deg, transparent 7deg 16deg);
+      opacity: 0.5;
       pointer-events: none;
     }
 
+    .jg-foil {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: inherit;
+      background: linear-gradient(118deg, transparent 30%, rgba(255, 255, 255, 0.26) 46%, rgba(255, 255, 255, 0.04) 56%, transparent 68%);
+      background-size: 260% 100%;
+      mix-blend-mode: screen;
+      animation: jgFoil 6.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes jgFoil {
+      0%, 100% { background-position: 170% 0; }
+      50% { background-position: -70% 0; }
+    }
+
+    /* Legendaria: arcoíris girando detrás del contenido */
     .jg-carta.legendaria::after {
       content: '';
       position: absolute;
       inset: -45%;
       z-index: 0;
-      background: conic-gradient(from 0deg, rgba(255, 105, 180, 0.35), rgba(255, 235, 90, 0.34), rgba(90, 230, 255, 0.32), rgba(170, 95, 255, 0.32), rgba(255, 105, 180, 0.35));
-      mix-blend-mode: color-dodge;
-      animation: jgHolo 7s linear infinite;
+      background: conic-gradient(from 0deg, rgba(255, 105, 180, 0.85), rgba(255, 235, 90, 0.85), rgba(90, 230, 255, 0.85), rgba(170, 95, 255, 0.85), rgba(255, 105, 180, 0.85));
+      mix-blend-mode: soft-light;
+      opacity: 0.9;
+      animation: jgHolo 6s linear infinite;
       pointer-events: none;
     }
 
     @keyframes jgHolo { to { transform: rotate(360deg); } }
 
-    .jg-carta.holo-marco { border-color: #d9b45e; }
+    /* Marco holográfico comprado: aro arcoíris + halo, bien visible */
+    .jg-carta.holo-marco {
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.75),
+        0 0 22px 3px rgba(255, 92, 214, 0.62),
+        0 0 34px 8px rgba(64, 210, 255, 0.42),
+        0 16px 30px rgba(30, 16, 40, 0.4);
+    }
+
+    .jg-holo {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      border-radius: inherit;
+      padding: 3px;
+      background: conic-gradient(from 0deg, #ff4ecd, #ffd166, #4ade80, #38bdf8, #a855f7, #ff4ecd);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      animation: jgHoloGiro 3.6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes jgHoloGiro { to { filter: hue-rotate(360deg) saturate(1.35); } }
 
     .jg-carta-top {
       display: flex;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       align-items: baseline;
       justify-content: space-between;
       gap: 4px;
       font-family: 'Permanent Marker', cursive;
-      color: #5a3a24;
+      color: #fffdf8;
     }
 
-    .jg-carta-nombre { font-size: clamp(11px, 3.3vw, 15px); line-height: 1; }
-    .jg-carta-hp { font-size: clamp(7px, 2vw, 9px); color: #8b6a4a; white-space: nowrap; }
+    .jg-carta-nombre {
+      font-size: clamp(11px, 3.3vw, 15px);
+      line-height: 1;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35), 0 0 12px rgba(0, 0, 0, 0.22);
+    }
+
+    .jg-carta-hp {
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 1px 5px;
+      color: var(--rare, #0f766e);
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6px, 1.9vw, 8px);
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
 
     .jg-carta-marco {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       flex: 1;
       min-height: 0;
-      border: 2px solid rgba(255, 255, 255, 0.85);
-      border-radius: 5px;
-      background: #efe4d2;
-      padding: 2px;
-      box-shadow: inset 0 0 8px rgba(80, 50, 30, 0.18);
+      border: 0;
+      border-radius: 7px;
+      background: linear-gradient(145deg, #fffdf7 0%, var(--g1) 38%, #fffdf7 62%, var(--g2) 100%);
+      padding: 3px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     }
 
-    .jg-carta-foto { width: 100%; height: 100%; overflow: hidden; border-radius: 3px; background: #e6dac6; }
+    .jg-carta-foto { width: 100%; height: 100%; overflow: hidden; border: 2px solid #fffdf7; border-radius: 5px; background: #efe4d2; }
 
     .jg-carta-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
@@ -6536,48 +6644,65 @@
 
     .jg-carta-frase {
       position: relative;
-      z-index: 1;
-      margin: 1px 1px 0;
-      color: #6f5540;
+      z-index: 2;
+      margin: 0 0 1px;
+      border: 1px dashed rgba(120, 70, 40, 0.35);
+      border-radius: 6px;
+      background: rgba(255, 251, 240, 0.95);
+      padding: 2px 5px;
+      color: #5b3d28;
       font-family: 'Caveat', cursive;
-      font-size: clamp(9px, 2.8vw, 12.5px);
-      line-height: 1.1;
+      font-size: clamp(9px, 2.9vw, 12.5px);
+      line-height: 1.12;
       text-align: center;
+      transform: rotate(-0.6deg);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
     }
 
     .jg-carta-info {
       display: flex;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       justify-content: space-between;
       gap: 4px;
-      border-top: 1px dashed rgba(139, 91, 59, 0.35);
-      padding-top: 2px;
     }
 
     .jg-carta-tipo {
-      border: 1px solid var(--rare, #8a9a7b);
+      border: 1px solid rgba(255, 255, 255, 0.85);
       border-radius: 99px;
-      padding: 0 5px;
-      color: var(--rare, #8a9a7b);
+      background: rgba(255, 255, 255, 0.16);
+      padding: 0 6px;
+      color: #ffffff;
       font-family: 'Special Elite', monospace;
       font-size: clamp(6px, 1.8vw, 7.5px);
       white-space: nowrap;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     }
 
-    .jg-carta-fecha { color: #8b6a4a; font-family: 'Special Elite', monospace; font-size: clamp(6px, 1.8vw, 7.5px); }
+    .jg-carta-fecha { color: rgba(255, 255, 255, 0.92); font-family: 'Special Elite', monospace; font-size: clamp(6px, 1.8vw, 7.5px); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
 
     .jg-carta-pie {
       display: flex;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       align-items: center;
       justify-content: space-between;
       gap: 4px;
     }
 
-    .jg-carta-rare { color: var(--rare, #8a9a7b); font-family: 'Special Elite', monospace; font-size: clamp(6px, 1.8vw, 7.5px); text-transform: uppercase; letter-spacing: 0.04em; }
-    .jg-carta-estrellas { color: #b8860b; font-size: clamp(6px, 1.8vw, 8px); letter-spacing: -1px; }
+    .jg-carta-rare {
+      border-radius: 99px;
+      background: rgba(12, 8, 24, 0.42);
+      padding: 1px 6px;
+      color: #ffffff;
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(6px, 1.8vw, 7.5px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .jg-carta-estrellas { color: #ffe28a; font-size: clamp(6px, 1.8vw, 8px); letter-spacing: -1px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); }
 
     .jg-carta-entra { animation: jgCartaEntra 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.25) both; }
 
@@ -6587,6 +6712,25 @@
     }
 
     .jg-resultado { margin: 10px 0 0; color: #7b5a40; font-family: 'Caveat', cursive; font-size: 16px; }
+    .jg-badge {
+      display: inline-block;
+      margin: 2px auto 0;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-family: 'Special Elite', monospace;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .jg-badge-nueva { background: linear-gradient(135deg,#34d399,#22d3ee); color:#063a33; border:1px solid rgba(255,255,255,.7); }
+    .jg-badge-rep { background: rgba(255,255,255,.75); color:#6f4a30; border:1px dashed rgba(111,74,48,.45); }
+    .jg-reveal-flash { animation: jgRevealFlash 0.5s ease; }
+    @keyframes jgRevealFlash {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+      30% { box-shadow: 0 0 0 6px rgba(255,255,255,0.35), 0 0 28px rgba(255,220,120,0.45); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
 
     /* -------- resumen -------- */
     .jg-resumen-filas { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
@@ -6748,6 +6892,12 @@
       .tienda-item-nombre { -webkit-line-clamp: 1; }
       .jg-carta { width: min(52vh, 180px); }
       .jg-panel { max-height: 94dvh; padding: 12px; }
+      .jg-panel-carta .jg-carta { width: min(44vh, 168px); }
+      .jg-panel-carta .jg-titulo { display: none; }
+      .jg-panel-carta .jg-eyebrow { display: none; }
+      .jg-panel-carta .jg-resultado { margin-top: 6px; font-size: 13px; }
+      .jg-panel-carta .jg-acciones { margin-top: 7px; }
+      .jg-panel-carta .jg-cerrar { top: 5px; right: 5px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -7337,28 +7487,29 @@ guías
       legendaria: { nombre: 'Legendaria', corto: 'legendaria', tier: 12 }
     };
 
-    // Cartas curadas: solo las fotos con más gracia del libro.
+    // Cartas curadas: las fotos con más gracia del libro. Casi todas son de ella
+    // sola, medio borrosas o distorsionadas: eso es lo que las hace legendarias.
     const CARTAS = [
-      { id: 'c01', archivo: '1792425494791.jpg', fecha: '2025-03-03', nombre: 'Primer Plano', tipo: 'Traviesa', rareza: 'comun', risa: 82, siesta: 31, frase: 'Se acercó tanto que casi entra a la pantalla.' },
-      { id: 'c02', archivo: '1792425494740.jpg', fecha: '2025-03-22', nombre: 'Flores Amarillas', tipo: 'Romántica', rareza: 'comun', risa: 74, siesta: 15, frase: 'Me las dio con una notita. Casi lloro.' },
-      { id: 'c03', archivo: 'IMG20240611124839.jpg', fecha: '2024-06-11', nombre: 'Señorita Seriedad', tipo: 'Dramática', rareza: 'comun', risa: 61, siesta: 40, frase: 'Mentón arriba, como si no hubiera mañana.' },
-      { id: 'c04', archivo: 'IMG-20250109-WA0008.jpg', fecha: '2025-01-09', nombre: 'Cerdita Elegante', tipo: 'Traviesa', rareza: 'comun', risa: 91, siesta: 22, frase: 'El filtro más bonito que existe.' },
-      { id: 'c05', archivo: 'IMG-20250527-WA0020.jpg', fecha: '2025-05-27', nombre: 'Gravedad Cero', tipo: 'Dormilona', rareza: 'comun', risa: 77, siesta: 88, frase: 'Descubrió cómo tomarse foto acostada.' },
-      { id: 'c06', archivo: 'IMG-20250530-WA0004.jpg', fecha: '2025-05-30', nombre: 'No Me Tomes Fotos', tipo: 'Dramática', rareza: 'comun', risa: 83, siesta: 47, frase: 'Cara tapada, pero igual se le nota la risa.' },
-      { id: 'c07', archivo: 'IMG_20250920_141329.jpg', fecha: '2025-09-20', nombre: 'La Cara del Lunes', tipo: 'Dormilona', rareza: 'comun', risa: 69, siesta: 93, frase: 'Mirando al techo, esperando el fin de semana.' },
-      { id: 'c08', archivo: 'IMG-20250604-WA0000.jpg', fecha: '2025-06-04', nombre: 'Se Rindió', tipo: 'Dormilona', rareza: 'comun', risa: 72, siesta: 97, frase: 'Un brazo al cielo y a dormir.' },
-      { id: 'c09', archivo: '1792425495757.jpg', fecha: '2023-10-26', nombre: 'La del Bazar', tipo: 'Glotona', rareza: 'rara', risa: 95, siesta: 22, frase: 'Se sentó en la banqueta a terminar su antojo. Sin vergüenza.' },
-      { id: 'c10', archivo: 'IMG_20250325_155616_0781.jpg', fecha: '2025-03-25', nombre: 'Gatita', tipo: 'Traviesa', rareza: 'rara', risa: 88, siesta: 25, frase: 'Con su naricita de gato y todo.' },
-      { id: 'c11', archivo: 'IMG-20250109-WA0015.jpg', fecha: '2025-01-09', nombre: 'Dúo Felino', tipo: 'Traviesa', rareza: 'rara', risa: 90, siesta: 35, frase: 'Dos gatos, un solo filtro.' },
-      { id: 'c12', archivo: 'IMG-20250604-WA0046.jpg', fecha: '2025-06-04', nombre: 'La Siesta Interrumpida', tipo: 'Traviesa', rareza: 'rara', risa: 84, siesta: 44, frase: 'Se hizo la dormida, pero un ojo no cerraba.' },
-      { id: 'c13', archivo: 'IMG20231026165811.jpg', fecha: '2023-10-26', nombre: 'La de la Pizza', tipo: 'Glotona', rareza: 'rara', risa: 80, siesta: 42, frase: 'La foto grupal que terminó en antojo.' },
-      { id: 'c14', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg', fecha: '2025-07-14', nombre: 'Nuestros Gatitos', tipo: 'Romántica', rareza: 'rara', risa: 76, siesta: 18, frase: 'Dos huellitas con nuestro pelo. Tesoro.' },
-      { id: 'c15', archivo: 'IMG_20261013_220446_218.jpg', fecha: '2026-10-13', nombre: 'Modo Foca', tipo: 'Traviesa', rareza: 'epica', risa: 100, siesta: 20, frase: 'Lengua afuera. Cero vergüenza. Máximo amor.' },
-      { id: 'c16', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2025-10-29', nombre: 'La Espía', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 28, frase: 'Asomándose por la esquina de la foto.' },
-      { id: 'c17', archivo: 'IMG_20250816_130530.jpg', fecha: '2025-08-16', nombre: 'La Quinceañera', tipo: 'Fashionista', rareza: 'epica', risa: 58, siesta: 15, frase: 'Con el vestido largo y cara de princesa.' },
-      { id: 'c18', archivo: 'IMG-20250716-WA0034.jpg', fecha: '2025-07-16', nombre: 'Graduados', tipo: 'Nostálgica', rareza: 'epica', risa: 68, siesta: 8, frase: 'Los dos con la misma cara de "ya terminamos".' },
-      { id: 'c19', archivo: '1792425496237.jpg', fecha: '2023-10-26', nombre: 'La Cara Legendaria', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 10, frase: 'La leyenda dice que esta cara no se repite.' },
-      { id: 'c20', archivo: 'IMG-20250803-WA0014.jpg', fecha: '2025-08-03', nombre: 'Carito Mini', tipo: 'Fashionista', rareza: 'legendaria', risa: 77, siesta: 12, frase: 'Edición limitada de una Carito pequeñita.' }
+      { id: 'c01', archivo: '1792425495128.jpg', fecha: '2025-03-03', nombre: 'La Que Habla Solo', tipo: 'Traviesa', rareza: 'comun', risa: 79, siesta: 12, frase: 'Contaba algo importantísimo. Nadie sabe qué.' },
+      { id: 'c02', archivo: '1792425496651.jpg', fecha: '2025-03-03', nombre: 'Media Siesta', tipo: 'Dormilona', rareza: 'comun', risa: 74, siesta: 78, frase: 'Un ojo despierto, el otro ya se fue a dormir.' },
+      { id: 'c03', archivo: 'IMG_20250913_175305.jpg', fecha: '2025-09-13', nombre: 'La Mirada de Juicio', tipo: 'Dramática', rareza: 'comun', risa: 83, siesta: 20, frase: 'Te está juzgando. Y con toda la razón.' },
+      { id: 'c04', archivo: 'IMG_20250920_141451.jpg', fecha: '2025-09-20', nombre: 'La Explicación', tipo: 'Traviesa', rareza: 'comun', risa: 86, siesta: 15, frase: 'A mitad de la frase más seria de su vida.' },
+      { id: 'c05', archivo: 'IMG-20250604-WA0000.jpg', fecha: '2025-06-04', nombre: 'Se Rindió', tipo: 'Dormilona', rareza: 'comun', risa: 72, siesta: 96, frase: 'Levantó la mano para rendirse y ahí se quedó.' },
+      { id: 'c06', archivo: 'IMG-20250604-WA0003.jpg', fecha: '2025-06-04', nombre: 'No Me Tomes Fotos', tipo: 'Dramática', rareza: 'comun', risa: 80, siesta: 44, frase: 'Cara tapada, pero se le escucha la risa.' },
+      { id: 'c07', archivo: 'Snapchat-1947055303.jpg', fecha: '2025-03-03', nombre: 'La Consentida', tipo: 'Romántica', rareza: 'comun', risa: 68, siesta: 34, frase: 'Con su corazoncito y sus calcomanías. Consentida.' },
+      { id: 'c08', archivo: '1792425496378.jpg', fecha: '2025-03-03', nombre: 'La de Buen Día', tipo: 'Romántica', rareza: 'comun', risa: 70, siesta: 10, frase: 'Le salió el sol en la cara y sonrió. Fin.' },
+      { id: 'c09', archivo: '1792425495010.jpg', fecha: '2025-03-03', nombre: 'El Mentón', tipo: 'Dramática', rareza: 'rara', risa: 88, siesta: 52, frase: 'Mentón arriba, ojos entrecerrados, cero contexto.' },
+      { id: 'c10', archivo: 'IMG_20250920_141338.jpg', fecha: '2025-09-20', nombre: 'La Risa Nerviosa', tipo: 'Traviesa', rareza: 'rara', risa: 90, siesta: 18, frase: 'Se rió tanto que la foto salió movida.' },
+      { id: 'c11', archivo: 'IMG20240611125502_01.jpg', fecha: '2024-06-11', nombre: 'La de Última Fila', tipo: 'Dormilona', rareza: 'rara', risa: 81, siesta: 70, frase: 'En su clase, mirando al techo, pensando en el recreo.' },
+      { id: 'c12', archivo: 'IMG-20250527-WA0020.jpg', fecha: '2025-05-27', nombre: 'Gravedad Cero', tipo: 'Traviesa', rareza: 'rara', risa: 89, siesta: 88, frase: 'Descubrió que las fotos también van de cabeza.' },
+      { id: 'c13', archivo: 'IMG-20250530-WA0004.jpg', fecha: '2025-05-30', nombre: 'El Brazo de la Vergüenza', tipo: 'Dramática', rareza: 'rara', risa: 84, siesta: 61, frase: 'Se tapó con el brazo y dejó medio ojo de testigo.' },
+      { id: 'c14', archivo: 'IMG_20250325_155616_0781.jpg', fecha: '2025-03-25', nombre: 'Perrito de Snapchat', tipo: 'Traviesa', rareza: 'rara', risa: 92, siesta: 30, frase: 'No era de gato: era de perrito. Ya lo sabemos.' },
+      { id: 'c15', archivo: 'IMG-20250604-WA0046.jpg', fecha: '2025-06-04', nombre: 'La Cara Derretida', tipo: 'Dormilona', rareza: 'epica', risa: 95, siesta: 74, frase: 'Ojos cerrados, cabeza de lado, cara inexistente.' },
+      { id: 'c16', archivo: 'IMG-20250529-WA0003.jpg', fecha: '2025-05-29', nombre: 'El Tercer Integrante', tipo: 'Traviesa', rareza: 'epica', risa: 94, siesta: 12, frase: 'En la selfie del espejo también salió el perro.' },
+      { id: 'c17', archivo: 'IMG-20250109-WA0015.jpg', fecha: '2025-01-09', nombre: 'Dúo Perruno', tipo: 'Traviesa', rareza: 'epica', risa: 96, siesta: 26, frase: 'Dos dálmatas con lentes. Nada más que decir.' },
+      { id: 'c18', archivo: 'Snapchat-1340013342.jpg', fecha: '2025-01-09', nombre: 'Blanco y Negro', tipo: 'Traviesa', rareza: 'epica', risa: 93, siesta: 22, frase: 'La única foto donde los dos salen igual de raros.' },
+      { id: 'c19', archivo: '1792425494791.jpg', fecha: '2025-03-03', nombre: 'Primer Plano', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 8, frase: 'Se acercó tanto que ya se le ven los pixeles del alma.' },
+      { id: 'c20', archivo: 'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg', fecha: '2026-10-27', nombre: 'Modo Murciélago', tipo: 'Traviesa', rareza: 'legendaria', risa: 100, siesta: 90, frase: 'Boca abajo, con lentes y carita pintada. Insuperable.' }
     ];
 
     const VALES = [
@@ -7704,7 +7855,7 @@ guías
       if (!carta) return;
       const mio = estado.cartas[carta.id];
       if (!mio) return;
-      mio.nivel = (Number(mio.nivel) || 0) + 1;
+      mio.nivel = Math.min(5, (Number(mio.nivel) || 0) + 1);
     }
 
     function terminarRonda(puntaje) {
@@ -7980,6 +8131,8 @@ guías
       const indice = CARTAS.indexOf(carta) + 1;
       const nodo = el('div', 'jg-carta ' + carta.rareza + (estado.marcoHolo ? ' holo-marco' : '') + (opt.grande === false ? ' mini' : ''));
       nodo.dataset.carta = carta.id;
+      nodo.append(el('span', 'jg-foil'));
+      if (estado.marcoHolo) nodo.append(el('span', 'jg-holo'));
 
       const arriba = el('div', 'jg-carta-top');
       arriba.append(el('span', 'jg-carta-nombre', carta.nombre));
@@ -8041,9 +8194,13 @@ guías
       }
 
       if (estado.cartas[elegida.id]) {
-        estado.corazones += 2;
-        estado.historico += 2;
-        return { carta: elegida, repetida: true };
+        const r = RAREZAS[elegida.rareza] || RAREZAS[rareza] || RAREZAS.comun;
+        const bonus = r.nombre === 'Legendaria' ? 6 : (r.nombre === 'Épica' ? 4 : 3);
+        estado.corazones += bonus;
+        estado.historico += bonus;
+        const nivel = Math.min(5, (Number(estado.cartas[elegida.id].nivel) || 0) + 1);
+        estado.cartas[elegida.id].nivel = nivel;
+        return { carta: elegida, repetida: true, bonus: bonus, nivel: nivel };
       }
 
       estado.cartas[elegida.id] = { obtenida: hoyISO(), nivel: 0 };
@@ -8054,10 +8211,10 @@ guías
       const indice = estado.sobres.findIndex(function (s) { return s && s.id === id; });
       if (indice < 0) return;
       const rareza = estado.sobres[indice].rareza || 'comun';
-      mostrarSobre(rareza);
+      mostrarSobre(rareza, id);
     }
 
-    function mostrarSobre(rareza) {
+    function mostrarSobre(rareza, sobreId) {
       const info = RAREZAS[rareza] || RAREZAS.comun;
       const ov = crearOverlay('jg-overlay-sobre');
       const panel = panelBase(ov, 'Un sobre para ti', 'Sobre ' + info.corto);
@@ -8077,8 +8234,11 @@ guías
         if (abriendo) return;
         abriendo = true;
         sobre.classList.add('abierto');
+        sobre.classList.add('revelando');
         window.setTimeout(function () {
-          const indice = estado.sobres.findIndex(function (s) { return s && s.rareza === rareza; });
+          let indice = -1;
+          if (sobreId) indice = estado.sobres.findIndex(function (s) { return s && s.id === sobreId; });
+          if (indice < 0) indice = estado.sobres.findIndex(function (s) { return s && s.rareza === rareza; });
           if (indice >= 0) estado.sobres.splice(indice, 1);
           const resultado = sacarCarta(rareza);
           guardar();
@@ -8096,15 +8256,19 @@ guías
       const info = RAREZAS[rareza] || RAREZAS[carta.rareza] || RAREZAS.comun;
       const ov = crearOverlay('jg-overlay-carta');
       const panel = panelBase(ov, '', '¡' + carta.nombre + ' apareció!');
-      panel.classList.add('jg-panel-carta');
+      panel.classList.add('jg-panel-carta', 'jg-reveal-flash');
 
       const nodo = crearCartaNodo(carta, estado.cartas[carta.id], { grande: true, pointer: true });
       nodo.classList.add('jg-carta-entra');
       panel.append(nodo);
 
       if (resultado.repetida) {
-        panel.append(el('p', 'jg-resultado', 'Ya la tenías, así que se convirtió en +2 ❤️'));
+        const b = el('span', 'jg-badge jg-badge-rep', 'Repetida · Estrella ' + (resultado.nivel || 1));
+        panel.append(b);
+        panel.append(el('p', 'jg-resultado', 'Ya la tenías: se convirtió en +' + (resultado.bonus || 3) + ' ❤️ y subió de nivel.'));
       } else {
+        const b = el('span', 'jg-badge jg-badge-nueva', '¡Nueva! · ' + info.corto);
+        panel.append(b);
         panel.append(el('p', 'jg-resultado', '¡Carta ' + info.corto + ' nueva para tu mural!'));
       }
 
@@ -8124,7 +8288,7 @@ guías
         otro.type = 'button';
         otro.addEventListener('click', function () {
           const siguiente = estado.sobres[0];
-          if (siguiente) mostrarSobre(siguiente.rareza);
+          if (siguiente) mostrarSobre(siguiente.rareza, siguiente.id);
         });
         acciones.append(otro);
       }
@@ -8301,6 +8465,7 @@ guías
       const grid = document.getElementById('mural-grid');
       if (grid) {
         grid.replaceChildren();
+        grid.classList.toggle('holo', !!estado.marcoHolo);
         llenarGrid(grid);
       }
 
@@ -8459,8 +8624,9 @@ guías
       const lado = el('div', 'tienda-lado');
       lado.append(el('span', 'actividad-kicker', 'Cómo se gana'));
       const reglas = el('ul', 'tienda-reglas');
-      ['1 acierto = 1 ❤️', 'Racha de 3 = +3 ❤️ y un sobre', 'Racha de 5 = +5 ❤️ y un sobre',
-        'Partida perfecta = +10 ❤️', 'Primera partida del día = x2', 'Carta repetida = +2 ❤️'
+      ['1 acierto = 1 ❤️', 'Racha 3 / 5 / 8 / 12 = +3 / +5 / +8 / +12 ❤️ y un sobre',
+        'Partida perfecta = +10 ❤️', 'Primera del día = x2',
+        'Repetida = +3 / +4 / +6 ❤️ y sube de nivel'
       ].forEach(function (t) { reglas.append(el('li', '', t)); });
       lado.append(reglas);
       lado.append(el('span', 'actividad-kicker', 'Mis vales'));
