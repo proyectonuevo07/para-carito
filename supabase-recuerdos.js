@@ -308,32 +308,6 @@ create policy "recuerdos_eliminar" on storage.objects
         --rc-tinta: #07130a;
       }
 
-      .rc-admin-btn {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        z-index: 10060;
-        display: grid;
-        width: 48px;
-        height: 48px;
-        place-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        border-radius: 50%;
-        background: linear-gradient(160deg, rgba(28, 70, 46, 0.94), rgba(7, 22, 14, 0.96));
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
-        color: #d9ffe7;
-        cursor: pointer;
-        font-size: 21px;
-        line-height: 1;
-        opacity: 0.5;
-        transition: opacity 0.22s ease, transform 0.22s ease;
-        -webkit-backdrop-filter: blur(14px) saturate(1.3);
-        backdrop-filter: blur(14px) saturate(1.3);
-      }
-      .rc-admin-btn:hover,
-      .rc-admin-btn:focus-visible { opacity: 1; transform: translateY(-2px) scale(1.05); }
-      .rc-admin-btn[hidden] { display: none; }
-
       .rc-overlay {
         position: fixed;
         inset: 0;
@@ -1346,7 +1320,6 @@ create policy "recuerdos_eliminar" on storage.objects
       }
 
       @media (max-width: 560px) {
-        .rc-admin-btn { right: 12px; bottom: 96px; }
         .rc-overlay { padding: 8px; }
         .rc-panel { max-height: 94vh; border-radius: 20px; }
         .rc-body { padding: 14px 16px; }
@@ -2413,24 +2386,12 @@ create policy "recuerdos_eliminar" on storage.objects
 
   /* --------------------------- panel de admin --------------------------- */
 
-  function crearBotonAdmin() {
-    const boton = crear('button', 'rc-admin-btn', '✎');
-    boton.type = 'button';
-    boton.hidden = true;
-    boton.title = 'Agregar un recuerdo';
-    boton.setAttribute('aria-label', 'Agregar un recuerdo al libro');
-    boton.addEventListener('click', solicitarAcceso);
-    document.body.append(boton);
-    ESTADO.btn = boton;
-
-    const libro = document.getElementById('vista-libro');
-    if (libro && window.MutationObserver) {
-      const actualizar = () => { boton.hidden = !libro.classList.contains('visible'); };
-      new MutationObserver(actualizar).observe(libro, { attributes: true, attributeFilter: ['class'] });
-      actualizar();
-    } else {
-      boton.hidden = false;
-    }
+  function conectarAccesoAdmin() {
+    // El boton "Agregar pagina" vive en la ultima hoja del libro y avisa por aqui.
+    document.addEventListener('rc:abrir-admin', (evento) => {
+      if (evento && evento.preventDefault) evento.preventDefault();
+      solicitarAcceso();
+    });
 
     document.addEventListener('keydown', (evento) => {
       if (evento.ctrlKey && evento.shiftKey && evento.key.toLowerCase() === 'a') {
@@ -3217,7 +3178,7 @@ create policy "recuerdos_eliminar" on storage.objects
 
   function iniciar() {
     inyectarEstilos();
-    crearBotonAdmin();
+    conectarAccesoAdmin();
     crearOverlayPassword();
     crearPanel();
     cargar();
