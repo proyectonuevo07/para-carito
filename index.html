@@ -151,10 +151,11 @@
       overflow: hidden;
       padding: clamp(12px, 3.5vw, 40px);
       background:
-        radial-gradient(90% 70% at 50% 0%, rgba(255, 238, 210, 0.5), transparent 62%),
-        radial-gradient(120% 90% at 50% 105%, rgba(116, 63, 24, 0.32), transparent 68%),
-        linear-gradient(165deg, #e8bb92 0%, #dcac81 42%, #cd9868 100%);
-      background-color: #dcac81;
+        radial-gradient(46% 34% at 50% 36%, rgba(255, 186, 120, 0.16), transparent 72%),
+        radial-gradient(86% 58% at 50% -14%, rgba(186, 32, 84, 0.34), transparent 66%),
+        radial-gradient(110% 74% at 50% 114%, rgba(10, 0, 6, 0.86), transparent 62%),
+        linear-gradient(168deg, #3a0318 0%, #560b23 46%, #25010e 100%);
+      background-color: #3a0318;
     }
 
     #vista-portada::before {
@@ -163,11 +164,11 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.55;
+      opacity: 0.16;
       background-image:
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px),
-        repeating-linear-gradient(90deg, rgba(120, 70, 30, 0.045) 0 1px, transparent 1px 4px);
-      mix-blend-mode: soft-light;
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 2px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 2px);
+      mix-blend-mode: overlay;
     }
 
     #vista-portada::after {
@@ -176,11 +177,11 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background: radial-gradient(75% 65% at 50% 46%, transparent 55%, rgba(88, 48, 18, 0.26) 100%);
+      background: radial-gradient(70% 60% at 50% 44%, transparent 50%, rgba(10, 0, 5, 0.58) 100%);
     }
 
-    /* --- Objetos craft del fondo (detras del libro) --- */
-    .portada-escena {
+    /* --- Fondo animado: terciopelo y luciernagas --- */
+    .fondo-anim {
       position: absolute;
       inset: 0;
       z-index: 0;
@@ -189,199 +190,87 @@
       user-select: none;
     }
 
-    .prop { position: absolute; }
+    .fondo-anim > * { position: absolute; }
 
-    .prop-tray {
-      top: 3%;
-      left: 2.5%;
-      width: clamp(120px, 20vw, 205px);
-      height: clamp(90px, 14.5vw, 150px);
-      transform: rotate(-9deg);
-      border-radius: clamp(8px, 1.2vw, 12px);
-      background: linear-gradient(150deg, #b98348 0%, #a4723a 45%, #8c5d2c 100%);
-      box-shadow: 0 14px 24px rgba(90, 50, 15, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-    }
-
-    .prop-cup {
-      position: absolute;
-      left: 11%;
-      top: 15%;
-      width: 47%;
+    .fondo-luz {
+      left: 50%;
+      top: 38%;
+      width: min(92vw, 780px);
       aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle at 50% 50%, #e6d6c4 0 55%, #fdfbf7 56% 74%, #ece3d6 75% 100%);
-      box-shadow: 0 8px 14px rgba(60, 30, 5, 0.35);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 190, 130, 0.2) 0%, rgba(255, 160, 90, 0.08) 38%, transparent 64%);
+      filter: blur(10px);
+      animation: luzRespira 9s ease-in-out infinite alternate;
     }
 
-    .prop-cup::after {
-      content: '';
-      position: absolute;
-      inset: 9%;
-      border-radius: 50%;
-      background: radial-gradient(circle at 38% 32%, #dbb289 0 12%, #ab7749 42%, #7a4d29 100%);
-      box-shadow: inset 0 0 12px rgba(60, 30, 10, 0.55);
-    }
-
-    .prop-ice {
-      position: absolute;
-      z-index: 1;
-      width: 15%;
-      height: 15%;
-      border-radius: 22%;
-      background: rgba(255, 250, 240, 0.8);
-      box-shadow: inset 0 0 4px rgba(120, 80, 40, 0.35);
-    }
-
-    .prop-ice.i1 { top: 30%; left: 33%; transform: rotate(18deg); }
-    .prop-ice.i2 { top: 45%; left: 52%; transform: rotate(-14deg); }
-    .prop-ice.i3 { top: 56%; left: 38%; transform: rotate(28deg); }
-
-    .prop-receipt {
-      position: absolute;
-      width: 24%;
-      height: 58%;
-      border-radius: 2px;
-      background-color: #fbf5ea;
+    .bokeh {
+      inset: -40%;
+      background-repeat: repeat;
       background-image:
-        linear-gradient(#e7dbc7 0 0),
-        linear-gradient(#e7dbc7 0 0),
-        linear-gradient(#e7dbc7 0 0),
-        linear-gradient(#e7dbc7 0 0),
-        linear-gradient(#e7dbc7 0 0);
-      background-repeat: no-repeat;
-      background-size: 74% 1px, 64% 1px, 70% 1px, 58% 1px, 72% 1px;
-      background-position: 13% 20%, 13% 34%, 13% 48%, 13% 62%, 13% 76%;
-      box-shadow: 0 4px 8px rgba(80, 45, 15, 0.3);
+        radial-gradient(circle at 22% 28%, rgba(255, 220, 170, 0.72) 0 6px, rgba(255, 200, 140, 0.18) 7px, transparent 13px),
+        radial-gradient(circle at 68% 62%, rgba(255, 190, 120, 0.5) 0 10px, transparent 18px),
+        radial-gradient(circle at 44% 84%, rgba(255, 235, 205, 0.6) 0 3px, transparent 6px),
+        radial-gradient(circle at 86% 16%, rgba(255, 200, 140, 0.45) 0 8px, transparent 15px),
+        radial-gradient(circle at 12% 66%, rgba(255, 210, 160, 0.35) 0 4px, transparent 8px);
+      background-size: 380px 340px, 480px 420px, 300px 280px, 560px 500px, 240px 220px;
+      animation: bokehFlota 46s linear infinite, bokehBrilla 7.5s ease-in-out infinite alternate;
+      filter: blur(1.6px);
+      will-change: transform, opacity;
     }
 
-    .prop-receipt.r1 { right: 5%; top: 6%; transform: rotate(7deg); }
-    .prop-receipt.r2 { right: 19%; top: 12%; height: 48%; transform: rotate(-6deg); }
-
-    .prop-spoon {
-      top: -9%;
-      left: 36%;
-      width: clamp(8px, 1.4vw, 13px);
-      height: clamp(180px, 32vh, 300px);
-      border-radius: 999px;
-      transform: rotate(21deg);
-      background: linear-gradient(90deg, #d3a469, #bd8b4e 55%, #a3743c);
-      box-shadow: 2px 4px 8px rgba(70, 40, 10, 0.3);
+    .bokeh.b2 {
+      background-image:
+        radial-gradient(circle at 30% 70%, rgba(255, 214, 170, 0.3) 0 14px, transparent 24px),
+        radial-gradient(circle at 78% 34%, rgba(255, 175, 110, 0.26) 0 18px, transparent 30px),
+        radial-gradient(circle at 56% 12%, rgba(255, 226, 190, 0.24) 0 9px, transparent 18px);
+      background-size: 700px 600px, 820px 700px, 460px 420px;
+      animation: bokehFlota 68s linear infinite reverse, bokehBrilla 11s ease-in-out infinite alternate;
+      filter: blur(7px);
+      opacity: 0.75;
     }
 
-    .prop-spoon::after {
-      content: '';
-      position: absolute;
-      bottom: -12%;
-      left: 50%;
-      width: clamp(34px, 6vw, 56px);
-      height: clamp(46px, 8vw, 74px);
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: radial-gradient(circle at 40% 35%, #e2bb86, #bd8d52 62%, #9c6f39);
-      box-shadow: inset -2px -4px 6px rgba(90, 55, 20, 0.35);
+    .corazon-flota {
+      bottom: -8%;
+      color: #ff9ab6;
+      opacity: 0;
+      animation: corazonSube var(--dur, 22s) linear infinite;
+      animation-delay: var(--delay, 0s);
+      text-shadow: 0 0 12px rgba(255, 140, 170, 0.5);
     }
 
-    .prop-leaf {
-      font-size: clamp(36px, 6.4vw, 60px);
-      line-height: 1;
-      filter: sepia(0.45) hue-rotate(35deg) saturate(0.55) brightness(0.82) drop-shadow(2px 4px 4px rgba(60, 40, 15, 0.3));
+    .fondo-grano {
+      inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.5'/></svg>");
+      opacity: 0.055;
+      mix-blend-mode: overlay;
     }
 
-    .prop-leaf.l1 { top: 8%; left: 30%; transform: rotate(-26deg); }
-    .prop-leaf.l2 { top: 30%; right: 1%; transform: rotate(112deg); font-size: clamp(28px, 5vw, 46px); }
-
-    .prop-palette {
-      top: 2%;
-      right: 3%;
-      width: clamp(115px, 19vw, 195px);
-      aspect-ratio: 1.12;
-      transform: rotate(7deg);
-      border-radius: 46% 54% 50% 50% / 55% 48% 52% 45%;
-      background: radial-gradient(circle at 42% 38%, #fffefb 0 45%, #f2ebdf 72%, #e3d8c6 100%);
-      box-shadow: 0 16px 26px rgba(110, 65, 20, 0.3), inset 0 -3px 6px rgba(150, 120, 80, 0.25);
+    @keyframes luzRespira {
+      from { opacity: 0.75; transform: translate(-50%, -50%) scale(0.96); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
     }
 
-    .prop-palette .well {
-      position: absolute;
-      width: 21%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle at 40% 35%, #f8f3e9, #e4d9c5);
-      box-shadow: inset 0 2px 4px rgba(120, 90, 50, 0.3);
+    @keyframes bokehFlota {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-46px, -240px, 0); }
     }
 
-    .prop-palette .w1 { top: 16%; left: 12%; }
-    .prop-palette .w2 { top: 10%; left: 40%; }
-    .prop-palette .w3 { top: 15%; left: 68%; }
-    .prop-palette .w4 { top: 54%; left: 10%; }
-    .prop-palette .w5 { top: 66%; left: 40%; }
-    .prop-palette .w6 { top: 52%; left: 70%; }
+    @keyframes bokehBrilla { from { opacity: 0.45; } to { opacity: 1; } }
 
-    .prop-brush {
-      position: absolute;
-      left: 46%;
-      top: -26%;
-      width: clamp(6px, 0.9vw, 9px);
-      height: 72%;
-      transform: rotate(-26deg);
-      border-radius: 999px;
-      background: linear-gradient(90deg, #c9a068, #ab7f45);
-      box-shadow: 1px 3px 6px rgba(70, 40, 10, 0.3);
+    @keyframes corazonSube {
+      0% { transform: translateY(0) rotate(-8deg); opacity: 0; }
+      12% { opacity: var(--op, 0.25); }
+      85% { opacity: var(--op, 0.25); }
+      100% { transform: translateY(-108vh) translateX(34px) rotate(14deg); opacity: 0; }
     }
 
-    .prop-gourd {
-      left: 3%;
-      bottom: 2%;
-      width: clamp(86px, 14vw, 150px);
-      aspect-ratio: 1.05;
-      transform: rotate(-4deg);
-      border-radius: 48% 52% 46% 54% / 52% 48% 52% 48%;
-      background: radial-gradient(60% 55% at 40% 32%, #ffffff 0 55%, #f3ece0 80%, #e5dccb 100%);
-      box-shadow: 0 18px 26px rgba(110, 65, 20, 0.3);
+    @media (max-width: 600px) {
+      .bokeh.b2 { display: none; }
     }
 
-    .prop-gourd::after {
-      content: '';
-      position: absolute;
-      top: -7%;
-      left: 50%;
-      width: 9%;
-      height: 20%;
-      transform: translateX(-50%) rotate(8deg);
-      border-radius: 999px;
-      background: linear-gradient(#8a6a3c, #6c4f28);
+    @media (prefers-reduced-motion: reduce) {
+      .fondo-anim > * { animation: none !important; }
     }
-
-    .prop-bowl {
-      right: 4%;
-      bottom: 4%;
-      width: clamp(66px, 10.5vw, 118px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle at 42% 36%, #ffffff, #f1e9db 70%, #ddd2bf);
-      box-shadow: 0 14px 22px rgba(110, 65, 20, 0.28);
-    }
-
-    .prop-bowl::after {
-      content: '';
-      position: absolute;
-      inset: 22%;
-      border-radius: 50%;
-      box-shadow: inset 0 3px 6px rgba(140, 110, 70, 0.3);
-    }
-
-    .prop-pearl {
-      width: clamp(7px, 1.4vw, 12px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #ffffff, #ece3d4 60%, #cfc4b0);
-      box-shadow: 0 2px 4px rgba(90, 60, 25, 0.35);
-    }
-
-    .prop-pearl.p1 { left: 22%; bottom: 5%; }
-    .prop-pearl.p2 { left: 27%; bottom: 2.6%; }
-    .prop-pearl.p3 { left: 31%; bottom: 5.4%; }
-    .prop-pearl.p4 { left: 18%; bottom: 2.2%; }
 
     /* --- El libro (carátula con imagen) --- */
     .portada-conjunto {
@@ -638,12 +527,6 @@
       color: #5d1622;
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 12px 22px rgba(78, 42, 12, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-
-    @media (max-width: 640px) {
-      .prop-spoon,
-      .prop-leaf.l1,
-      .prop-brush { display: none; }
     }
 
     /* Pantallas bajitas (celular acostado): que el libro y el boton quepan completos */
@@ -7215,6 +7098,14 @@
 
     .jg-toast.visible { transform: translate(-50%, 0); opacity: 1; }
 
+    .jg-toast.arriba {
+      top: 16px;
+      bottom: auto;
+      transform: translate(-50%, -18px);
+    }
+
+    .jg-toast.arriba.visible { transform: translate(-50%, 0); }
+
     @media (max-width: 768px) {
       .mural-grid {
         height: 100%;
@@ -7801,41 +7692,20 @@ guías
   <audio id="bg-music" preload="none"></audio>
 
   <main id="vista-portada">
-    <div class="portada-escena" aria-hidden="true">
-      <!-- Café helado en bandeja de madera con recibos -->
-      <div class="prop prop-tray">
-        <span class="prop-receipt r1"></span>
-        <span class="prop-receipt r2"></span>
-        <span class="prop-cup">
-          <i class="prop-ice i1"></i>
-          <i class="prop-ice i2"></i>
-          <i class="prop-ice i3"></i>
-        </span>
-      </div>
-
-      <!-- Cuchara de madera y ramitas de eucalipto -->
-      <div class="prop prop-spoon"></div>
-      <span class="prop prop-leaf l1">🌿</span>
-      <span class="prop prop-leaf l2">🌿</span>
-
-      <!-- Paleta y pincel -->
-      <div class="prop prop-palette">
-        <i class="well w1"></i>
-        <i class="well w2"></i>
-        <i class="well w3"></i>
-        <i class="well w4"></i>
-        <i class="well w5"></i>
-        <i class="well w6"></i>
-        <span class="prop-brush"></span>
-      </div>
-
-      <!-- Calabaza blanca, cuenco y perlitas -->
-      <div class="prop prop-gourd"></div>
-      <div class="prop prop-bowl"></div>
-      <span class="prop prop-pearl p1"></span>
-      <span class="prop prop-pearl p2"></span>
-      <span class="prop prop-pearl p3"></span>
-      <span class="prop prop-pearl p4"></span>
+    <div class="fondo-anim" aria-hidden="true">
+      <div class="fondo-luz"></div>
+      <div class="bokeh"></div>
+      <div class="bokeh b2"></div>
+      <span class="corazon-flota" style="left:6.43%;font-size:16px;--dur:20.6s;--delay:-19.6s;--op:0.31">♥</span>
+      <span class="corazon-flota" style="left:41.49%;font-size:32px;--dur:30.4s;--delay:-9.1s;--op:0.19">♥</span>
+      <span class="corazon-flota" style="left:82.28%;font-size:33px;--dur:15.4s;--delay:-10s;--op:0.3">♥</span>
+      <span class="corazon-flota" style="left:83.14%;font-size:33px;--dur:25.7s;--delay:-26.9s;--op:0.13">♥</span>
+      <span class="corazon-flota" style="left:30.57%;font-size:17px;--dur:31.7s;--delay:-17.3s;--op:0.22">♥</span>
+      <span class="corazon-flota" style="left:59.67%;font-size:16px;--dur:28.2s;--delay:-19.5s;--op:0.13">♥</span>
+      <span class="corazon-flota" style="left:17.53%;font-size:26px;--dur:27.8s;--delay:-3.3s;--op:0.19">♥</span>
+      <span class="corazon-flota" style="left:37.25%;font-size:37px;--dur:32.9s;--delay:-27.1s;--op:0.28">♥</span>
+      <span class="corazon-flota" style="left:57.18%;font-size:25px;--dur:24.1s;--delay:-1.2s;--op:0.17">♥</span>
+      <div class="fondo-grano"></div>
     </div>
 
     <div class="portada-conjunto">
@@ -8750,6 +8620,9 @@ guías
         nodo.id = 'jg-toast';
         document.body.append(nodo);
       }
+      const libro = document.getElementById('vista-libro');
+      const enPortada = !libro || !libro.classList.contains('visible');
+      nodo.classList.toggle('arriba', enPortada);
       nodo.textContent = texto;
       nodo.classList.add('visible');
       window.clearTimeout(toastTimer);
