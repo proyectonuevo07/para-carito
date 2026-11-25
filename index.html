@@ -1247,6 +1247,155 @@
       transform: rotate(-0.4deg);
     }
 
+    .lightbox-nota-texto {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .lightbox-mensaje {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(178, 58, 90, 0.35);
+    }
+
+    .lightbox-note.sin-nota .lightbox-mensaje {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .lightbox-mensaje-kicker {
+      display: block;
+      margin-bottom: 6px;
+      color: #b23a5a;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+
+    .lightbox-reacciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .lightbox-reaccion {
+      padding: 2px 8px 3px;
+      border: 1px solid rgba(178, 58, 90, 0.28);
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1.2;
+      transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .lightbox-reaccion:hover,
+    .lightbox-reaccion:focus-visible {
+      transform: translateY(-1px) scale(1.06);
+      border-color: #d63384;
+    }
+
+    .lightbox-reaccion.activa {
+      border-color: #d63384;
+      background: #ffe4ee;
+      box-shadow: 0 3px 10px rgba(214, 51, 132, 0.25);
+    }
+
+    .lightbox-mensaje-texto {
+      margin: 0 0 4px;
+      padding: 8px 11px;
+      border-radius: 12px;
+      background: #fff2f7;
+      color: #6b2438;
+      font-size: 18px;
+      line-height: 1.28;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .lightbox-mensaje-pie {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lightbox-mensaje-fecha {
+      color: #a06b7a;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.02em;
+    }
+
+    .lightbox-mensaje-form {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .lightbox-mensaje-form[hidden],
+    .lightbox-mensaje-guardado[hidden] {
+      display: none;
+    }
+
+    .lightbox-mensaje-form textarea {
+      width: 100%;
+      min-height: 52px;
+      max-height: 120px;
+      resize: vertical;
+      padding: 8px 10px;
+      border: 1px solid rgba(178, 58, 90, 0.3);
+      border-radius: 10px;
+      background: #fffdf7;
+      color: #4a2c2a;
+      font-family: 'Caveat', cursive;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .lightbox-mensaje-form textarea:focus {
+      outline: 2px solid #ff9ec2;
+      outline-offset: 1px;
+    }
+
+    .lightbox-mensaje-acciones {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .lightbox-mensaje-btn {
+      padding: 5px 13px 6px;
+      border: 0;
+      border-radius: 999px;
+      background: #8b4513;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 12.5px;
+    }
+
+    .lightbox-mensaje-btn.secundario {
+      border: 1px solid rgba(139, 69, 19, 0.35);
+      background: transparent;
+      color: #8b4513;
+    }
+
+    .lightbox-mensaje-btn[hidden] {
+      display: none;
+    }
+
+    .lightbox-mensaje-ok {
+      margin-right: auto;
+      color: #1d7a45;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 10.5px;
+    }
+
     /* En pantallas anchas la nota se va al lado de las fotos verticales. */
     @media (min-width: 900px) {
       #lightbox.lb-nota.lb-vertical #lightbox-content {
@@ -1265,6 +1414,27 @@
         width: 330px;
         max-height: 80vh;
         max-height: 80dvh;
+      }
+    }
+
+    /* En pantallas bajas (celular acostado) la nota también va al lado. */
+    @media (max-height: 560px) and (min-width: 560px) {
+      #lightbox.lb-nota #lightbox-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+      }
+
+      #lightbox.lb-nota .lightbox-figura {
+        width: auto;
+        height: 100%;
+        flex: 0 0 auto;
+      }
+
+      #lightbox.lb-nota .lightbox-note {
+        width: min(48vw, 430px);
+        max-height: 88vh;
+        max-height: 88dvh;
       }
     }
 
@@ -8002,6 +8172,15 @@ guías
           numero: numero
         });
       }
+      // El texto que Carito dictó vive en notasDeCarito (por nombre de archivo,
+      // así que si movemos la foto de lugar, el texto se va con ella).
+      const nota = (typeof notasDeCarito !== 'undefined' && notasDeCarito[archivo]) || '';
+      let posicionAlbum = 0;
+      if (typeof recuerdosConFecha !== 'undefined' && Array.isArray(recuerdosConFecha)) {
+        for (let i = 0; i < recuerdosConFecha.length; i += 1) {
+          if (recuerdosConFecha[i] && recuerdosConFecha[i][0] === archivo) { posicionAlbum = i + 1; break; }
+        }
+      }
       let id = 'a' + hashArchivo(archivo);
       let sufijo = 1;
       while (usados.has(id)) {
@@ -8016,13 +8195,13 @@ guías
         archivo: archivo,
         src: foto.src || ('recuerdos/' + archivo),
         fecha: foto.fecha || '',
-        nombre: nombrePendiente(numero),
+        nombre: nombrePendiente(posicionAlbum || numero),
         tipo: 'Recuerdo',
         rareza: rareza,
         risa: risa,
         siesta: 0,
-        frase: 'Historia pendiente ✎',
-        pendiente: true,
+        frase: nota || 'Historia pendiente ✎',
+        pendiente: !nota,
         numero: numero
       };
     }
@@ -10020,8 +10199,129 @@ const notasDeCarito = {
   '1792425495757.jpg': 'Pues qué puedo decir: estas fotos son unas de mis favoritas que tengo de ti, simplemente increíbles. Y todo porque querías que te invitara algo del bazar, ¿recuerdas? Tu labial, y saliendo te tropezaste JAJAJAJA.',
   '1792425496237.jpg': 'JAJAJ tu cara 😂',
   '1792425496109.jpg': 'Otra fotito más.',
-  'WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg': 'Esta que medio salón nos tomó foto, según tú. Una foto súper linda y con algo de historia detrás, jaja.'
-};
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (4).jpeg': 'Esta que medio salón nos tomó foto, según tú. Una foto súper linda y con algo de historia detrás, jaja.',
+  'IMG20240221081503.jpg': 'Esta está bien chistosa jaja 😂',
+  'IMG20240221083212.jpg': 'Bien linda tú 💗',
+  '1792425495524.jpg': '¿A quién o qué cuestionabas? Jajaja, esa cara de "explícame otra vez".',
+  'IMG-20240301-WA0004.jpg': 'Mira esta foto de amigos 📸',
+  'IMG20240611124839.jpg': 'Caro pensando… 🤔',
+  'IMG20240611124839_01.jpg': 'Estas eran en el examen SISAT. Bien nerviosa tú jaja.',
+  'IMG20240611125502_01.jpg': 'Sonrisa falsa 😏 (aunque te queda bien).',
+  'VID_20241205_171840_723.mp4': 'JAJAJ tú cantando en español, qué linda.',
+  'IMG20241218105521.jpg': 'En esta saliste muy bonita.',
+  'VID20241218114211.mp4': 'Cuando me pediste que te grabara 🎥',
+  'IMG-20250109-WA0008.jpg': 'En esta yo salgo raro, ni modo 😅',
+  'IMG-20250109-WA0012.jpg': 'Qué foto tan bonita.',
+  'IMG-20250109-WA0015.jpg': 'Esta fue acabando un ejercicio de matemáticas de Mami Plácida. Bien que me acuerdo.',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (1).jpeg': 'Nuestras huellitas 🐾',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (2).jpeg': 'Esta que encontré 👀',
+  'VID_20250123_184020_378.mp4': 'Esa fue la primera historia que subiste, con esa canción que dijiste que te gustaba.',
+  'VID_20250206_183348_348.mp4': 'Este video es uno de mis favoritos. Recuerdo que me lo mandaste y no podía dejar de verlo una y otra vez. Me encanta ❤️',
+  '1792425494791.jpg': 'Tu ojito 👁️',
+  'VID-20250317-WA0001.mp4': 'El primer edit lo hiciste tú. Jsjs, algo bonito.',
+  'VID_20250321192946.mp4': 'Este te lo hice yo. Creo que quedó bien bonito.',
+  '1792425494740.jpg': 'Cuando me diste esta flor amarilla 🌼',
+  'IMG_20250325_155616_0781.jpg': 'Esta para la foto de graduación.',
+  'IMG-20250328-WA0008.jpg': 'Esta me la mandaste porque estabas bien feliz.',
+  'IMG_20250402_162514_0624.jpg': 'Ay, qué puedo decir de esta. Es una de mis favoritas, como tú dijiste: atrapé tu sonrisa natural. Qué hermosa te ves.',
+  'IMG_20250402_180149.jpg': 'Mm, esta creo que era mucho antes, pero no encuentro la fecha jaja. Así que aquí la encontrarás.',
+  'VID-20250411-WA0009.mp4': 'Me encanta este video jaja. Te la pasabas diciendo y diciendo "esto".',
+  'VID_20250415_162320_372.mp4': 'Este también iba antes y no me acordaba de la fecha… pero ya la encontré: 15 de abril de 2025. Corregido 😌',
+  'VID-20250422-WA0005.mp4': 'Este también me encanta. Te ves demasiado linda, como me gusta cuando haces esos gestos. Jsjs, bella.',
+  'lv_0_20250501111707.mp4': 'Este también me lo mandaste, bailando bien a gusto con mi sudadera. Qué linda.',
+  'VN20250504_153551.mp4': '¿Recuerdas cuando te hice del Barcelona, aunque sea por un rato? Porque creo que siempre serás del Madrid. Pero fue un ratito muy lindo para mí verte con esa camiseta.',
+  'IMG20250509102100.jpg': 'Esta no es la mejor foto, pero estamos juntos. Eso siempre es algo lindo.',
+  'lv_7440698159979941173_20250510205510.mp4': 'Un edit más.',
+  'lv_7327981166873627905_20250516210126.mp4': 'Otro edit jaja.',
+  'lv_7388084120661789959_20250516203315.mp4': 'El mejor edit.',
+  'lv_7461001247701601597_20250517101110.mp4': 'Puros edits aquí, pero este está bien bonito.',
+  'IMG-20250519-WA0007.jpg': 'Bien hermosa que estás, igual que Keissy.',
+  'IMG-20250522-WA0003.jpg': 'Oye, con lentes te ves demasiado linda. No sé por qué no te los pones.',
+  'VID-20250524-WA0016.mp4': 'Este lo hiciste tú. Bien lindo.',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (3).jpeg': 'El que era nuestro fondo de pantalla, ¿recuerdas? (Ese partido sí ganó el América.)',
+  'IMG-20250527-WA0020.jpg': 'Aquí toda linda.',
+  'IMG-20250529-WA0003.jpg': 'Simplemente demasiado hermosa la foto.',
+  'IMG-20250530-WA0004.jpg': 'A ver, bonita te ves, pero un filtro más y purificas el agua 😂',
+  'IMG-20250604-WA0000.jpg': 'Simplemente Carito.',
+  'IMG-20250604-WA0003.jpg': '¿Khe? 😳',
+  'IMG-20250604-WA0046.jpg': 'Esta sí está bien bonita.',
+  'lv_7420671099958021384_20250606181232.mp4': 'En un día X, pero contigo de pareja.',
+  'IMG_20250611_131320_0444.jpg': '¿Qué estabas viendo? 👀',
+  'IMG_20250611_131325_0604.jpg': 'Bien hermosos que salimos, pero Kaleb atrás jajajaj.',
+  'IMG_20250611_131328_0321.jpg': 'Esta es una de las mejores fotos que tenemos, ¿sí o no? Me encanta.',
+  'lv_7446817124212870461_20250612200216.mp4': 'En un viernes 13. Mi primera persona que subí en un viernes 13.',
+  'lv_7514881250545519933_20250612192850.mp4': 'Este está bien bonito.',
+  'IMG-20250613-WA0001.jpg': 'Las primeras flores que te di. Ese día llegaste arriba y desde las escaleras te llevé cargando al salón. ¿Te acuerdas? De ahí lo empecé a hacer cada que llegaba antes que tú.',
+  'VID_20250613_214041_128.mp4': 'Video rescatado JAJAJ. Cómo se ríe el Deynis… y qué rico chocolate era.',
+  'lv_7397652548720610567_20250625173527.mp4': 'El primer Día de la Novia en el que eras mi noviecita.',
+  'lv_0_20250630162225.mp4': 'Recuerdo 67 no podría ser otro que este (fue mera casualidad). ¿Recuerdas que te decía brujita? Una vez me dijiste que me hiciste un amarre, la bruja me hizo descuento jajaja. Bueno, de ahí te empecé a ver con esta canción, porque al parecer no te acuerdas de eso. Pero era lindo.',
+  'IMG-20250709-WA0002.jpg': 'En el evento de graduación, pero claramente esta la tomé yo JAJA.',
+  'IMG-20250709-WA0003.jpg': 'Si me apresuras, diría que es mi foto favorita de nosotros. Sales hermosa, es saliendo de la secu. No sé, está muy bonita.',
+  'IMG-20250709-WA0004.jpg': 'Una foto más 📷',
+  'IMG-20250709-WA0016.jpg': 'Aww, esta también me gusta mucho. Estabas chillando jajsja.',
+  'IMG20250711162310.jpg': 'Mmm, pues… Chad, ¿no? 😎',
+  '1792425496567.jpg': 'A chinga, se me repitió. Ni modo, me da hueva quitarla, es un desmadre. Ahí está bien, ¿verdad? Jaja.',
+  'IMG_20250716_164853_0436.jpg': 'Esta está bien bonita.',
+  'IMG_20250716_164854_0940.jpg': 'Esta me gusta mucho.',
+  'IMG-20250716-WA0020.jpg': 'Awww, tú toda chiquita, bien bonita.',
+  'IMG-20250716-WA0021.jpg': 'Son muchas, lo sé. Pero es que no me canso de verte. Aquí no hay mucho que decir: me gustas en todas.',
+  'IMG-20250716-WA0022.jpg': 'Justo estaba escuchando "Khé?"… y pensé en ti, obvio. ¿Tú qué traes de fondo? 🎧',
+  'IMG-20250716-WA0033.jpg': 'Solo que te quiero. Y que me encanta que sigas aquí, en mi vida y en este libro. 🫶',
+  'IMG-20250716-WA0034.jpg': 'Esta también está bonita.',
+  'IMG-20250716-WA0046.jpg': 'Muchas fotos iguales, pero aun así muy bonitas.',
+  'lv_7475573247149411645_20250717131421.mp4': 'Esta está bien bonita la canción, ¿sí o no?',
+  'lv_7415216843230678328_20250730190548.mp4': 'Nuestros ojitos 👀 (mi foto de perfil mucho tiempo).',
+  'lv_7533064006081187133_20250801000054.mp4': '¿Otro del Día de la Novia? Bueno, este está bonito.',
+  'IMG-20250803-WA0014.jpg': 'Cuando me mandaste tus fotos de tiquita 🎟️',
+  'IMG-20250803-WA0015.jpg': 'Bien linda.',
+  'IMG-20250803-WA0017.jpg': 'Jajsjaj tu caritaaaaa 😂',
+  'IMG-20250810-WA0010.jpg': 'Sí me acuerdo de lo que pasó después de esta foto. Y no lo voy a escribir aquí… pero fue uno de esos días que no se me olvidan. 😏',
+  'IMG-20250813-WA0007.jpg': 'Una que me mandaste con un Snoopy que te encontraste jaja.',
+  'IMG_20250816_130533.jpg': 'Uuuy, Carito modelo. Me encantas.',
+  'IMG_20250816_130536.jpg': 'Qué hermosa sonrisa.',
+  'IMG_20250816_130536_1.jpg': 'De verdad ese día me gustaste más de lo que ya era.',
+  'IMG_20250816_130543.jpg': 'Jijiji.',
+  'IMG_20250816_133736.jpg': 'Divaaaa.',
+  'IMG_20250816_133737.jpg': 'HERMOSA.',
+  'IMG_20250816_133741.jpg': 'Verde 💚',
+  'IMG_20250816_133744.jpg': 'Cuquinn, esta me encanta. Estás preciosa.',
+  'IMG_20250816_133744_1.jpg': 'Jjajsja, esta me viste y sonreíste. Mi favorita.',
+  'IMG_20250913_175305.jpg': 'Qué mejor que esta preciosura de foto. Es la mejor. Aunque no lo creas, y te soy honesto: si te ves bonita, créeme.',
+  'lv_7189490065138076929_20250914002538.mp4': 'Aquí la cancioncita jaja 🎶',
+  'IMG_20250920_141329.jpg': '¿Preciosa?',
+  'IMG_20250920_141338.jpg': 'Mi risa favorita. Parece que la oigo.',
+  'IMG_20250920_141431.jpg': '¿Carito? 👀',
+  'IMG_20250920_141451.jpg': 'Aquí viendo tu peluchito.',
+  'IMG_20250920_142023.jpg': 'Becho, ¿sí o qué? 😘',
+  'IMG-20250920-WA0282.jpg': 'Se repitió, pero pues era Día de Flores Amarillas y mi princesita no podía ser espectadora. Llegué y te dije "amorrr, mira, esto es para ti". No sabes lo bonito que se sintió.',
+  'lv_7551241228231167293_20250920211348.mp4': 'Ella sabíaaa… 🌼',
+  'lv_7555095673784241469_20250930221742.mp4': 'Ay, este me gusta mucho.',
+  'WhatsApp Image 2026-10-27 at 10.47.18 PM.jpeg': 'Simplemente hermosa, Caroooooo.',
+  '2025-11-08-233346907.mp4': 'Aquí eras mi Caperucita Roja. ¿Recuerdas?',
+  'MVIMG_20251108_194853.jpg': 'Bien hermosa.',
+  'MVIMG_20251108_194922.jpg': 'Rata Philips 😂',
+  'MVIMG_20251108_201102.jpg': 'Carrito.',
+  'MVIMG_20251108_201105.jpg': 'Jsjsj, ¿qué te digo? Tus gestos son mi debilidad, chaparrita.',
+  'MVIMG_20251108_201118.jpg': 'Toda preciosa.',
+  'MVIMG_20251108_201119.jpg': 'Sí.',
+  '1792425494273.jpg': 'Me encanta. Tú me encantas.',
+  'lv_0_20251220125814.mp4': 'Qué lindo fue.',
+  'Picsart_26-09-21_21-45-29-200.jpg': 'Tus gerberas 🌸',
+  'Picsart_26-09-21_21-47-28-513.jpg': 'Esta me gustó mucho.',
+  'IMG_20261011_183810_226.jpg': 'Me la pasaste apenas, JJAJAAJJA. Increíble.',
+  'VID_20261011_173335_374.mp4': 'Qué vengativa eres 😂',
+  'IMG_20261013_220446_218.jpg': 'Super hermosa. Quisiera en verdad verte con eso puesto.',
+  '1792425495070.webp': 'No sé qué hace hasta acá JAJA, pero ese peluchito… ¿qué fue de él?',
+  'Snapchat-840892437.jpg': 'Gestos y más gestos.',
+  'Snapchat-1299101.mp4': 'ME ENCANTAAAAAAAA JAJS.',
+  'Snapchat-1947055303.jpg': 'La foto jaja.',
+  'Snapchat-1340013342.jpg': 'Qué bonita.',
+  'Snapchat-1810511931.mp4': 'En los 15 de Nicky, arreglándote jajsja.',
+  '9e7b1d166cac7195c86c9e1a372ab7b7.mp4': 'El video, qué bello.',
+  'Snapchat-562786656.jpg': 'Qué hermosos.',
+  'IMG_20250816_142044.jpg': 'Aquí bien elegante con tu vestido de lentejuelas ✨',
+  'WhatsApp Image 2026-10-27 at 10.34.35 PM (5).jpeg': 'Tu carita con esas pinturas blancas, bien linda 🎨',
+}
 
 const capitulos = [
   { num: 1, title: 'Secundaria', quote: 'Donde todo empezó...', snoopyPose: 2, hasta: '2025-04-30' },
@@ -12205,8 +12505,7 @@ const capitulos = [
       if (videoAnterior) videoAnterior.pause();
       lightboxContent.replaceChildren();
       lightbox.querySelectorAll('.lightbox-caption').forEach((el) => el.remove());
-      lightbox.classList.add('active');
-      lightbox.classList.toggle('lb-nota', Boolean(note));
+      lightbox.classList.add('active', 'lb-nota');
       lightbox.classList.remove('lb-vertical', 'lb-horizontal');
 
       const figura = document.createElement('div');
@@ -12252,12 +12551,16 @@ const capitulos = [
 
       lightboxContent.append(figura);
 
+      const noteBox = document.createElement('div');
+      noteBox.className = 'lightbox-note' + (note ? '' : ' sin-nota');
       if (note) {
-        const noteBox = document.createElement('div');
-        noteBox.className = 'lightbox-note';
-        noteBox.textContent = note;
-        lightboxContent.append(noteBox);
+        const textoNota = document.createElement('p');
+        textoNota.className = 'lightbox-nota-texto';
+        textoNota.textContent = note;
+        noteBox.append(textoNota);
       }
+      pintarMensajeFoto(noteBox, src);
+      lightboxContent.append(noteBox);
     }
 
     function closeLightbox() {
@@ -12268,6 +12571,220 @@ const capitulos = [
       lightbox.querySelectorAll('.lightbox-caption').forEach((el) => el.remove());
       reanudarMusicaTrasVideo();
     }
+
+    /* ------------------- mensajes de Carito en cada foto ------------------- */
+
+    const CLAVE_MENSAJES = 'mensajes-fotos-v1';
+    const CLAVE_MENSAJES_LOCAL = 'rc-mensajes-fotos';
+    const REACCIONES_FOTO = ['❤️', '🥹', '😂', '😍', '🌼', '✨'];
+    const MESES_MENSAJE = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    let mensajesFotos = {};
+
+    function claveMensaje(src) {
+      const limpio = String(src || '').split('?')[0].split('#')[0];
+      const partes = limpio.split('/');
+      const ultimo = partes[partes.length - 1] || limpio;
+      try { return decodeURIComponent(ultimo); } catch (error) { return ultimo; }
+    }
+
+    function hoyMensaje() {
+      const d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function fechaMensaje(iso) {
+      const p = String(iso || '').split('-');
+      if (p.length >= 3) return Number(p[2]) + ' de ' + MESES_MENSAJE[Number(p[1]) - 1] + ' de ' + p[0];
+      return String(iso || '');
+    }
+
+    function cargarMensajesLocal() {
+      try {
+        const crudo = localStorage.getItem(CLAVE_MENSAJES_LOCAL);
+        if (!crudo) return;
+        const datos = JSON.parse(crudo);
+        if (datos && typeof datos === 'object' && !Array.isArray(datos)) mensajesFotos = datos;
+      } catch (error) { /* sin datos guardados */ }
+    }
+
+    function guardarMensajesLocal() {
+      try { localStorage.setItem(CLAVE_MENSAJES_LOCAL, JSON.stringify(mensajesFotos)); } catch (error) { /* sin permiso */ }
+    }
+
+    function guardarMensajes() {
+      guardarMensajesLocal();
+      if (typeof window.juegoGuardarNube === 'function') {
+        try { window.juegoGuardarNube(CLAVE_MENSAJES, mensajesFotos); } catch (error) { /* sin conexión */ }
+      }
+    }
+
+    function sincronizarMensajes(intentos) {
+      if (typeof window.juegoLeerNube !== 'function') {
+        if ((intentos || 0) < 14) window.setTimeout(function () { sincronizarMensajes((intentos || 0) + 1); }, 800);
+        return;
+      }
+      try {
+        Promise.resolve(window.juegoLeerNube(CLAVE_MENSAJES)).then(function (remoto) {
+          if (!remoto || typeof remoto !== 'object') {
+            if ((intentos || 0) < 4) window.setTimeout(function () { sincronizarMensajes((intentos || 0) + 1); }, 1800);
+            return;
+          }
+          let localManda = false;
+          Object.keys(remoto).forEach(function (k) {
+            const r = remoto[k];
+            if (!r || typeof r !== 'object') return;
+            const l = mensajesFotos[k];
+            if (!l) { mensajesFotos[k] = r; return; }
+            if ((Number(l.actualizado) || 0) > (Number(r.actualizado) || 0)) localManda = true;
+            else if ((Number(r.actualizado) || 0) > (Number(l.actualizado) || 0)) mensajesFotos[k] = r;
+          });
+          guardarMensajesLocal();
+          if (localManda) guardarMensajes();
+        }).catch(function () { /* sin conexión */ });
+      } catch (error) { /* sin conexión */ }
+    }
+
+    function pintarMensajeFoto(contenedor, src) {
+      if (!contenedor) return;
+      const clave = claveMensaje(src);
+
+      const bloque = document.createElement('div');
+      bloque.className = 'lightbox-mensaje';
+
+      const kicker = document.createElement('span');
+      kicker.className = 'lightbox-mensaje-kicker';
+      kicker.textContent = 'Tu mensaje para esta foto';
+      bloque.append(kicker);
+
+      const fila = document.createElement('div');
+      fila.className = 'lightbox-reacciones';
+      fila.setAttribute('role', 'group');
+      fila.setAttribute('aria-label', 'Reacciones');
+
+      const guardadoBox = document.createElement('div');
+      guardadoBox.className = 'lightbox-mensaje-guardado';
+      const textoP = document.createElement('p');
+      textoP.className = 'lightbox-mensaje-texto';
+      const pie = document.createElement('div');
+      pie.className = 'lightbox-mensaje-pie';
+      const fechaSpan = document.createElement('span');
+      fechaSpan.className = 'lightbox-mensaje-fecha';
+      const editar = document.createElement('button');
+      editar.type = 'button';
+      editar.className = 'lightbox-mensaje-btn secundario';
+      editar.textContent = 'Editar';
+      pie.append(fechaSpan, editar);
+      guardadoBox.append(textoP, pie);
+
+      const form = document.createElement('div');
+      form.className = 'lightbox-mensaje-form';
+      const area = document.createElement('textarea');
+      area.rows = 2;
+      area.maxLength = 600;
+      area.placeholder = 'Escribe aquí lo que sientes al verla…';
+      area.setAttribute('aria-label', 'Tu mensaje para esta foto');
+      const acciones = document.createElement('div');
+      acciones.className = 'lightbox-mensaje-acciones';
+      const ok = document.createElement('span');
+      ok.className = 'lightbox-mensaje-ok';
+      ok.setAttribute('role', 'status');
+      const cancelar = document.createElement('button');
+      cancelar.type = 'button';
+      cancelar.className = 'lightbox-mensaje-btn secundario';
+      cancelar.textContent = 'Cancelar';
+      const guardarBtn = document.createElement('button');
+      guardarBtn.type = 'button';
+      guardarBtn.className = 'lightbox-mensaje-btn';
+      guardarBtn.textContent = 'Guardar ❤️';
+      acciones.append(ok, cancelar, guardarBtn);
+      form.append(area, acciones);
+
+      const datos = () => mensajesFotos[clave] || null;
+
+      function pintarReacciones() {
+        const d = datos();
+        fila.querySelectorAll('.lightbox-reaccion').forEach((b) => {
+          const activa = Boolean(d && d.reaccion === b.dataset.emoji);
+          b.classList.toggle('activa', activa);
+          b.setAttribute('aria-pressed', activa ? 'true' : 'false');
+        });
+      }
+
+      function pintarGuardado() {
+        const d = datos();
+        const tieneTexto = Boolean(d && d.texto);
+        guardadoBox.hidden = !tieneTexto;
+        textoP.textContent = tieneTexto ? d.texto : '';
+        fechaSpan.textContent = tieneTexto && d.fecha ? 'Guardado el ' + fechaMensaje(d.fecha) : '';
+        form.hidden = tieneTexto;
+        cancelar.hidden = !tieneTexto;
+        if (!tieneTexto) area.value = '';
+        pintarReacciones();
+      }
+
+      function abrirFormulario() {
+        const d = datos();
+        area.value = d && d.texto ? d.texto : '';
+        form.hidden = false;
+        guardadoBox.hidden = true;
+        cancelar.hidden = false;
+        ok.textContent = '';
+        try { area.focus({ preventScroll: true }); } catch (error) { area.focus(); }
+      }
+
+      REACCIONES_FOTO.forEach((emoji) => {
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'lightbox-reaccion';
+        boton.dataset.emoji = emoji;
+        boton.textContent = emoji;
+        boton.setAttribute('aria-label', 'Reaccionar con ' + emoji);
+        boton.addEventListener('click', () => {
+          const actual = mensajesFotos[clave] || { texto: '', fecha: '', actualizado: 0 };
+          const nueva = actual.reaccion === emoji ? '' : emoji;
+          const entrada = Object.assign({}, actual, { reaccion: nueva, actualizado: Date.now() });
+          if (!entrada.texto && !entrada.reaccion) delete mensajesFotos[clave];
+          else mensajesFotos[clave] = entrada;
+          guardarMensajes();
+          pintarReacciones();
+        });
+        fila.append(boton);
+      });
+
+      editar.addEventListener('click', abrirFormulario);
+      cancelar.addEventListener('click', () => { ok.textContent = ''; pintarGuardado(); });
+      guardarBtn.addEventListener('click', () => {
+        const texto = area.value.trim();
+        const actual = mensajesFotos[clave] || {};
+        const entrada = Object.assign({}, actual, {
+          texto: texto,
+          fecha: texto ? hoyMensaje() : (actual.fecha || ''),
+          actualizado: Date.now()
+        });
+        if (!entrada.texto && !entrada.reaccion) delete mensajesFotos[clave];
+        else mensajesFotos[clave] = entrada;
+        guardarMensajes();
+        pintarGuardado();
+        if (texto) {
+          ok.textContent = 'Guardado ❤️';
+          window.setTimeout(function () { if (ok.isConnected) ok.textContent = ''; }, 2600);
+        }
+      });
+      area.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+          event.preventDefault();
+          guardarBtn.click();
+        }
+      });
+
+      bloque.append(fila, guardadoBox, form);
+      contenedor.append(bloque);
+      pintarGuardado();
+    }
+
+    cargarMensajesLocal();
+    sincronizarMensajes(0);
 
     function parseRazones(id) {
       const fuente = document.getElementById(id);
