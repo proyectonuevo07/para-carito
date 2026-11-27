@@ -3112,6 +3112,87 @@
       opacity: 0.68;
     }
 
+    /* --- Letra de la canción (solo Babysita) --- */
+    .now-letra-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+      padding: 7px 15px;
+      border: 1px solid rgba(255, 224, 138, 0.4);
+      border-radius: 999px;
+      background: rgba(255, 224, 138, 0.08);
+      color: #ffe9b4;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .now-letra-btn:hover { background: rgba(255, 224, 138, 0.16); }
+    .now-letra-btn:active { transform: scale(0.97); }
+    .now-letra-btn[hidden] { display: none; }
+
+    .now-letra-btn.activo {
+      border-color: rgba(255, 224, 138, 0.68);
+      background: rgba(255, 224, 138, 0.18);
+    }
+
+    .now-letra {
+      display: none;
+      position: relative;
+      width: min(100%, 520px);
+      height: min(42vh, 320px);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 24px;
+      background: rgba(18, 9, 15, 0.32);
+      box-shadow: inset 0 0 46px rgba(255, 190, 90, 0.06), 0 20px 50px rgba(0, 0, 0, 0.18);
+    }
+
+    .now-letra-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding: 30px 22px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+      scrollbar-color: rgba(255, 255, 255, 0.24) transparent;
+      scrollbar-width: thin;
+      overscroll-behavior: contain;
+    }
+
+    .now-playing.modo-letra .now-letra { display: block; }
+    .now-playing.modo-letra .now-cover-wrap { display: none; }
+
+    .letra-linea {
+      margin: 0;
+      padding: 7px 0;
+      font-size: 14px;
+      line-height: 1.38;
+      opacity: 0.36;
+      transform-origin: left center;
+      transition: opacity 0.35s ease, color 0.35s ease, transform 0.35s ease;
+    }
+
+    .letra-linea.activa {
+      color: #ffe08a;
+      font-weight: 700;
+      opacity: 1;
+      text-shadow: 0 0 12px rgba(255, 190, 70, 0.38);
+      transform: scale(1.02);
+    }
+
+    .letra-estado {
+      margin: 0;
+      padding: 46px 6px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      text-align: center;
+      opacity: 0.66;
+    }
+
     .seek {
       width: min(520px, 100%);
       padding: 0 clamp(2px, 1vmin, 8px);
@@ -3303,6 +3384,9 @@
       .now-cover-wrap { width: min(68vw, 34vh, 300px); }
       .now-controls { gap: 22px; }
       .player-note { font-size: 10.5px; }
+      .now-letra { height: min(38vh, 300px); }
+      .now-letra-scroll { padding: 26px 18px; }
+      .letra-linea { font-size: 13.5px; }
     }
 
     @media (max-height: 620px) {
@@ -3310,6 +3394,9 @@
       .now-playing { gap: 8px; }
       .now-title { font-size: clamp(19px, 3.4vmin, 26px); }
       .player-header { padding-top: 10px; padding-bottom: 4px; }
+      .now-letra { height: min(34vh, 210px); }
+      .now-letra-scroll { padding: 20px 16px; }
+      .letra-linea { font-size: 13px; padding: 5px 0; }
     }
 
     @media (max-height: 620px) and (max-width: 760px) {
@@ -7927,6 +8014,10 @@ guías
               <h3 class="now-title" id="now-title">—</h3>
               <p class="now-artist" id="now-artist">—</p>
             </div>
+            <button class="now-letra-btn" id="now-letra-btn" type="button" aria-pressed="false" aria-controls="now-letra" hidden>Letra ✨</button>
+            <div class="now-letra" id="now-letra" role="region" aria-label="Letra de la canción">
+              <div class="now-letra-scroll" id="now-letra-scroll"></div>
+            </div>
             <a class="spotify-btn" id="spotify-open" href="#" target="_blank" rel="noopener" hidden>
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.78.78 0 0 1-1.07.26c-2.93-1.79-6.62-2.2-10.97-1.2a.78.78 0 1 1-.35-1.52c4.76-1.09 8.84-.62 12.13 1.39.37.22.48.7.26 1.07Zm1.23-2.74a.97.97 0 0 1-1.34.32c-3.35-2.06-8.46-2.66-12.42-1.45a.97.97 0 1 1-.56-1.86c4.52-1.37 10.15-.7 14 1.66.46.28.6.88.32 1.33Zm.1-2.85C14.6 8.42 8.36 8.2 4.57 9.35a1.17 1.17 0 1 1-.68-2.24C8.24 5.8 15.13 6.06 18.9 8.3a1.17 1.17 0 0 1-1.2 2Z"/></svg>
               <span>Escuchar en Spotify</span>
@@ -10514,7 +10605,7 @@ const capitulos = [
         acento: '#ffc09a',
         esYoutube: true,
         canciones: [
-          { titulo: 'Babysita', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Álvaro Díaz - Babysita.mp3', portada: 'musica/portadas/babysita.jpg', inicio: 40, dorada: true },
+          { titulo: 'Babysita', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Álvaro Díaz - Babysita.mp3', portada: 'musica/portadas/babysita.jpg', inicio: 40, dorada: true, letra: { lineas: [[1,"Baby, estoy cansado"],[4.8,"De estar peleando toda la noche"],[8.6,"Si dejaras todo en el pasado"],[12.3,"Quizás me quisieras como antes"],[16.4,"Yo sé que yo no soy perfecto"],[19.9,"Tú me lo recuerdas todas las noches"],[23.6,"Baby, estoy cansado"],[27.5,"De que no me quieras como antes"],[30.2,"(Yo sé que tú aún piensas en mi chingando)"],[34.8,"Baby, estoy cansado"],[37.6,"(Yo sé que tú aún piensas en mi chingando)"],[42.3,"De que no me quieras como antes"],[45.4,"Este"],[48.7,"Comprarme una máquina del tiempo e ir para atrás"],[52.9,"Y arreglar un montón de huevadas que hice"],[57.4,"Y ser mejor, y ya (okey)"],[82.3,"Babysita, no me quieres (no me quieres)"],[84.5,"Al parecer ya no sé quién eres (¿quién tú eres?)"],[87.1,"Capsuleando en West Side pa olvidarte"],[89.6,"Aguantándome las ganas de llamarte"],[91.9,"Me acuerdo cuando prometí que siempre iba a cuidarte"],[94.4,"Y que iba a matar al próximo que volviera a tocarte"],[98,"¿Te acuerdas?, pues mala mía por descuidarte"],[103.7,"Babysita, no me olvides"],[106.3,"Quien te tenga que te cuide"],[108.2,"Sí, estoy con ella, pero estoy pensando en ti"],[111,"Chequeando Twitter a ver si escribes de mí"],[113.6,"Yo sé que aún tienes el hoodie de \"La Ciudad\""],[116.1,"Si tú me quieres y no lo puedes negar"],[118.9,"Y aunque borres todas mis fotos de tu cámara"],[121.8,"Mis recuerdos tú no puedes borrar"],[123.8,"Y tú estuviste ahí cuando todo estaba mal"],[126.5,"Ahora todo me va bien y no te puedo contar na'"],[129.1,"De que yo estaba pa ti, eso lo sabía hasta tu mamá"],[131.7,"Siempre que sale 11:11 me dan ganas de textear"],[134.5,"Aún me quitas las ganas de pensar en alguien más"],[137.3,"No era un amor de redes, pero era un amor real"],[139.7,"Y aunque casi ni te escribo no te he dejado de querer"],[142.7,"Pensando si llamarte pa de una resolver"],[146.3,"Babysita, no me olvides"],[149.2,"Quien te tenga que te cuide"],[152,"Yo hice todo lo que pediste"],[157.3,"Borré el número de todas y como quiera tú te fuiste"],[164.1,"Me mentiste, porqué dijiste"],[168.2,"Que de mi lado tú nunca ibas a irte"],[173.3,"Yo hice todo lo que pediste"],[178.6,"Borré el número de todas y como quiera tú te fuiste"],[185.4,"Me mentiste, porqué dijiste"],[189.8,"Que de mi lado tú nunca ibas a irte"],[193.8,"Esa nena nunca regresó"],[196.1,"Esa nena nunca regresó"],[198.8,"Esa nena nunca regresó"],[201.3,"¿Dónde está?, ¿dónde está?"],[204.5,"Esa nena nunca regresó"],[207,"Esa nena nunca regresó"],[209.9,"Esa nena nunca regresó"],[211.7,"¿Dónde está?, ¿tú dónde estás?, ¿tú dónde estás?"],[225.5,"Esa nena nunca regresó"],[228.5,"Esa nena nunca regresó"],[231.5,"Esa nena nunca regresó"],[233.3,"¿Dónde está?, ¿dónde está?, ¿tú dónde estás?"]] } },
           { titulo: 'JPN', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - JPN.mp3', portada: 'musica/portadas/JPN.jpg', dorada: true },
           { titulo: 'NO PODEMOS SER AMIGOS', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - NO PODEMOS SER AMIGOS.mp3', dorada: true },
           { titulo: 'Yoko', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - Yoko.mp3' },
@@ -10597,6 +10688,8 @@ const capitulos = [
     const kickerCancion = document.getElementById('now-kicker');
     const tituloCancion = document.getElementById('now-title');
     const artistaCancion = document.getElementById('now-artist');
+    const botonLetra = document.getElementById('now-letra-btn');
+    const panelLetraScroll = document.getElementById('now-letra-scroll');
     const seek = document.getElementById('seek');
     const seekTrack = document.getElementById('seek-track');
     const seekFill = document.getElementById('seek-fill');
@@ -10660,6 +10753,9 @@ const capitulos = [
     let cargaAudio = null;
     let archivoNoEncontrado = false;
     let inicioPendiente = 0;
+    let letraLineas = [];
+    let letraIndice = -1;
+    let letraPausaHasta = 0;
     let arrastrandoSeek = false;
     let musicaPausadaPorVideo = false;
     let capaActualFondo = 0;
@@ -13208,6 +13304,7 @@ const capitulos = [
       tituloCancion.textContent = cancion.titulo;
       tituloCancion.classList.toggle('nombre-dorado', !!cancion.dorada);
       artistaCancion.textContent = cancion.artista || album.titulo;
+      reiniciarLetra(cancion);
       desactivarSpotify();
       ocultarNota();
 
@@ -13222,6 +13319,153 @@ const capitulos = [
 
       shellReproductor.style.setProperty('--acento', album.acento);
       if (reproductor.classList.contains('open')) pintarFondo(url, album);
+    }
+
+    function claveLetra(cancion) {
+      const cfg = (cancion && cancion.letra) || {};
+      return `rc-letra:${String(cfg.artista || '').toLowerCase()}|${String(cfg.buscar || cancion.titulo || '').toLowerCase()}`;
+    }
+
+    function parsearLetraLRC(texto) {
+      const salida = [];
+      String(texto || '').split(/\r?\n/).forEach((linea) => {
+        const marcas = [...linea.matchAll(/\[(\d{1,2}):(\d{2}(?:[.:]\d{1,3})?)\]/g)];
+        if (!marcas.length) return;
+        const letra = linea.replace(/\[[^\]]*\]/g, '').trim();
+        if (!letra) return;
+        marcas.forEach((marca) => {
+          const minutos = Number(marca[1]);
+          const segundos = Number(String(marca[2]).replace(':', '.'));
+          if (!Number.isFinite(minutos) || !Number.isFinite(segundos)) return;
+          salida.push({ t: minutos * 60 + segundos, texto: letra });
+        });
+      });
+      salida.sort((a, b) => a.t - b.t);
+      return salida;
+    }
+
+    async function cargarLetra(cancion) {
+      const cfg = cancion && cancion.letra;
+      if (!cfg) return [];
+      if (Array.isArray(cfg.lineas) && cfg.lineas.length) {
+        return cfg.lineas
+          .map((linea) => ({ t: Number(linea[0]) || 0, texto: String(linea[1] || '').trim() }))
+          .filter((linea) => linea.texto);
+      }
+      const clave = claveLetra(cancion);
+      try {
+        const guardada = localStorage.getItem(clave);
+        if (guardada) {
+          const lineas = JSON.parse(guardada);
+          if (Array.isArray(lineas) && lineas.length) return lineas;
+        }
+      } catch (error) { /* sin caché */ }
+
+      let datos = null;
+      try {
+        const consulta = new URLSearchParams({
+          artist_name: cfg.artista,
+          track_name: cfg.buscar,
+          duration: String(cfg.duracion || '')
+        });
+        const respuesta = await fetch(`https://lrclib.net/api/get?${consulta.toString()}`);
+        if (respuesta.ok) datos = await respuesta.json();
+      } catch (error) { datos = null; }
+
+      if (!datos || !datos.syncedLyrics) {
+        try {
+          const consulta = new URLSearchParams({ artist_name: cfg.artista, track_name: cfg.buscar });
+          const respuesta = await fetch(`https://lrclib.net/api/search?${consulta.toString()}`);
+          const lista = respuesta.ok ? await respuesta.json() : [];
+          const duracion = Number(cfg.duracion) || 0;
+          const candidatos = (Array.isArray(lista) ? lista : [])
+            .filter((item) => item && item.syncedLyrics)
+            .sort((a, b) => Math.abs((a.duration || 0) - duracion) - Math.abs((b.duration || 0) - duracion));
+          datos = candidatos[0] || null;
+        } catch (error) { datos = null; }
+      }
+
+      if (!datos || !datos.syncedLyrics) throw new Error('sin letra');
+      const lineas = parsearLetraLRC(datos.syncedLyrics);
+      if (!lineas.length) throw new Error('letra vacía');
+      try { localStorage.setItem(clave, JSON.stringify(lineas)); } catch (error) { /* sin caché */ }
+      return lineas;
+    }
+
+    function reiniciarLetra(cancion) {
+      letraLineas = [];
+      letraIndice = -1;
+      letraPausaHasta = 0;
+      ahoraSonando.classList.remove('modo-letra');
+      panelLetraScroll.replaceChildren();
+      botonLetra.classList.remove('activo');
+      botonLetra.setAttribute('aria-pressed', 'false');
+      botonLetra.textContent = 'Letra ✨';
+      botonLetra.hidden = !(cancion && cancion.letra);
+    }
+
+    function pintarLetra(lineas) {
+      panelLetraScroll.replaceChildren();
+      const trozo = document.createDocumentFragment();
+      lineas.forEach((linea) => {
+        const parrafo = document.createElement('p');
+        parrafo.className = 'letra-linea';
+        parrafo.textContent = linea.texto;
+        trozo.append(parrafo);
+      });
+      panelLetraScroll.append(trozo);
+      panelLetraScroll.scrollTop = 0;
+    }
+
+    function actualizarLetra(forzar = false) {
+      if (!ahoraSonando.classList.contains('modo-letra') || !letraLineas.length) return;
+      const tiempo = audio.currentTime || 0;
+      let indice = -1;
+      for (let i = 0; i < letraLineas.length; i++) {
+        if (letraLineas[i].t <= tiempo + 0.2) indice = i;
+        else break;
+      }
+      if (indice === letraIndice && !forzar) return;
+      letraIndice = indice;
+      const lineas = panelLetraScroll.querySelectorAll('.letra-linea');
+      lineas.forEach((linea, i) => linea.classList.toggle('activa', i === indice));
+      if (indice >= 0 && Date.now() > letraPausaHasta) {
+        const activa = lineas[indice];
+        const destino = Math.max(0, activa.offsetTop - panelLetraScroll.clientHeight / 2 + activa.offsetHeight / 2);
+        const salto = forzar || Math.abs(destino - panelLetraScroll.scrollTop) > panelLetraScroll.clientHeight * 1.4;
+        panelLetraScroll.scrollTo({ top: destino, behavior: salto ? 'auto' : 'smooth' });
+      }
+    }
+
+    async function alternarLetra() {
+      const cancion = cancionDeContexto();
+      if (!cancion || !cancion.letra) return;
+      if (ahoraSonando.classList.contains('modo-letra')) {
+        ahoraSonando.classList.remove('modo-letra');
+        botonLetra.classList.remove('activo');
+        botonLetra.setAttribute('aria-pressed', 'false');
+        botonLetra.textContent = 'Letra ✨';
+        return;
+      }
+      ahoraSonando.classList.add('modo-letra');
+      botonLetra.classList.add('activo');
+      botonLetra.setAttribute('aria-pressed', 'true');
+      botonLetra.textContent = 'Ocultar letra';
+      if (letraLineas.length) {
+        actualizarLetra(true);
+        return;
+      }
+      panelLetraScroll.innerHTML = '<p class="letra-estado">Buscando la letra…</p>';
+      try {
+        const lineas = await cargarLetra(cancion);
+        if (cancionDeContexto() !== cancion) return;
+        letraLineas = lineas;
+        pintarLetra(lineas);
+        actualizarLetra(true);
+      } catch (error) {
+        if (cancionDeContexto() !== cancion) return;
+        panelLetraScroll.innerHTML = '<p class="letra-estado">No pude cargar la letra ahora mismo 💔<br>Intenta de nuevo en un ratito.</p>';
+      }
     }
 
     function actualizarMini() {
@@ -13587,6 +13831,9 @@ const capitulos = [
       botonNext.addEventListener('click', siguiente);
       botonPlay.addEventListener('click', alternarReproduccion);
       botonCerrar.addEventListener('click', cerrarReproductor);
+      botonLetra.addEventListener('click', alternarLetra);
+      panelLetraScroll.addEventListener('wheel', () => { letraPausaHasta = Date.now() + 6000; }, { passive: true });
+      panelLetraScroll.addEventListener('touchstart', () => { letraPausaHasta = Date.now() + 6000; }, { passive: true });
 
       botonSpotify.addEventListener('click', (evento) => {
         evento.preventDefault();
@@ -13693,6 +13940,7 @@ const capitulos = [
       audio.addEventListener('timeupdate', () => {
         if (arrastrandoSeek) return;
         actualizarProgreso(audio.currentTime);
+        actualizarLetra();
       });
       audio.addEventListener('loadedmetadata', () => {
         tiempoTotal.textContent = formatoTiempo(audio.duration);
