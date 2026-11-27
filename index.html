@@ -2980,6 +2980,37 @@
       opacity: 0.55;
     }
 
+    /* --- Brillo dorado difuminado para las canciones especiales --- */
+    .track-title.nombre-dorado {
+      color: #ffe9b4;
+      filter:
+        drop-shadow(0 0 3px rgba(255, 214, 120, 0.55))
+        drop-shadow(0 0 8px rgba(255, 178, 52, 0.42))
+        drop-shadow(0 0 16px rgba(255, 150, 20, 0.26));
+    }
+
+    .now-title.nombre-dorado {
+      color: #ffe08a;
+      text-shadow:
+        0 0 8px rgba(255, 214, 120, 0.75),
+        0 0 22px rgba(255, 176, 40, 0.55),
+        0 0 46px rgba(255, 140, 10, 0.35);
+    }
+
+    .mini-title.nombre-dorado {
+      color: #ffe9b4;
+      text-shadow:
+        0 0 4px rgba(255, 214, 120, 0.55),
+        0 0 10px rgba(255, 178, 52, 0.4);
+    }
+
+    .music-orb-title.nombre-dorado {
+      color: #ffe9b4;
+      filter:
+        drop-shadow(0 0 3px rgba(255, 214, 120, 0.55))
+        drop-shadow(0 0 9px rgba(255, 178, 52, 0.4));
+    }
+
     .music-empty {
       padding: 30px 10px;
       font-size: 13px;
@@ -10483,9 +10514,11 @@ const capitulos = [
         acento: '#ffc09a',
         esYoutube: true,
         canciones: [
+          { titulo: 'Babysita', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Álvaro Díaz - Babysita.mp3', portada: 'musica/portadas/babysita.jpg', inicio: 40, dorada: true },
+          { titulo: 'JPN', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - JPN.mp3', portada: 'musica/portadas/JPN.jpg', dorada: true },
+          { titulo: 'NO PODEMOS SER AMIGOS', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - NO PODEMOS SER AMIGOS.mp3', dorada: true },
           { titulo: 'Yoko', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - Yoko.mp3' },
           { titulo: 'M.A.I', artista: 'Milo j', archivo: 'musica/dedicadas/Milo j - M.A.I.mp3' },
-          { titulo: 'NO PODEMOS SER AMIGOS', artista: 'Álvaro Díaz', archivo: 'musica/dedicadas/Alvaro Diaz - NO PODEMOS SER AMIGOS.mp3' },
           { titulo: 'LAURYN', artista: 'Trueno', archivo: 'musica/dedicadas/Trueno - LAURYN.mp3' },
           { titulo: 'SOLO POR VOS', artista: 'Trueno', archivo: 'musica/dedicadas/Trueno - SOLO POR VOS.mp3' },
           { titulo: 'Morocha', artista: 'Milo j', archivo: 'musica/dedicadas/Morocha.mp3' },
@@ -10626,6 +10659,7 @@ const capitulos = [
     let indiceActual = -1;
     let cargaAudio = null;
     let archivoNoEncontrado = false;
+    let inicioPendiente = 0;
     let arrastrandoSeek = false;
     let musicaPausadaPorVideo = false;
     let capaActualFondo = 0;
@@ -13112,6 +13146,7 @@ const capitulos = [
         const nombre = document.createElement('span');
         nombre.className = 'track-title';
         nombre.textContent = cancion.titulo;
+        if (cancion.dorada) nombre.classList.add('nombre-dorado');
         const artista = document.createElement('span');
         artista.className = 'track-artist';
         artista.textContent = cancion.artista || album.titulo;
@@ -13161,13 +13196,17 @@ const capitulos = [
       ponerPortada(inicioAhoraPortada, url, album);
 
       miniTitulo.textContent = cancion.titulo;
+      miniTitulo.classList.toggle('nombre-dorado', !!cancion.dorada);
       miniArtista.textContent = cancion.artista || album.titulo;
       inicioAhoraTitulo.textContent = cancion.titulo;
+      inicioAhoraTitulo.classList.toggle('nombre-dorado', !!cancion.dorada);
       inicioAhoraArtista.textContent = cancion.artista || album.titulo;
       orbTitulo.textContent = cancion.titulo;
+      orbTitulo.classList.toggle('nombre-dorado', !!cancion.dorada);
 
       kickerCancion.textContent = 'Sonando ahora';
       tituloCancion.textContent = cancion.titulo;
+      tituloCancion.classList.toggle('nombre-dorado', !!cancion.dorada);
       artistaCancion.textContent = cancion.artista || album.titulo;
       desactivarSpotify();
       ocultarNota();
@@ -13310,6 +13349,11 @@ const capitulos = [
       return lista;
     }
 
+    function inicioDe(cancion) {
+      const segundos = Number(cancion && cancion.inicio);
+      return Number.isFinite(segundos) && segundos > 0 ? segundos : 0;
+    }
+
     function reproducirActual() {
       const cancion = cancionDeContexto();
       if (!cancion) return;
@@ -13321,6 +13365,7 @@ const capitulos = [
       desactivarSpotify();
       fuenteActual = 'local';
       archivoNoEncontrado = false;
+      inicioPendiente = inicioDe(cancion);
       cargaAudio = { urls, i: 0, ultimo: '' };
       probarSiguienteFuente();
     }
@@ -13336,6 +13381,7 @@ const capitulos = [
       }
       const url = cargaAudio.urls[cargaAudio.i++];
       cargaAudio.ultimo = url;
+      inicioPendiente = inicioDe(cancionDeContexto());
       audio.src = url;
       audio.load();
       const intento = audio.play();
@@ -13497,7 +13543,7 @@ const capitulos = [
         return;
       }
       if (audio.currentTime > 3 || indiceActual === 0) {
-        audio.currentTime = 0;
+        audio.currentTime = inicioDe(cancionDeContexto());
         if (audio.paused) {
           if (archivoNoEncontrado) reproducirActual();
           else audio.play().catch(() => {});
@@ -13650,6 +13696,14 @@ const capitulos = [
       });
       audio.addEventListener('loadedmetadata', () => {
         tiempoTotal.textContent = formatoTiempo(audio.duration);
+        if (inicioPendiente > 0) {
+          const duracion = audio.duration;
+          const limite = Number.isFinite(duracion) && duracion > inicioPendiente + 2
+            ? duracion - 2
+            : inicioPendiente;
+          try { audio.currentTime = Math.min(inicioPendiente, limite); } catch (error) { /* todavía sin metadatos */ }
+          inicioPendiente = 0;
+        }
         actualizarProgreso(audio.currentTime);
       });
       audio.addEventListener('durationchange', () => {
@@ -13754,6 +13808,7 @@ const capitulos = [
         const nombre = document.createElement('span');
         nombre.className = 'track-title';
         nombre.textContent = cancion.titulo;
+        if (cancion.dorada) nombre.classList.add('nombre-dorado');
         const artista = document.createElement('span');
         artista.className = 'track-artist';
         artista.textContent = `${cancion.artista || '—'} · ${album.titulo}`;
